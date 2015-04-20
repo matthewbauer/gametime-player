@@ -1,0 +1,7 @@
+build
+node_modules
+lib
+.cores
+*.js
+*.dylib
+npm-debug.log

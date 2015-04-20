@@ -1,0 +1,42 @@
+/* make the body fill the window */
+
+html, body, .app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* make any canvas fill its container */
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.draghint {
+  position: fixed;
+  border-width: 10px;
+  border-style: dashed;
+  border-color: #ccc;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.hover {
+  border-color: #333;
+}
+
+.dragtext {
+  height: 100px;
+  width: 200px;
+  margin: 150px auto;
+  color: #999;
+  font-family: 'Lora', serif;
+}
