@@ -1,6 +1,4 @@
-/* make the body fill the window */
-
-html, body, .app {
+html, body, canvas {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -8,29 +6,14 @@ html, body, .app {
   overflow: hidden;
 }
 
-/* make any canvas fill its container */
-canvas {
+.draghint {
+  display: table;
   width: 100%;
   height: 100%;
-}
-
-.draghint {
   box-sizing: border-box;
   border-width: 10px;
   border-style: dashed;
   border-color: #ccc;
-  margin-right: 10px;
-  display: table;
-  width: 100%;
-  height: 100%;
-}
-
-.hide {
-  display: none;
-}
-
-.hover {
-  border-color: #333;
 }
 
 .dragtext {
@@ -39,4 +22,12 @@ canvas {
   text-align: center;
   color: #999;
   font-family: 'Lora', serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.hover {
+  border-color: #333;
 }
