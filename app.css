@@ -15,14 +15,14 @@ canvas {
 }
 
 .draghint {
-  position: fixed;
+  box-sizing: border-box;
   border-width: 10px;
   border-style: dashed;
   border-color: #ccc;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-right: 10px;
+  display: table;
+  width: 100%;
+  height: 100%;
 }
 
 .hide {
@@ -34,9 +34,9 @@ canvas {
 }
 
 .dragtext {
-  height: 100px;
-  width: 200px;
-  margin: 150px auto;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
   color: #999;
   font-family: 'Lora', serif;
 }

@@ -1,6 +1,8 @@
-retro = require('node-retro')
 cores = require('./lib/cores')
 buildbot = require('./lib/buildbot')
+
+remote = require('remote')
+retro = require('../../lib/retro')
 
 RETRO = retro.RETRO
 
