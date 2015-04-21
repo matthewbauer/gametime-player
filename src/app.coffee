@@ -1,6 +1,6 @@
-cores = require('./lib/cores')
-buildbot = require('./lib/buildbot')
-retroplayer = require('./lib/retroplayer')
+cores = require('./cores')
+buildbot = require('./buildbot')
+retroplayer = require('./retroplayer')
 
 toBuffer = (ab) ->
   buffer = new Buffer(ab.byteLength)

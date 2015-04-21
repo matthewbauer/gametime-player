@@ -11,7 +11,7 @@ app.on('window-all-closed', ->
 
 app.on('ready', ->
   window = new BrowserWindow({width: 800, height: 600, title: 'retroplayer'})
-  window.loadUrl('file://' + __dirname + '/../app.html')
+  window.loadUrl('file://' + __dirname + '/app.html')
   window.on('closed', ->
     window = null
   )

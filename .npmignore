@@ -5,3 +5,5 @@ npm-debug.log
 .npmignore
 .gitignore
 .travis.yml
+release
+cache

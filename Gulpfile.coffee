@@ -1,18 +1,20 @@
 gulp = require('gulp')
 coffee = require('gulp-coffee')
-atomshell = require('gulp-atom-shell')
+gulpAtom = require('gulp-atom')
 
 paths = {
   coffee: './src/*.coffee'
 }
 
-gulp.task('package', ->
-  gulp.src(['./lib/*.js', 'app.html', 'app.css'])
-      .pipe(atomshell({
-            version: '0.19.4',
-            platform: 'darwin'
-      }))
-      .pipe(atomshell.zfsdest('app.zip'))
+gulp.task('atom', ->
+  gulpAtom({
+    srcPath: './lib',
+    releasePath: './release',
+    cachePath: './cache',
+    version: 'v0.20.0',
+    rebuild: false,
+    platforms: ['darwin-x64']
+  })
 )
 
 gulp.task('coffee', ->
@@ -21,7 +23,7 @@ gulp.task('coffee', ->
     .pipe(gulp.dest('./lib/'))
 )
 
-gulp.task('build', ['coffee'])
+gulp.task('build', ['coffee', 'html'])
 
 gulp.task('watch', ->
   gulp.watch(paths.coffee, ['coffee'])

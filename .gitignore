@@ -1,7 +1,8 @@
 build
 node_modules
-lib
+lib/*.js
 .cores
-*.js
 *.dylib
 npm-debug.log
+cache
+release
