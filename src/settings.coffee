@@ -1,6 +1,6 @@
 retro = require('node-retro')
 
-exports =
+module.exports =
   key2joy:
     66: retro.DEVICE_ID_JOYPAD_B
     89: retro.DEVICE_ID_JOYPAD_Y

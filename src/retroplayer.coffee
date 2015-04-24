@@ -1,9 +1,9 @@
 retro = require('node-retro')
 buildbot = require('./buildbot')
 
-exports.playCore = (window, core, gameBuffer) ->
+exports.playCore = (window, core, gameBuffer, settings) ->
   buildbot.getCore(core, (path) ->
-    exports.play(window, path, gameBuffer)
+    exports.play(window, path, gameBuffer, settings)
   )
 
 exports.play = (window, corePath, gameBuffer, settings) ->
