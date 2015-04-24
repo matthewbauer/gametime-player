@@ -1,26 +1,30 @@
 {
   "name": "retroplayer",
   "description": "Simple libretro frontend",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/matthewbauer/retroplayer.git"
   },
-  "main": "lib/main.js",
+  "main": "lib/retroplayer.js",
+  "dependencies": {
+    "request": "^2.55.0",
+    "unzip": "^0.1.11",
+    "node-retro": "^0.1.6"
+  },
   "devDependencies": {
     "coffee-script": "^1.9.2",
     "electron-prebuilt": "^0.24.0",
-    "gulp": "^3.8.11",
-    "gulp-atom": "^0.1.0",
-    "gulp-coffee": "^2.3.1",
-    "node-retro": "^0.1.3",
-    "request": "^2.55.0",
-    "unzip": "^0.1.11"
-  },
-  "scripts": {
-    "prepublish": "gulp coffee",
-    "postbuild": "gulp coffee"
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.7.0",
+    "grunt-build-atom-shell": "^2.0.4",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-download-electron": "^2.0.1",
+    "grunt-electron-app-builder": "^0.1.0",
+    "grunt-electron-installer": "^0.31.0",
+    "grunt-shell": "^1.1.2"
   },
   "window": {
     "frame": true,

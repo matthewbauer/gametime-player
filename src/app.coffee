@@ -23,9 +23,7 @@ window.addEventListener 'load', (event) ->
       core = cores[extension][0]
       reader = new FileReader()
       reader.addEventListener 'load', (event) ->
-        buildbot.getCore(core, (path) ->
-          document.getElementById('draghint').classList.add('hidden')
-          retroplayer.play(window, path, toBuffer(reader.result))
-        )
+        document.getElementById('draghint').classList.add('hidden')
+        retroplayer.playCore(window, core, toBuffer(reader.result))
       reader.readAsArrayBuffer(file)
     false

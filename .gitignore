@@ -6,3 +6,4 @@ lib/*.js
 npm-debug.log
 cache
 release
+app

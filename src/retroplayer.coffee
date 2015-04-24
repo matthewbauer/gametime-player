@@ -1,4 +1,10 @@
 retro = require('node-retro')
+buildbot = require('./buildbot')
+
+exports.playCore = (window, core, gameBuffer) ->
+  buildbot.getCore(core, (path) ->
+    exports.play(window, path, gameBuffer)
+  )
 
 exports.play = (window, corePath, gameBuffer) ->
   @key2joy =
@@ -75,12 +81,12 @@ exports.play = (window, corePath, gameBuffer) ->
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData gl.ARRAY_BUFFER,
     new Float32Array([
-      -1.0,  1.0,
-       1.0,  1.0,
       -1.0, -1.0,
-      -1.0, -1.0,
-       1.0,  1.0,
-       1.0, -1.0]), gl.STATIC_DRAW
+       1.0, -1.0,
+      -1.0, 1.0,
+      -1.0, 1.0,
+       1.0, -1.0,
+       1.0, 1.0]), gl.STATIC_DRAW
   gl.enableVertexAttribArray(positionLocation)
   gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0)
 
@@ -117,6 +123,8 @@ exports.play = (window, corePath, gameBuffer) ->
       canvas.width = width
       canvas.height = height
       window.resizeTo(width, height)
+    gl.bindTexture(gl.TEXTURE_2D, texture)
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
         bufferArray = new Uint16Array(data.length / 2)
@@ -186,7 +194,7 @@ exports.play = (window, corePath, gameBuffer) ->
 
   @audiosamplebatch = (buffer, frames) =>
     source = @audio.createBufferSource()
-    audioBuffer = @audio.createBuffer(2, frames, @audio.sampleRate)
+    audioBuffer = @audio.createBuffer(2, frames, @sampleRate)
     leftBuffer = audioBuffer.getChannelData(0)
     rightBuffer = audioBuffer.getChannelData(1)
     i = 0
@@ -240,7 +248,6 @@ exports.play = (window, corePath, gameBuffer) ->
         console.log('Unknown environment command ' + cmd)
         return false
 
-  @interval = 20
   @running = false
 
   @start = =>
@@ -260,4 +267,8 @@ exports.play = (window, corePath, gameBuffer) ->
 
   @core.loadCore(corePath)
   @core.loadGame(gameBuffer)
+  @info = @core.getSystemInfo()
+  @av_info = @core.getSystemAVInfo()
+  @interval = 1000 / @av_info.timing.fps
+  @sampleRate = @av_info.timing.sample_rate
   @start()
