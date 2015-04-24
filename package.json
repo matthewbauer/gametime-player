@@ -1,7 +1,7 @@
 {
   "name": "retroplayer",
   "description": "Simple libretro frontend",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
