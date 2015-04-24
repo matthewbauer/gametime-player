@@ -1,6 +1,7 @@
 cores = require('./cores')
 buildbot = require('./buildbot')
 retroplayer = require('./retroplayer')
+settings = require('./settings')
 
 toBuffer = (ab) ->
   buffer = new Buffer(ab.byteLength)
@@ -24,6 +25,6 @@ window.addEventListener 'load', (event) ->
       reader = new FileReader()
       reader.addEventListener 'load', (event) ->
         document.getElementById('draghint').classList.add('hidden')
-        retroplayer.playCore(window, core, toBuffer(reader.result))
+        retroplayer.playCore(window, core, toBuffer(reader.result), settings)
       reader.readAsArrayBuffer(file)
     false

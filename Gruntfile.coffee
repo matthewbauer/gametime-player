@@ -61,4 +61,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-browserify')
   grunt.loadNpmTasks('grunt-shell')
   grunt.registerTask('run', ['coffee:compile', 'copy:app', 'package.json', 'shell:electron'])
-  grunt.registerTask('default', ['coffee:compile', 'copy:app', 'package.json', 'build-electron-app'])
+  grunt.registerTask('package', ['coffee:compile', 'copy:app', 'package.json', 'build-electron-app'])
+  grunt.registerTask('default', ['run'])
