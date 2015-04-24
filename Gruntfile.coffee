@@ -27,7 +27,7 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: 'node_modules'
-            src: ['node-retro', 'request', 'unzip']
+            src: ['node-retro/**', 'request/**', 'unzip/**']
             dest: 'app/node_modules/'
           }
         ]
