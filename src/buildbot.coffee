@@ -1,3 +1,4 @@
+os = require('os')
 fs = require('fs')
 request = require('request')
 unzip = require('unzip')
@@ -26,9 +27,7 @@ exports.getCore = (core, cb) ->
     filename += '.dll'
   else
     filename += '.dylib'
-  if !fs.existsSync('.cores')
-    fs.mkdirSync '.cores'
-  path = '.cores/' + filename
+  path = os.tmpdir() + '/' + filename
   if fs.existsSync(path)
     cb path
     return
