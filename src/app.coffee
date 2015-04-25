@@ -1,6 +1,5 @@
-cores = require('./cores')
 buildbot = require('./buildbot')
-easyretro = require('./easyplayer')
+player = require('./player')
 settings = require('./settings')
 unzip = require('unzip')
 streamToBuffer = require('stream-to-buffer')
@@ -29,22 +28,26 @@ window.onload = (event) ->
     file = event.dataTransfer.files[0]
     name = file.name
     [..., extension] = name.split('.')
-    if cores[extension]
-      core = cores[extension][0]
+    if settings.cores[extension]
+      core = settings.cores[extension][0]
       reader = new FileReader()
       reader.addEventListener 'load', (event) ->
         document.getElementById('draghint').classList.add('hidden')
-        easyretro.playCore(window, core, toBuffer(reader.result), settings)
+        player.playCore(window, core, toBuffer(reader.result), settings)
       reader.readAsArrayBuffer(file)
     else if extension == 'zip'
       createReadStream(file).pipe(unzip.Parse()).on 'entry', (entry) ->
         if entry.type == 'File'
           name = entry.path
           [..., extension] = name.split('.')
-          if cores[extension]
-            core = cores[extension][0]
+          if settings.cores[extension]
+            core = settings.cores[extension][0]
             streamToBuffer(entry, (err, buffer) ->
               document.getElementById('draghint').classList.add('hidden')
-              easyretro.playCore(window, core, buffer, settings)
+              player.playCore(window, core, buffer, settings)
             )
     false
+
+  window.onbeforeunload = ->
+    if window.gametime
+      window.gametime.close()

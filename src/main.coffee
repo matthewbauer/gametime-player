@@ -31,46 +31,16 @@ openPreferencesWindow = ->
 
 template = [
   {
-    label: 'EasyRetro'
+    label: 'GameTime'
     submenu: [
       {
-        label: 'About EasyRetro'
+        label: 'About GameTime'
         selector: 'orderFrontStandardAboutPanel:'
-      }
-      {
-        type: 'separator'
       }
       {
         label: 'Preferences...'
         accelarator: 'Command+,'
         click: -> openPreferencesWindow()
-      }
-      {
-        type: 'separator'
-      }
-      {
-        label: 'Services'
-        submenu: []
-      }
-      {
-        type: 'separator'
-      }
-      {
-        label: 'Hide EasyRetro'
-        accelarator: 'Command+H'
-        selector: 'hide:'
-      }
-      {
-        label: 'Hide Others'
-        accelarator: 'Command+Shift+H'
-        selector: 'hideOtherApplications:'
-      }
-      {
-        label: 'Show All'
-        selector: 'unhideAllApplications:'
-      }
-      {
-        type: 'separator'
       }
       {
         label: 'Quit'
@@ -96,7 +66,7 @@ app.on('ready', ->
   window = new BrowserWindow(
     width: 800
     height: 600
-    title: 'EasyRetro'
+    title: 'GameTime'
     resizable: true
     center: true
     'skip-taskbar': true

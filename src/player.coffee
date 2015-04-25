@@ -1,5 +1,9 @@
 retro = require('node-retro')
 buildbot = require('./buildbot')
+md5 = require('MD5')
+
+remote = require('remote')
+app = remote.require('app')
 
 os = require('os')
 fs = require('fs')
@@ -11,6 +15,7 @@ exports.playCore = (window, core, gameBuffer, settings) ->
 
 exports.play = (window, corePath, gameBuffer, settings) ->
   @settings = settings
+  @hash = md5(gameBuffer)
 
   canvas = window.document.createElement('canvas')
   window.document.body.appendChild(canvas)
@@ -208,6 +213,17 @@ exports.play = (window, corePath, gameBuffer, settings) ->
 
   @running = false
 
+  @save = =>
+    path = app.getPath('userData') + '/' + @hash
+    data = @core.serialize()
+    fs.writeFileSync(path, data)
+
+  @load = =>
+    path = app.getPath('userData') + '/' + @hash
+    if fs.existsSync(path)
+      data = fs.readFileSync(path)
+      @core.unserialize(data)
+
   @start = =>
     @running = true
     @loop = setInterval(@core.run, @interval)
@@ -218,10 +234,8 @@ exports.play = (window, corePath, gameBuffer, settings) ->
 
   @close = =>
     @stop()
-    @audio.close()
+    @save()
     @core.close()
-
-  window.onclose = @close
 
   @core.loadCore(corePath)
   @av_info = @core.getSystemAVInfo()
@@ -234,4 +248,10 @@ exports.play = (window, corePath, gameBuffer, settings) ->
     @core.loadGamePath(path)
   else
     @core.loadGame(gameBuffer)
+
+  @load()
+
   @start()
+
+  window.gametime = @
+  @
