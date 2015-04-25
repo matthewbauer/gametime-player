@@ -12,36 +12,17 @@ exports.playCore = (window, core, gameBuffer, settings) ->
 exports.play = (window, corePath, gameBuffer, settings) ->
   @settings = settings
 
-  vertexShaderSource = '
-  attribute vec2 a_texCoord;
-  attribute vec2 a_position;
-  varying vec2 v_texCoord;
-  void main() {
-    gl_Position = vec4(a_position, 0, 1);
-    v_texCoord = a_texCoord;
-  }
-  '
-
-  fragmentShaderSource = '
-  precision mediump float;
-  uniform sampler2D u_image;
-  varying vec2 v_texCoord;
-  void main() {
-    gl_FragColor = texture2D(u_image, v_texCoord);
-  }
-  '
-
   canvas = window.document.createElement('canvas')
   window.document.body.appendChild(canvas)
 
   gl = canvas.getContext('webgl')
 
   vertexShader = gl.createShader(gl.VERTEX_SHADER)
-  gl.shaderSource(vertexShader, vertexShaderSource)
+  gl.shaderSource(vertexShader, settings.vertexShaderSource)
   gl.compileShader(vertexShader)
 
   fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-  gl.shaderSource(fragmentShader, fragmentShaderSource)
+  gl.shaderSource(fragmentShader, settings.fragmentShaderSource)
   gl.compileShader(fragmentShader)
 
   program = gl.createProgram()
@@ -193,26 +174,23 @@ exports.play = (window, corePath, gameBuffer, settings) ->
 
   @core.on 'log', (level, fmt) -> console.log(fmt)
 
-  @variables = {}
   @variablesUpdate = false
 
   @setVariable = (key, value) =>
-    @variables[key] = value
+    @settings.variables[core][key] = value
     @variablesUpdate = true
-
-  @overscan = true
 
   @core.on 'environment', (cmd, value) =>
     switch cmd
       when retro.ENVIRONMENT_SET_VARIABLES
         for key of value
-          @variables[key] = value[key].split('; ')[1].split('|')[0]
+          @settings.variables[key] = value[key].split('; ')[1].split('|')[0]
         return true
       when retro.ENVIRONMENT_GET_OVERSCAN
-        return @overscan
+        return @settings.overscan
       when retro.ENVIRONMENT_GET_VARIABLE_UPDATE
-        if @variablesUpdate
-          @variablesUpdate = false
+        if @settings.variablesUpdate
+          @settings.variablesUpdate = false
           return true
         return false
       when retro.ENVIRONMENT_SET_PIXEL_FORMAT
@@ -221,7 +199,7 @@ exports.play = (window, corePath, gameBuffer, settings) ->
       when retro.ENVIRONMENT_GET_SYSTEM_DIRECTORY
         return '.'
       when retro.ENVIRONMENT_GET_VARIABLE
-        return @variables[value]
+        return @settings.variables[value]
       when retro.ENVIRONMENT_SET_INPUT_DESCRIPTORS
         return true
       else

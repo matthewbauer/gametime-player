@@ -2,7 +2,7 @@ app = require('app')
 BrowserWindow = require('browser-window')
 Menu = require('menu')
 
-#autoUpdater = require('auto-updater')
+autoUpdater = require('auto-updater')
 #autoUpdater.setFeedUrl('http://retroplayer.herokuapp.com/releases/latest?version=' + app.getVersion())
 
 require('crash-reporter').start()
