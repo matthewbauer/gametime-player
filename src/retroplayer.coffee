@@ -1,6 +1,9 @@
 retro = require('node-retro')
 buildbot = require('./buildbot')
 
+os = require('os')
+fs = require('fs')
+
 exports.playCore = (window, core, gameBuffer, settings) ->
   buildbot.getCore(core, (path) ->
     exports.play(window, path, gameBuffer, settings)
@@ -130,16 +133,19 @@ exports.play = (window, corePath, gameBuffer, settings) ->
   @core.on 'videorefresh', @videorefresh
 
   @joypad = [{}]
+  @keyboard = [{}]
 
   @keyHandler = (event) =>
     switch event.type
       when 'keydown'
         if event.which of @settings.key2joy
           @joypad[0][@settings.key2joy[event.which]] = true
+        @keyboard[0][event.which] = true
         event.preventDefault()
       when 'keyup'
         if event.which of @settings.key2joy
           @joypad[0][@settings.key2joy[event.which]] = false
+        @keyboard[0][event.which] = false
         event.preventDefault()
   window.addEventListener('keyup', @keyHandler)
   window.addEventListener('keydown', @keyHandler)
@@ -149,6 +155,8 @@ exports.play = (window, corePath, gameBuffer, settings) ->
       when retro.DEVICE_JOYPAD
         if port of @joypad
           return @joypad[port][id]
+      when retro.DEVICE_KEYBOARD
+        return @keyboard[port][id]
   @core.on 'inputstate', @inputstate
 
   @inputpoll = ->
@@ -238,9 +246,14 @@ exports.play = (window, corePath, gameBuffer, settings) ->
   window.onclose = @close
 
   @core.loadCore(corePath)
-  @core.loadGame(gameBuffer)
-  #@info = @core.getSystemInfo()
   @av_info = @core.getSystemAVInfo()
   @interval = 1000 / @av_info.timing.fps
   @sampleRate = @av_info.timing.sample_rate
+  @info = @core.getSystemInfo()
+  if @info.need_fullpath
+    path = os.tmpdir() + '/retroplayer.tmp'
+    fs.writeFileSync(path, gameBuffer)
+    @core.loadGamePath(path)
+  else
+    @core.loadGame(gameBuffer)
   @start()
