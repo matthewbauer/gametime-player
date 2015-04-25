@@ -8,18 +8,32 @@ if fs.existsSync(app.getPath('userData') + '/' + 'settings.json')
 else
   module.exports =
     key2joy:
+      32: retro.DEVICE_ID_JOYPAD_B
+      91: retro.DEVICE_ID_JOYPAD_Y
+      18: retro.DEVICE_ID_JOYPAD_A
+      90: retro.DEVICE_ID_JOYPAD_X
       66: retro.DEVICE_ID_JOYPAD_B
       89: retro.DEVICE_ID_JOYPAD_Y
       65: retro.DEVICE_ID_JOYPAD_A
       88: retro.DEVICE_ID_JOYPAD_X
       76: retro.DEVICE_ID_JOYPAD_L
       82: retro.DEVICE_ID_JOYPAD_R
+      222: retro.DEVICE_ID_JOYPAD_SELECT
+      13: retro.DEVICE_ID_JOYPAD_START
+      16: retro.DEVICE_ID_JOYPAD_SELECT
+      9: retro.DEVICE_ID_JOYPAD_SELECT
+      73: retro.DEVICE_ID_JOYPAD_X
+      74: retro.DEVICE_ID_JOYPAD_Y
+      75: retro.DEVICE_ID_JOYPAD_B
+      76: retro.DEVICE_ID_JOYPAD_A
       38: retro.DEVICE_ID_JOYPAD_UP
       40: retro.DEVICE_ID_JOYPAD_DOWN
       37: retro.DEVICE_ID_JOYPAD_LEFT
       39: retro.DEVICE_ID_JOYPAD_RIGHT
-      222: retro.DEVICE_ID_JOYPAD_SELECT
-      13: retro.DEVICE_ID_JOYPAD_START
+      87: retro.DEVICE_ID_JOYPAD_UP
+      83: retro.DEVICE_ID_JOYPAD_DOWN
+      65: retro.DEVICE_ID_JOYPAD_LEFT
+      68: retro.DEVICE_ID_JOYPAD_RIGHT
     gp2joy:
       0: retro.DEVICE_ID_JOYPAD_B
       1: retro.DEVICE_ID_JOYPAD_A
