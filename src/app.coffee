@@ -1,6 +1,6 @@
 cores = require('./cores')
 buildbot = require('./buildbot')
-retroplayer = require('./retroplayer')
+easyretro = require('./easyplayer')
 settings = require('./settings')
 unzip = require('unzip')
 streamToBuffer = require('stream-to-buffer')
@@ -34,7 +34,7 @@ window.onload = (event) ->
       reader = new FileReader()
       reader.addEventListener 'load', (event) ->
         document.getElementById('draghint').classList.add('hidden')
-        retroplayer.playCore(window, core, toBuffer(reader.result), settings)
+        easyretro.playCore(window, core, toBuffer(reader.result), settings)
       reader.readAsArrayBuffer(file)
     else if extension == 'zip'
       createReadStream(file).pipe(unzip.Parse()).on 'entry', (entry) ->
@@ -45,6 +45,6 @@ window.onload = (event) ->
             core = cores[extension][0]
             streamToBuffer(entry, (err, buffer) ->
               document.getElementById('draghint').classList.add('hidden')
-              retroplayer.playCore(window, core, buffer, settings)
+              easyretro.playCore(window, core, buffer, settings)
             )
     false

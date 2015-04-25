@@ -3,7 +3,7 @@ BrowserWindow = require('browser-window')
 Menu = require('menu')
 
 autoUpdater = require('auto-updater')
-#autoUpdater.setFeedUrl('http://retroplayer.herokuapp.com/releases/latest?version=' + app.getVersion())
+#autoUpdater.setFeedUrl('http://easyretro.herokuapp.com/releases/latest?version=' + app.getVersion())
 
 require('crash-reporter').start()
 
@@ -18,7 +18,7 @@ openPreferencesWindow = ->
   prefWindow = new BrowserWindow(
     width: 400
     height: 600
-    title: 'retroplayer'
+    title: 'easyretro'
     'skip-taskbar': true
     show: true
     'web-preferences':
@@ -31,10 +31,10 @@ openPreferencesWindow = ->
 
 template = [
   {
-    label: 'RetroPlayer'
+    label: 'EasyRetro'
     submenu: [
       {
-        label: 'About RetroPlayer'
+        label: 'About EasyRetro'
         selector: 'orderFrontStandardAboutPanel:'
       }
       {
@@ -56,7 +56,7 @@ template = [
         type: 'separator'
       }
       {
-        label: 'Hide Electron'
+        label: 'Hide EasyRetro'
         accelarator: 'Command+H'
         selector: 'hide:'
       }
@@ -96,7 +96,7 @@ app.on('ready', ->
   window = new BrowserWindow(
     width: 800
     height: 600
-    title: 'RetroPlayer'
+    title: 'EasyRetro'
     resizable: true
     center: true
     'skip-taskbar': true

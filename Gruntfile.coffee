@@ -10,7 +10,7 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: 'build/js/'
-            src: ['retroplayer.js', 'buildbot.js']
+            src: ['easyretro.js', 'buildbot.js']
             dest: 'lib/'
           }
           {

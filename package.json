@@ -1,13 +1,13 @@
 {
-  "name": "retroplayer",
+  "name": "easyretro",
   "description": "Simple libretro frontend",
   "version": "0.2.2",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/matthewbauer/retroplayer.git"
+    "url": "https://github.com/matthewbauer/easyretro.git"
   },
-  "main": "lib/retroplayer.js",
+  "main": "lib/easyretro.js",
   "dependencies": {
     "request": "^2.55.0",
     "unzip": "^0.1.11",

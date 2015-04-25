@@ -229,7 +229,7 @@ exports.play = (window, corePath, gameBuffer, settings) ->
   @sampleRate = @av_info.timing.sample_rate
   @info = @core.getSystemInfo()
   if @info.need_fullpath
-    path = os.tmpdir() + '/retroplayer.tmp'
+    path = os.tmpdir() + '/easyretro.rom'
     fs.writeFileSync(path, gameBuffer)
     @core.loadGamePath(path)
   else
