@@ -20,8 +20,6 @@ openPreferencesWindow = ->
     width: 400
     height: 600
     title: 'gametime'
-    'skip-taskbar': true
-    show: true
     'web-preferences':
       javascript: true
   )
@@ -68,8 +66,6 @@ app.on('ready', ->
     title: 'GameTime'
     resizable: true
     center: true
-    'skip-taskbar': true
-    show: true
     'web-preferences':
       javascript: true
       webgl: true
