@@ -1,5 +1,5 @@
 
-EasyRetro
+GameTime Player
 ===========
-easyretro is a frontend for libretro that auto detects cores.
+GameTime Player is a frontend for libretro that auto detects cores.
 
