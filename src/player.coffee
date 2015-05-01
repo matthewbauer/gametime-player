@@ -8,14 +8,14 @@ app = remote.require('app')
 os = require('os')
 fs = require('fs')
 
-exports.playCore = (window, core, gameBuffer, settings) ->
-  buildbot.getCore(core, (path) ->
-    exports.play(window, path, gameBuffer, settings)
-  )
+module.exports = (window, core, game, settings) ->
+  if not fs.existsSync(core)
+    buildbot.getCore(core, (path) ->
+      module.exports(window, path, game, settings)
+    )
+    return
 
-exports.play = (window, corePath, gameBuffer, settings) ->
   @settings = settings
-  @hash = md5(gameBuffer)
 
   canvas = window.document.createElement('canvas')
   window.document.body.appendChild(canvas)
@@ -33,7 +33,7 @@ exports.play = (window, corePath, gameBuffer, settings) ->
   program = gl.createProgram()
   gl.attachShader(program, vertexShader)
   gl.attachShader(program, fragmentShader)
-  gl.linkProgram program
+  gl.linkProgram(program)
 
   gl.useProgram(program)
   positionLocation = gl.getAttribLocation(program, 'a_position')
@@ -201,6 +201,8 @@ exports.play = (window, corePath, gameBuffer, settings) ->
       when retro.ENVIRONMENT_SET_PIXEL_FORMAT
         @pixelFormat = value
         return true
+      when retro.ENVIRONMENT_GET_CAN_DUPE
+        return true
       when retro.ENVIRONMENT_GET_SYSTEM_DIRECTORY
         return '.'
       when retro.ENVIRONMENT_GET_VARIABLE
@@ -237,21 +239,28 @@ exports.play = (window, corePath, gameBuffer, settings) ->
     @save()
     @core.close()
 
-  @core.loadCore(corePath)
+  @core.loadCore(core)
+
   @av_info = @core.getSystemAVInfo()
   @interval = 1000 / @av_info.timing.fps
   @sampleRate = @av_info.timing.sample_rate
   @info = @core.getSystemInfo()
-  if @info.need_fullpath
-    path = os.tmpdir() + '/easyretro.rom'
-    fs.writeFileSync(path, gameBuffer)
-    @core.loadGamePath(path)
+
+  @hash = md5(game) # use path if provided
+
+  if typeof game is "string"
+    @core.loadGamePath(game)
   else
-    @core.loadGame(gameBuffer)
+    if @info.need_fullpath
+      fs.writeFileSync(settings.romtemp, game)
+      @core.loadGamePath(settings.romtemp)
+    else
+      @core.loadGame(game)
 
   @load()
 
   @start()
 
   window.gametime = @
+
   @

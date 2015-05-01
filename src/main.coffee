@@ -3,7 +3,8 @@ BrowserWindow = require('browser-window')
 Menu = require('menu')
 
 autoUpdater = require('auto-updater')
-#autoUpdater.setFeedUrl('http://easyretro.herokuapp.com/releases/latest?version=' + app.getVersion())
+#autoUpdater.setFeedUrl('http://easyretro.herokuapp.com/releases/latest' +
+#  '?version=' + app.getVersion())
 
 require('crash-reporter').start()
 
@@ -18,16 +19,14 @@ openPreferencesWindow = ->
   prefWindow = new BrowserWindow(
     width: 400
     height: 600
-    title: 'easyretro'
+    title: 'gametime'
     'skip-taskbar': true
     show: true
     'web-preferences':
       javascript: true
   )
   prefWindow.loadUrl('file://' + __dirname + '/preferences.html')
-  prefWindow.on('closed', ->
-    prefWindow = null
-  )
+  prefWindow.on('closed', -> prefWindow = null)
 
 template = [
   {

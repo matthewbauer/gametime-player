@@ -4,9 +4,12 @@ app = remote.require('app')
 fs = require('fs')
 
 if fs.existsSync(app.getPath('userData') + '/' + 'settings.json')
-  module.exports = JSON.parse(fs.readFileSync(app.getPath('userData') + '/' + 'settings.json'))
+  module.exports = JSON.parse(fs.readFileSync(app.getPath('userData') + '/' +
+  'settings.json'))
 else
   module.exports =
+    variables: {}
+    overscan: false
     key2joy:
       32: retro.DEVICE_ID_JOYPAD_B
       91: retro.DEVICE_ID_JOYPAD_Y
@@ -49,25 +52,6 @@ else
       13: retro.DEVICE_ID_JOYPAD_DOWN
       14: retro.DEVICE_ID_JOYPAD_LEFT
       15: retro.DEVICE_ID_JOYPAD_RIGHT
-    vertexShaderSource: '
-    attribute vec2 a_texCoord;
-    attribute vec2 a_position;
-    varying vec2 v_texCoord;
-    void main() {
-      gl_Position = vec4(a_position, 0, 1);
-      v_texCoord = a_texCoord;
-    }
-    '
-    variables: {}
-    overscan: false
-    fragmentShaderSource: '
-    precision mediump float;
-    uniform sampler2D u_image;
-    varying vec2 v_texCoord;
-    void main() {
-      gl_FragColor = texture2D(u_image, v_texCoord);
-    }
-    '
     cores:
       '32x': [ 'picodrive_libretro' ]
       'bat': [ 'dosbox_libretro' ]
@@ -209,3 +193,19 @@ else
       'ws': [ 'mednafen_wswan_libretro' ]
       'wsc': [ 'mednafen_wswan_libretro' ]
       'z64': [ 'mupen64plus_libretro' ]
+    tmprom: app.getPath('userCache') + '/easyplayer.rom'
+    fragmentShaderSource: '
+    precision mediump float;
+    uniform sampler2D u_image;
+    varying vec2 v_texCoord;
+    void main() {
+      gl_FragColor = texture2D(u_image, v_texCoord);
+    }'
+    vertexShaderSource: '
+    attribute vec2 a_texCoord;
+    attribute vec2 a_position;
+    varying vec2 v_texCoord;
+    void main() {
+      gl_Position = vec4(a_position, 0, 1);
+      v_texCoord = a_texCoord;
+    }'
