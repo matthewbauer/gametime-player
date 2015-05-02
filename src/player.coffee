@@ -42,11 +42,11 @@ module.exports = (window, core, game, settings) ->
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData gl.ARRAY_BUFFER,
     new Float32Array([
-      -1.0, -1.0,
-       1.0, -1.0,
-      -1.0, 1.0,
-      -1.0, 1.0,
-       1.0, -1.0,
+           - 1.0, - 1.0,
+       1.0, - 1.0,
+           - 1.0, 1.0,
+           - 1.0, 1.0,
+       1.0, - 1.0,
        1.0, 1.0]), gl.STATIC_DRAW
   gl.enableVertexAttribArray(positionLocation)
   gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0)
@@ -57,12 +57,12 @@ module.exports = (window, core, game, settings) ->
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer)
   gl.bufferData gl.ARRAY_BUFFER,
     new Float32Array([
-        0.0,  0.0,
-        1.0,  0.0,
-        0.0,  1.0,
-        0.0,  1.0,
-        1.0,  0.0,
-        1.0,  1.0]), gl.STATIC_DRAW
+        0.0, 0.0,
+        1.0, 0.0,
+        0.0, 1.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        1.0, 1.0]), gl.STATIC_DRAW
   gl.enableVertexAttribArray(texCoordLocation)
   gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0)
 
@@ -77,7 +77,7 @@ module.exports = (window, core, game, settings) ->
   @core = new retro.Core()
 
   @videorefresh = (data, width, height, pitch) =>
-    if width != @width or height != @height
+    if width isnt @width or height isnt @height
       @width = width
       @height = height
       gl.viewport(0, 0, width, height)
@@ -93,7 +93,7 @@ module.exports = (window, core, game, settings) ->
         while line < height
           x = 0
           while x < width
-            bufferArray[line * width + x] = data.readUInt16BE(line*pitch+2*x)
+            bufferArray[line * width + x] = data.readUInt16BE(line * pitch + 2 * x)
             x++
           line++
         gl.texImage2D gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0,
@@ -110,7 +110,7 @@ module.exports = (window, core, game, settings) ->
         while line < height
           x = 0
           while x < width
-            bufferArray[line * width + x] = data.readUInt16LE(line*pitch+2*x)
+            bufferArray[line * width + x] = data.readUInt16LE(line * pitch + 2 * x)
             x++
           line++
         gl.texImage2D gl.TEXTURE_2D, 0, gl.RGB, width, height, 0,
@@ -118,8 +118,8 @@ module.exports = (window, core, game, settings) ->
     gl.drawArrays(gl.TRIANGLES, 0, 6)
   @core.on 'videorefresh', @videorefresh
 
-  @joypad = [{}]
-  @keyboard = [{}]
+  @joypad = [{} ]
+  @keyboard = [{} ]
 
   @keyHandler = (event) =>
     switch event.type
