@@ -2,9 +2,6 @@ retro = require('node-retro')
 buildbot = require('./buildbot')
 md5 = require('MD5')
 
-remote = require('remote')
-app = remote.require('app')
-
 os = require('os')
 fs = require('fs')
 
@@ -216,12 +213,12 @@ module.exports = (window, core, game, settings) ->
   @running = false
 
   @save = =>
-    path = app.getPath('userData') + '/' + @hash
+    path = settings.saveDir + '/' + @hash
     data = @core.serialize()
     fs.writeFileSync(path, data)
 
   @load = =>
-    path = app.getPath('userData') + '/' + @hash
+    path = settings.saveDir + '/' + @hash
     if fs.existsSync(path)
       data = fs.readFileSync(path)
       @core.unserialize(data)

@@ -10,6 +10,7 @@ else
   module.exports =
     variables: {}
     overscan: false
+    saveDir: app.getPath('userData')
     key2joy:
       32: retro.DEVICE_ID_JOYPAD_B
       91: retro.DEVICE_ID_JOYPAD_Y
