@@ -1,4 +1,3 @@
-buildbot = require('./buildbot')
 player = require('./player')
 settings = require('./settings')
 unzip = require('unzip')
