@@ -1,44 +1,43 @@
 {
-	"name": "gametime-player",
-	"description": "Simple libretro frontend",
-	"version": "0.2.5",
-	"author": "Matthew Bauer <mjbauer95@gmail.com>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/matthewbauer/gametime-player.git"
-	},
-	"main": "lib/player.js",
-	"dependencies": {
-		"bootstrap": "^3.3.4",
-		"request": "^2.55.0",
-		"unzip": "^0.1.11",
-		"filereader-stream": "^0.2.0",
-		"MD5": "^1.2.1",
-		"stream-buffers": "^2.1.0",
-		"stream-to-buffer": "^0.1.0",
-		"node-retro": "^0.2.1"
-	},
-	"devDependencies": {
-		"coffee-script": "^1.9.2",
-		"electron-prebuilt": "^0.24.0",
-		"grunt": "^0.4.5",
-		"grunt-browserify": "^3.7.0",
-		"grunt-build-atom-shell": "^2.0.4",
-		"grunt-contrib-coffee": "^0.13.0",
-		"grunt-contrib-copy": "^0.8.0",
-		"grunt-download-electron": "^2.0.1",
-		"grunt-electron-app-builder": "^0.1.0",
-		"grunt-electron-installer": "^0.31.0",
-		"grunt-shell": "^1.1.2"
-	},
-	"window": {
-		"frame": true,
-		"toolbar": false
-	},
-	"keywords": [
-		"emulation",
-		"libretro",
-		"games",
-		"bindings"
-	]
+  "name": "gametime-player",
+  "description": "Simple libretro frontend",
+  "version": "0.2.5",
+  "author": "Matthew Bauer <mjbauer95@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewbauer/gametime-player.git"
+  },
+  "main": "lib/player.js",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "filereader-stream": "^0.2.0",
+    "MD5": "^1.2.1",
+    "stream-buffers": "^2.1.0",
+    "stream-to-buffer": "^0.1.0",
+    "node-retro": "^0.2.1",
+    "gametime-core": "^0.1.1"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.2",
+    "electron-prebuilt": "^0.24.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.7.0",
+    "grunt-build-atom-shell": "^2.0.4",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-download-electron": "^2.0.1",
+    "grunt-electron-app-builder": "^0.1.0",
+    "grunt-electron-installer": "^0.31.0",
+    "grunt-shell": "^1.1.2"
+  },
+  "window": {
+    "frame": true,
+    "toolbar": false
+  },
+  "keywords": [
+    "emulation",
+    "libretro",
+    "games",
+    "bindings"
+  ]
 }

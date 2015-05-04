@@ -1,13 +1,14 @@
 retro = require('node-retro')
-buildbot = require('./buildbot')
 md5 = require('MD5')
+
+getCore = require('gametime-core')
 
 os = require('os')
 fs = require('fs')
 
 module.exports = (window, core, game, settings) ->
   if not fs.existsSync(core)
-    buildbot.getCore(core, (path) ->
+    getCore(core, (path) ->
       module.exports(window, path, game, settings)
     )
     return

@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
+  pkg = grunt.file.readJSON('package.json')
   grunt.initConfig(
-    pkg: grunt.file.readJSON('package.json')
+    pkg: pkg
     'build-atom-shell':
       buildDir: 'build'
       tag: 'master'
@@ -12,13 +13,13 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: 'build/js/'
-            src: ['player.js', 'buildbot.js']
+            src: ['player.js']
             dest: 'lib/'
           }
           {
             expand: true
             src: ['app.html', 'app.css', 'package.json', 'preferences.html',
-                  'bootstrap.min.css']
+                  'node_modules/bootstrap/dist/css/bootstrap.min.css']
             dest: 'app/'
           }
           {
@@ -30,9 +31,7 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: 'node_modules'
-            src: ['node-retro/**', 'request/**', 'unzip/**',
-                  'filereader-stream/**', 'MD5/**', 'stream-buffers/**',
-                  'stream-to-buffer/**']
+            src: Object.keys(pkg.dependencies).map((pkg) -> pkg + '/**')
             dest: 'app/node_modules/'
           }
         ]
