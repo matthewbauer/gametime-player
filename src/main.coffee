@@ -66,12 +66,14 @@ app.on('ready', ->
     title: 'GameTime'
     resizable: true
     center: true
+    toolbar: true
     'web-preferences':
       javascript: true
       webgl: true
       webaudio: true
   )
   window.loadUrl('file://' + __dirname + '/app.html')
+  window.openDevTools()
   window.on('closed', ->
     window = null
   )

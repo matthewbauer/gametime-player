@@ -1,7 +1,7 @@
 {
   "name": "gametime-player",
   "description": "Simple libretro frontend",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
@@ -34,10 +34,6 @@
     "grunt-mocha-test": "^0.12.7",
     "grunt-shell": "^1.1.2",
     "mocha": "^2.2.4"
-  },
-  "window": {
-    "frame": true,
-    "toolbar": false
   },
   "keywords": [
     "emulation",

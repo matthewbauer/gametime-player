@@ -40,7 +40,10 @@ window.onload = (event) ->
       reader = new FileReader()
       reader.addEventListener 'load', (event) ->
         document.getElementById('draghint').classList.add('hidden')
-        player(window, core, toBuffer(reader.result), settings)
+        canvas = document.createElement('canvas')
+        document.body.appendChild(canvas)
+        player(canvas.getContext('webgl'), new AudioContext(),
+                core, toBuffer(reader.result), settings)
       reader.readAsArrayBuffer(file)
     else if extension == 'zip'
       window.game = file.path
@@ -53,7 +56,10 @@ window.onload = (event) ->
             core = settings.cores[extension][0]
             streamToBuffer(entry, (err, buffer) ->
               document.getElementById('draghint').classList.add('hidden')
-              player(window, core, buffer, settings)
+              canvas = document.createElement('canvas')
+              document.body.appendChild(canvas)
+              player(canvas.getContext('webgl'), new AudioContext(),
+                      core, buffer, settings)
             )
     false
 
