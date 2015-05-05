@@ -8,9 +8,8 @@ fs = require('fs')
 
 module.exports = (window, core, game, settings) ->
   if not fs.existsSync(core)
-    getCore(core, (path) ->
+    getCore core, (path) ->
       module.exports(window, path, game, settings)
-    )
     return
 
   @settings = settings
@@ -154,7 +153,7 @@ module.exports = (window, core, game, settings) ->
         @joypad[i][@settings.gp2joy[j]] = button.pressed
   @core.on 'inputpoll', @inputpoll
 
-  @audio = new AudioContext()
+  @audio = new window.AudioContext()
 
   @audiosamplebatch = (buffer, frames) =>
     source = @audio.createBufferSource()
