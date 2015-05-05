@@ -223,15 +223,20 @@ module.exports = (window, core, game, settings) ->
       data = fs.readFileSync(path)
       @core.unserialize(data)
 
+  @run = =>
+    if @running
+      setTimeout(@run, @interval)
+      @core.run()
+
   @start = =>
-    @running = true
     #@loop = setInterval(@core.run, @interval)
-    @core.play()
+    @running = true
+    @run()
 
   @stop = =>
     #clearInterval(@loop)
-    @core.stop()
     @running = false
+    @core.stop()
 
   @close = =>
     @stop()
