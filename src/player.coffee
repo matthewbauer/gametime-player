@@ -6,7 +6,7 @@ getCore = require('gametime-core')
 os = require('os')
 fs = require('fs')
 
-module.exports = (gl, audio, core, game, settings) ->
+module.exports = (window, gl, audio, core, game, settings) ->
   if not fs.existsSync(core)
     getCore core, (path) ->
       module.exports(gl, audio, path, game, settings)
@@ -86,7 +86,7 @@ module.exports = (gl, audio, core, game, settings) ->
   @core.on 'inputstate', @inputstate
 
   @inputpoll = =>
-    gamepads = navigator.getGamepads() # non-standard
+    gamepads = window.navigator.getGamepads() # non-standard
     for i, gamepad in gamepads
       if not gamepad.mapping == 'standard' or not gamepad.connected
         continue
@@ -164,7 +164,7 @@ module.exports = (gl, audio, core, game, settings) ->
 
   @run = =>
     if @running
-      requestAnimationFrame(@run, @interval) # non-standard
+      window.requestAnimationFrame(@run, @interval) # non-standard
       @core.run()
 
   @start = =>
@@ -180,8 +180,8 @@ module.exports = (gl, audio, core, game, settings) ->
     @save()
     @core.close()
 
-  addEventListener('keyup', @keyHandler) # non-standard
-  addEventListener('keydown', @keyHandler) # non-standard
+  window.addEventListener('keyup', @keyHandler) # non-standard
+  window.addEventListener('keydown', @keyHandler) # non-standard
 
   vertexShader = gl.createShader(gl.VERTEX_SHADER)
   gl.shaderSource(vertexShader, settings.vertexShaderSource)

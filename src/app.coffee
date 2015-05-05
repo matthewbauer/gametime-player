@@ -42,7 +42,7 @@ window.onload = (event) ->
         document.getElementById('draghint').classList.add('hidden')
         canvas = document.createElement('canvas')
         document.body.appendChild(canvas)
-        player(canvas.getContext('webgl'), new AudioContext(),
+        player(window, canvas.getContext('webgl'), new AudioContext(),
                 core, toBuffer(reader.result), settings)
       reader.readAsArrayBuffer(file)
     else if extension == 'zip'
@@ -58,7 +58,7 @@ window.onload = (event) ->
               document.getElementById('draghint').classList.add('hidden')
               canvas = document.createElement('canvas')
               document.body.appendChild(canvas)
-              player(canvas.getContext('webgl'), new AudioContext(),
+              player(window, canvas.getContext('webgl'), new AudioContext(),
                       core, buffer, settings)
             )
     false
