@@ -80,7 +80,7 @@ module.exports = (window, core, game, settings) ->
       gl.viewport(0, 0, width, height)
       canvas.width = width
       canvas.height = height
-      window.resizeTo(width, height)
+#      window.resizeTo(width, height)
     gl.bindTexture(gl.TEXTURE_2D, texture)
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
     switch @pixelFormat
@@ -90,7 +90,8 @@ module.exports = (window, core, game, settings) ->
         while line < height
           x = 0
           while x < width
-            bufferArray[line * width + x] = data.readUInt16BE(line * pitch + 2 * x)
+            bufferArray[line * width + x] =
+              data.readUInt16BE(line * pitch + 2 * x)
             x++
           line++
         gl.texImage2D gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0,
@@ -107,7 +108,8 @@ module.exports = (window, core, game, settings) ->
         while line < height
           x = 0
           while x < width
-            bufferArray[line * width + x] = data.readUInt16LE(line * pitch + 2 * x)
+            bufferArray[line * width + x] =
+              data.readUInt16LE(line * pitch + 2 * x)
             x++
           line++
         gl.texImage2D gl.TEXTURE_2D, 0, gl.RGB, width, height, 0,
