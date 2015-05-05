@@ -8,7 +8,7 @@ module.exports = (grunt) ->
       projectName: 'gametime'
       productName: 'GameTime'
     copy:
-      app:
+      lib:
         files: [
           {
             expand: true
@@ -16,6 +16,9 @@ module.exports = (grunt) ->
             src: ['player.js']
             dest: 'lib/'
           }
+        ]
+      app:
+        files: [
           {
             expand: true
             src: ['app.html', 'app.css', 'package.json', 'preferences.html',
@@ -67,6 +70,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-shell')
   grunt.registerTask('run', ['coffee:compile', 'copy:app', 'package.json',
     'shell:electron'])
+  grunt.registerTask('prepublish', ['coffee:compile', 'copy:lib'])
   grunt.registerTask('package', ['coffee:compile', 'copy:app', 'package.json',
     'build-atom-shell'])
   grunt.registerTask('default', ['run'])
