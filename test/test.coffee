@@ -1,0 +1,1 @@
+player = require('../lib/player')

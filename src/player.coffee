@@ -225,10 +225,12 @@ module.exports = (window, core, game, settings) ->
 
   @start = =>
     @running = true
-    @loop = setInterval(@core.run, @interval)
+    #@loop = setInterval(@core.run, @interval)
+    @core.play()
 
   @stop = =>
-    clearInterval(@loop)
+    #clearInterval(@loop)
+    @core.stop()
     @running = false
 
   @close = =>

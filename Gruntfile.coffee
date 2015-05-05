@@ -38,12 +38,6 @@ module.exports = (grunt) ->
             dest: 'app/node_modules/'
           }
         ]
-    browserify:
-      compile:
-        files:
-          'app/app.js': ['build/js/app.js']
-        options:
-          exclude: ['../build/Release/retro']
     coffee:
       compile:
         files: [
@@ -53,6 +47,12 @@ module.exports = (grunt) ->
           dest: 'build/js/'
           ext: '.js'
         ]
+    mochaTest:
+      test:
+        options:
+          reporter: 'spec',
+          require: 'coffee-script/register'
+        src: ['test/*.coffee']
     shell:
       electron:
         command: 'electron app'
@@ -62,6 +62,7 @@ module.exports = (grunt) ->
     pkg.main = 'main.js'
     grunt.file.write('app/package.json', JSON.stringify(pkg, null, '  '))
   )
+  grunt.loadNpmTasks('grunt-mocha-test')
   grunt.loadNpmTasks('grunt-build-atom-shell')
   grunt.loadNpmTasks('grunt-electron-app-builder')
   grunt.loadNpmTasks('grunt-contrib-copy')
@@ -70,6 +71,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-shell')
   grunt.registerTask('run', ['coffee:compile', 'copy:app', 'package.json',
     'shell:electron'])
+  grunt.registerTask('test', ['mochaTest'])
   grunt.registerTask('prepublish', ['coffee:compile', 'copy:lib'])
   grunt.registerTask('package', ['coffee:compile', 'copy:app', 'package.json',
     'build-atom-shell'])
