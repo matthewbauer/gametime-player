@@ -235,7 +235,7 @@ module.exports = (window, gl, audio, core, game, settings) ->
 
   @core.loadCore(core)
   @av_info = @core.getSystemAVInfo()
-  @interval = 1000 / @av_info.timing.fps
+  @interval = 1000 / @av_info.timing.fps + 3
   @sampleRate = @av_info.timing.sample_rate
   @info = @core.getSystemInfo()
   @hash = md5(game) # use path if provided
