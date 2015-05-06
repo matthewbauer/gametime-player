@@ -9,7 +9,7 @@ fs = require('fs')
 module.exports = (window, gl, audio, core, game, settings) ->
   if not fs.existsSync(core)
     getCore core, (path) ->
-      module.exports(gl, audio, path, game, settings)
+      module.exports(window, gl, audio, path, game, settings)
     return
 
   @settings = settings
