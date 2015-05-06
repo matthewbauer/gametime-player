@@ -164,7 +164,7 @@ module.exports = (window, gl, audio, core, game, settings) ->
 
   @run = =>
     if @running
-      window.requestAnimationFrame(@run, @interval) # non-standard
+      window.setTimeout(@run, @interval) # non-standard
       @core.run()
 
   @start = =>
