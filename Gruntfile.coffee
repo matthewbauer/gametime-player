@@ -71,6 +71,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-shell')
   grunt.registerTask('run', ['coffee:compile', 'copy:app', 'package.json',
     'shell:electron'])
+  grunt.registerTask('build', ['coffee:compile', 'copy:lib'])
   grunt.registerTask('test', ['mochaTest'])
   grunt.registerTask('prepublish', ['coffee:compile', 'copy:lib'])
   grunt.registerTask('package', ['coffee:compile', 'copy:app', 'package.json',
