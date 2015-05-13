@@ -5,7 +5,6 @@ html, body, canvas {
   height: 100%;
   overflow: hidden;
 }
-
 .draghint {
   display: table;
   width: 100%;
@@ -15,7 +14,6 @@ html, body, canvas {
   border-style: dashed;
   border-color: #ccc;
 }
-
 .dragtext {
   display: table-cell;
   vertical-align: middle;
@@ -23,11 +21,9 @@ html, body, canvas {
   color: #999;
   font-family: 'Lora', serif;
 }
-
 .hidden {
   display: none;
 }
-
 .hover {
   border-color: #333;
 }

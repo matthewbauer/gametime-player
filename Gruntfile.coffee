@@ -1,12 +1,12 @@
+
 module.exports = (grunt) ->
-  pkg = grunt.file.readJSON('package.json')
-  grunt.initConfig(
+  require('load-grunt-tasks')(grunt)
+
+  pkg = grunt.file.readJSON 'package.json'
+  electron_version = '0.26.0'
+
+  grunt.initConfig
     pkg: pkg
-    'build-atom-shell':
-      buildDir: 'build'
-      tag: 'master'
-      projectName: 'gametime'
-      productName: 'GameTime'
     copy:
       lib:
         files: [
@@ -22,7 +22,7 @@ module.exports = (grunt) ->
           {
             expand: true
             src: ['app.html', 'app.css', 'package.json', 'preferences.html',
-                  'node_modules/bootstrap/dist/css/bootstrap.min.css']
+              'node_modules/bootstrap/dist/css/bootstrap.min.css']
             dest: 'app/'
           }
           {
@@ -47,6 +47,15 @@ module.exports = (grunt) ->
           dest: 'build/js/'
           ext: '.js'
         ]
+    electron:
+      osxBuild:
+        options:
+          name: 'GameTime'
+          dir: 'app'
+          out: 'dist'
+          version: electron_version
+          platform: 'darwin'
+          arch: 'x64'
     mochaTest:
       test:
         options:
@@ -56,24 +65,23 @@ module.exports = (grunt) ->
     shell:
       electron:
         command: 'electron app'
-  )
-  grunt.registerTask('package.json', ->
+
+  grunt.registerTask 'package.json', ->
     pkg = grunt.file.readJSON('package.json')
     pkg.main = 'main.js'
-    grunt.file.write('app/package.json', JSON.stringify(pkg, null, '  '))
-  )
-  grunt.loadNpmTasks('grunt-mocha-test')
-  grunt.loadNpmTasks('grunt-build-atom-shell')
-  grunt.loadNpmTasks('grunt-electron-app-builder')
-  grunt.loadNpmTasks('grunt-contrib-copy')
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-browserify')
-  grunt.loadNpmTasks('grunt-shell')
-  grunt.registerTask('run', ['coffee:compile', 'copy:app', 'package.json',
-    'shell:electron'])
-  grunt.registerTask('build', ['coffee:compile', 'copy:lib'])
-  grunt.registerTask('test', ['mochaTest'])
-  grunt.registerTask('prepublish', ['coffee:compile', 'copy:lib'])
-  grunt.registerTask('package', ['coffee:compile', 'copy:app', 'package.json',
-    'build-atom-shell'])
-  grunt.registerTask('default', ['run'])
+    grunt.file.write 'app/package.json', JSON.stringify(pkg, null, '  ')
+
+  grunt.registerTask 'electron-rebuild', ->
+    rebuild = require 'electron-rebuild'
+    headerResult = rebuild.installNodeHeaders "v#{electron_version}"
+    headerResult.then ->
+      rebuild.rebuildNativeModules "v#{electron_version}" './node_modules'
+
+  grunt.registerTask 'run', ['app', 'shell:electron']
+  grunt.registerTask 'build', ['coffee:compile', 'copy:lib']
+  grunt.registerTask 'test', ['mochaTest']
+  grunt.registerTask 'prepublish', ['coffee:compile', 'copy:lib']
+  grunt.registerTask 'package', ['app', 'electron']
+  grunt.registerTask 'app', ['electron-rebuild', 'coffee:compile', 'copy:app',
+                             'package.json']
+  grunt.registerTask 'default', ['run']

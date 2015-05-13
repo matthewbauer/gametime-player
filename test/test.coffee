@@ -1,1 +1,1 @@
-player = require('../lib/player')
+player = require '../lib/player'

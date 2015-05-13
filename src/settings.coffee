@@ -1,16 +1,20 @@
-retro = require('node-retro')
-remote = require('remote')
-app = remote.require('app')
-fs = require('fs')
+fs = require 'fs'
 
-if fs.existsSync(app.getPath('userData') + '/' + 'settings.json')
-  module.exports = JSON.parse(fs.readFileSync(app.getPath('userData') + '/' +
-  'settings.json'))
+retro = require 'node-retro'
+
+remote = require 'remote'
+app = remote.require 'app'
+
+configDir = app.getPath 'userData'
+configFile = "#{configDir}/settings.json"
+if fs.existsSync configFile
+  module.exports = JSON.parse fs.readFileSync configFile
 else
   module.exports =
     variables: {}
     overscan: false
-    saveDir: app.getPath('userData')
+    saveDir: app.getPath 'userData'
+    tmprom: "#{configDir}/easyplayer.rom"
     key2joy:
       32: retro.DEVICE_ID_JOYPAD_B
       91: retro.DEVICE_ID_JOYPAD_Y
@@ -54,8 +58,8 @@ else
       14: retro.DEVICE_ID_JOYPAD_LEFT
       15: retro.DEVICE_ID_JOYPAD_RIGHT
     cores:
-      '32x': [ 'picodrive_libretro' ]
-      'bat': [ 'dosbox_libretro' ]
+      '32x': ['picodrive_libretro']
+      'bat': ['dosbox_libretro']
       'bin': [
         'genesis_plus_gx_libretro'
         'mednafen_vb_libretro'
@@ -66,10 +70,10 @@ else
         'snes9x_next_libretro'
         'snes9x_libretro'
       ]
-      'cbn': [ 'pcsx_rearmed_libretro' ]
-      'ccd': [ 'mednafen_psx_libretro' ]
-      'com': [ 'dosbox_libretro' ]
-      'conf': [ 'dosbox_libretro' ]
+      'cbn': ['pcsx_rearmed_libretro']
+      'ccd': ['mednafen_psx_libretro']
+      'com': ['dosbox_libretro']
+      'conf': ['dosbox_libretro']
       'cue': [
         'genesis_plus_gx_libretro'
         'mednafen_pce_fast_libretro'
@@ -77,7 +81,7 @@ else
         'pcsx_rearmed_libretro'
         'picodrive_libretro'
       ]
-      'dmg': [ 'gambatte_libretro' ]
+      'dmg': ['gambatte_libretro']
       'dx2': [
         'snes9x_next_libretro'
         'snes9x_libretro'
@@ -86,19 +90,19 @@ else
         'dosbox_libretro'
         'nxengine_libretro'
       ]
-      'fds': [ 'nestopia_libretro' ]
+      'fds': ['nestopia_libretro']
       'fig': [
         'snes9x_libretro'
         'snes9x_next_libretro'
       ]
-      'flac': [ 'genesis_plus_gx_libretro' ]
-      'gb': [ 'gambatte_libretro' ]
+      'flac': ['genesis_plus_gx_libretro']
+      'gb': ['gambatte_libretro']
       'gba': [
         'vba_next_libretro'
         'vbam_libretro'
         'mednafen_gba_libretro'
       ]
-      'gbc': [ 'gambatte_libretro' ]
+      'gbc': ['gambatte_libretro']
       'gd3': [
         'snes9x_libretro'
         'snes9x_next_libretro'
@@ -115,38 +119,38 @@ else
         'genesis_plus_gx_libretro'
         'picodrive_libretro'
       ]
-      'img': [ 'pcsx_rearmed_libretro' ]
+      'img': ['pcsx_rearmed_libretro']
       'ios': [
         'genesis_plus_gx_libretro'
         'picodrive_libretro'
       ]
-      'iwad': [ 'prboom_libretro' ]
-      'jpeg': [ '3dengine_libretro' ]
-      'jpg': [ '3dengine_libretro' ]
-      'lnx': [ 'handy_libretro' ]
+      'iwad': ['prboom_libretro']
+      'jpeg': ['3dengine_libretro']
+      'jpg': ['3dengine_libretro']
+      'lnx': ['handy_libretro']
       'md': [
         'genesis_plus_gx_libretro'
         'picodrive_libretro'
       ]
-      'mdf': [ 'pcsx_rearmed_libretro' ]
-      'mtl': [ '3dengine_libretro' ]
-      'n64': [ 'mupen64plus_libretro' ]
+      'mdf': ['pcsx_rearmed_libretro']
+      'mtl': ['3dengine_libretro']
+      'n64': ['mupen64plus_libretro']
       'nes': [
         'fceumm_libretro'
         'quicknes_libretro'
         'nestopia_libretro'
       ]
-      'ngc': [ 'mednafen_ngp_libretro' ]
-      'ngp': [ 'mednafen_ngp_libretro' ]
+      'ngc': ['mednafen_ngp_libretro']
+      'ngp': ['mednafen_ngp_libretro']
       'obj': [
         '3dengine_libretro'
         'modelviewer_libretro'
         'modelviewer_location_libretro'
         'scenewalker_libretro'
       ]
-      'pak': [ 'tyrquake_libretro' ]
-      'pbp': [ 'pcsx_rearmed_libretro' ]
-      'pce': [ 'mednafen_pce_fast_libretro' ]
+      'pak': ['tyrquake_libretro']
+      'pbp': ['pcsx_rearmed_libretro']
+      'pce': ['mednafen_pce_fast_libretro']
       'png': [
         '3dengine_libretro'
         'instancingviewer_camera_libretro'
@@ -162,7 +166,7 @@ else
         'genesis_plus_gx_libretro'
         'picodrive_libretro'
       ]
-      'sgx': [ 'mednafen_pce_fast_libretro' ]
+      'sgx': ['mednafen_pce_fast_libretro']
       'smc': [
         'snes9x_next_libretro'
         'snes9x_libretro'
@@ -181,32 +185,16 @@ else
         'snes9x_next_libretro'
         'snes9x_libretro'
       ]
-      'tga': [ '3dengine_libretro' ]
+      'tga': ['3dengine_libretro']
       'toc': [
         'mednafen_psx_libretro'
         'pcsx_rearmed_libretro'
       ]
-      'unif': [ 'fceumm_libretro' ]
-      'v64': [ 'mupen64plus_libretro' ]
-      'vb': [ 'mednafen_vb_libretro' ]
-      'vboy': [ 'mednafen_vb_libretro' ]
-      'wad': [ 'prboom_libretro' ]
-      'ws': [ 'mednafen_wswan_libretro' ]
-      'wsc': [ 'mednafen_wswan_libretro' ]
-      'z64': [ 'mupen64plus_libretro' ]
-    tmprom: app.getPath('userCache') + '/easyplayer.rom'
-    fragmentShaderSource: '
-    precision mediump float;
-    uniform sampler2D u_image;
-    varying vec2 v_texCoord;
-    void main() {
-      gl_FragColor = texture2D(u_image, v_texCoord);
-    }'
-    vertexShaderSource: '
-    attribute vec2 a_texCoord;
-    attribute vec2 a_position;
-    varying vec2 v_texCoord;
-    void main() {
-      gl_Position = vec4(a_position, 0, 1);
-      v_texCoord = a_texCoord;
-    }'
+      'unif': ['fceumm_libretro']
+      'v64': ['mupen64plus_libretro']
+      'vb': ['mednafen_vb_libretro']
+      'vboy': ['mednafen_vb_libretro']
+      'wad': ['prboom_libretro']
+      'ws': ['mednafen_wswan_libretro']
+      'wsc': ['mednafen_wswan_libretro']
+      'z64': ['mupen64plus_libretro']
