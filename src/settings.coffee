@@ -11,10 +11,6 @@ if fs.existsSync configFile
   module.exports = JSON.parse fs.readFileSync configFile
 else
   module.exports =
-    variables: {}
-    overscan: false
-    saveDir: app.getPath 'userData'
-    tmprom: "#{configDir}/easyplayer.rom"
     key2joy:
       32: retro.DEVICE_ID_JOYPAD_B
       91: retro.DEVICE_ID_JOYPAD_Y

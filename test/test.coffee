@@ -1,1 +1,0 @@
-player = require '../lib/player'
