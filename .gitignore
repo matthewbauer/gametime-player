@@ -9,3 +9,4 @@ release
 app
 *.asar
 dist
+*.sav

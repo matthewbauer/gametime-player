@@ -1,15 +1,41 @@
 retro = require 'node-retro'
 
+class Input
+  states: {}
+  constructor: (window, @key2joy) ->
+    window.addEventListener 'keyup', (event) =>
+      if event.which of @key2joy
+        @states[0] ?= {}
+        @states[0][retro.DEVICE_JOYPAD] ?= {}
+        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = false
+      event.preventDefault()
+    window.addEventListener 'keydown', (event) =>
+      if event.which of @key2joy
+        @states[0] ?= {}
+        @states[0][retro.DEVICE_JOYPAD] ?= {}
+        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = true
+      event.preventDefault()
+  state: (port, device, idx, id) =>
+    if port of @states
+      if device of @states[port]
+        return 1 if @states[port][device][id]
+    return 0
+
+# Player:
+#  @gl: WebGLContext
+#  @audio: AudioContext
+#  @input: custom class, see Input for implementation
+#  @core: retro.Core
+#  @game: buffer of game data or path
+#  @save: buffer of save data (optional)
 module.exports = class Player
-  joypad: []
-  keyboard: []
   pixelFormat: retro.PIXEL_FORMAT_0RGB1555
   variablesUpdate: false
   variables: {}
   overscan: false
   romTemp: 'temp.rom'
 
-  constructor: (@gl, @audio, @input, @core, game, save) ->
+  constructor: (@gl, @audio, @input, @core, @game, @save) ->
     @initGL()
 
     @av_info = @core.getSystemAVInfo()
@@ -21,40 +47,13 @@ module.exports = class Player
     @core.on 'inputstate', @input
     @core.on 'audiosamplebatch', @audiosamplebatch
     @core.on 'log', @log
-    @core.on 'environment', (cmd, value) =>
-      switch cmd
-        when retro.ENVIRONMENT_GET_OVERSCAN
-          @overscan
-        when retro.ENVIRONMENT_GET_VARIABLE_UPDATE
-          if @variablesUpdate
-            @variablesUpdate = false
-            return true
-          false
-        when retro.ENVIRONMENT_SET_PIXEL_FORMAT
-          @pixelFormat = value
-          true
-        when retro.ENVIRONMENT_GET_CAN_DUPE
-          true
-        when retro.ENVIRONMENT_GET_SYSTEM_DIRECTORY
-          '.'
-        when retro.ENVIRONMENT_GET_VARIABLE
-          @variables[value]
-        when retro.ENVIRONMENT_SET_INPUT_DESCRIPTORS
-          true
-        else
-          console.log "Unknown environment command #{cmd}"
-          false
-
-    if typeof game is 'string'
-      @core.loadGamePath game
+    @core.on 'environment', @environment
+    if typeof @game is 'string'
+      @core.loadGamePath @game
     else
-      if @info.need_fullpath
-        fs.writeFileSync @romtemp, game
-        @core.loadGamePath @romtemp
-      else
-        @core.loadGame game
+      @core.loadGame @game
 
-    @core.unserialize save if save?
+    @core.unserialize @save if @save?
 
   initGL: ->
     fragmentShader = @gl.createShader @gl.FRAGMENT_SHADER
@@ -165,12 +164,36 @@ module.exports = class Player
     source.start 0
     frames
 
-  setVariable: (key, value) =>
+  setVariable: (key, value) ->
     @variables[core][key] = value
     @variablesUpdate = true
 
   log: (level, msg) =>
     console.log msg
+
+  environment: (cmd, value) =>
+    switch cmd
+      when retro.ENVIRONMENT_GET_OVERSCAN
+        @overscan
+      when retro.ENVIRONMENT_GET_VARIABLE_UPDATE
+        if @variablesUpdate
+          @variablesUpdate = false
+          return true
+        false
+      when retro.ENVIRONMENT_SET_PIXEL_FORMAT
+        @pixelFormat = value
+        true
+      when retro.ENVIRONMENT_GET_CAN_DUPE
+        true
+      when retro.ENVIRONMENT_GET_SYSTEM_DIRECTORY
+        '.'
+      when retro.ENVIRONMENT_GET_VARIABLE
+        @variables[value]
+      when retro.ENVIRONMENT_SET_INPUT_DESCRIPTORS
+        true
+      else
+        console.log "Unknown environment command #{cmd}"
+        false
 
   start: ->
     @core.start @interval
@@ -180,3 +203,36 @@ module.exports = class Player
 
   deinit: ->
     @stop()
+
+  serialize: (state) ->
+    serial =
+      corename: @core.name
+      save: @core.serialize().toString 'binary'
+    if @gamepath
+      serial.gamepath = @game
+    else
+      serial.game = @game.toString 'binary'
+    serial
+
+  @unserialize: (serial) ->
+    new Promise (resolve, reject) ->
+      if serial.corepath and not serial.core
+        serial.core = new retro.Core serial.corepath
+        return Player.unserialize(serial).then resolve, reject
+      if serial.corename and not serial.core
+        return retro.getCore(serial.corename).then (core) ->
+          if core
+            serial.core = core
+            Player.unserialize(serial).then resolve, reject
+          else
+            reject()
+      if serial.game and typeof serial.game is 'string'
+        serial.game = new Buffer serial.game, 'binary'
+      if typeof serial.save is 'string'
+        serial.save = new Buffer serial.save, 'binary'
+      if serial.core and serial.game
+        return resolve [serial.core, serial.game, serial.save]
+      reject()
+
+  @Input: Input
+  @retro: retro
