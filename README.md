@@ -1,7 +1,12 @@
-# GameTime Player
+GameTime Player
+===============
+
 GameTime Player is a frontend for libretro that auto detects cores.
 
-## Future
-- move away from the window and use specific APIs for input and output.
-- save to cloud
-- better performance
+TODO
+----
+
+-	auto save
+-	implement shaders
+-	change keybindings
+-	gamepad api support
