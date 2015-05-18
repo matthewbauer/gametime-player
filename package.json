@@ -1,7 +1,7 @@
 {
   "name": "gametime-player",
   "description": "Simple libretro frontend",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
@@ -13,10 +13,11 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "node-retro": "^0.6.2"
+    "node-retro": "^0.6.5"
   },
   "devDependencies": {
     "MD5": "^1.2.1",
+    "typedarray-to-buffer": "^3.0.2",
     "bootstrap": "^3.3.4",
     "coffee-script": "^1.9.2",
     "electron-prebuilt": "^0.26.0",
@@ -30,7 +31,8 @@
     "grunt-shell": "^1.1.2",
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.2.4",
-    "stream-to-buffer": "^0.1.0"
+    "stream-to-buffer": "^0.1.0",
+    "unzip": "^0.1.11"
   },
   "keywords": [
     "emulation",

@@ -4,17 +4,12 @@ createReadStream = require 'filereader-stream'
 md5 = require 'MD5'
 fs = require 'fs'
 
+toBuffer = require 'typedarray-to-buffer'
+
 retro = require 'node-retro'
 
 Player = require './player'
 settings = require './settings'
-
-toBuffer = (ab) ->
-  buffer = new Buffer ab.byteLength
-  view = new Uint8Array ab
-  for _, i in buffer
-    buffer[i] = view[i]
-  buffer
 
 player = null
 play = ([core, game, save]) ->
@@ -30,13 +25,13 @@ play = ([core, game, save]) ->
 statePath = 'gametime.sav'
 getSavePath = (game) -> "gametime#{md5 game}.sav"
 
-window.onbeforeunload = ->
-  if player
-    fs.writeFileSync statePath, JSON.stringify player.serialize()
-    if player.core
-      fs.writeFileSync getSavePath player.game, player.core.serialize()
-if fs.existsSync statePath
-  Player.unserialize(JSON.parse fs.readFileSync savePath).then play
+#window.onbeforeunload = ->
+  #if player
+    #fs.writeFileSync statePath, JSON.stringify player.serialize()
+    #if player.core
+      #fs.writeFileSync getSavePath player.game, player.core.serialize()
+#if fs.existsSync statePath
+  #Player.unserialize(JSON.parse fs.readFileSync statePath).then play
 
 window.onload = (event) ->
   window.ondrop = (event) ->

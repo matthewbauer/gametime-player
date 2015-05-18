@@ -1,5 +1,8 @@
 retro = require 'node-retro'
 
+AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
+  @getChannelData(channelNumber|0).set(source, startInChannel|0)
+
 class Input
   states: {}
   constructor: (window, @key2joy) ->
@@ -48,6 +51,7 @@ module.exports = class Player
     @core.on 'audiosamplebatch', @audiosamplebatch
     @core.on 'log', @log
     @core.on 'environment', @environment
+
     if typeof @game is 'string'
       @core.loadGamePath @game
     else
@@ -109,56 +113,32 @@ module.exports = class Player
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_WRAP_T, @gl.CLAMP_TO_EDGE
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_MIN_FILTER, @gl.LINEAR
 
-  videorefresh: (data, width, height, pitch) =>
+  videorefresh: (data, width, height) =>
     if width isnt @width or height isnt @height
       @width = width
       @height = height
       @gl.canvas.width = width
       @gl.canvas.height = height
       @gl.viewport 0, 0, width, height
-    @gl.bindTexture @gl.TEXTURE_2D, @texture
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
+    # slice is used to prevent old buffer from being gc'ed
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
-        bufferArray = new Uint16Array data.length / 2
-        line = 0
-        while line < height
-          x = 0
-          while x < width
-            bufferArray[line * width + x] = data.readUInt16BE line * pitch + 2 * x
-            x++
-          line++
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0, @gl.RGBA,
-                       @gl.UNSIGNED_SHORT_5_5_5_1, bufferArray
+        @gl.UNSIGNED_SHORT_5_5_5_1, new Uint16Array(data.slice(0))
       when retro.PIXEL_FORMAT_XRGB8888
-        bufferArray = new Uint8Array data.length
-        while x < pitch * height
-          bufferArray[x] = data.readUInt8 x
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0, @gl.RGBA,
-                       @gl.UNSIGNED_BYTE, bufferArray
+        @gl.UNSIGNED_BYTE, new Uint8Array(data.slice(0))
       when retro.PIXEL_FORMAT_RGB565
-        bufferArray = new Uint16Array data.length / 2
-        line = 0
-        while line < height
-          x = 0
-          while x < width
-            bufferArray[line * width + x] = data.readUInt16LE line * pitch + 2 * x
-            x++
-          line++
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGB, width, height, 0, @gl.RGB,
-                       @gl.UNSIGNED_SHORT_5_6_5, bufferArray
+        @gl.UNSIGNED_SHORT_5_6_5, new Uint16Array(data.slice(0))
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
-  audiosamplebatch: (buffer, frames) =>
+  audiosamplebatch: (left, right, frames) =>
     source = @audio.createBufferSource()
     audioBuffer = @audio.createBuffer 2, frames, @sampleRate
-    leftBuffer = audioBuffer.getChannelData 0
-    rightBuffer = audioBuffer.getChannelData 1
-    i = 0
-    while i < frames
-      leftBuffer[i] = buffer.readFloatLE i * 8
-      rightBuffer[i] = buffer.readFloatLE i * 8 + 4
-      i++
+    audioBuffer.copyToChannel new Float32Array(left), 0
+    audioBuffer.copyToChannel new Float32Array(right), 1
     source.buffer = audioBuffer
     source.connect @audio.destination
     source.start 0
@@ -168,7 +148,7 @@ module.exports = class Player
     @variables[core][key] = value
     @variablesUpdate = true
 
-  log: (level, msg) =>
+  log: (level, msg) ->
     console.log msg
 
   environment: (cmd, value) =>
@@ -228,7 +208,7 @@ module.exports = class Player
             reject()
       if serial.game and typeof serial.game is 'string'
         serial.game = new Buffer serial.game, 'binary'
-      if typeof serial.save is 'string'
+      if serial.save and typeof serial.save is 'string'
         serial.save = new Buffer serial.save, 'binary'
       if serial.core and serial.game
         return resolve [serial.core, serial.game, serial.save]

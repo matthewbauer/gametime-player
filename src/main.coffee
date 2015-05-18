@@ -26,4 +26,5 @@ app.on 'ready', ->
       webgl: true
       webaudio: true
   window.loadUrl "file://#{__dirname}/app.html"
+  window.openDevTools()
   window.on 'closed', -> window = null
