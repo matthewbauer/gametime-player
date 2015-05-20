@@ -121,7 +121,7 @@ module.exports = class Player
       @gl.canvas.height = height
       @gl.viewport 0, 0, width, height
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
-    # slice is used to prevent old buffer from being gc'ed
+    # slice is used to prevent issues with old buffer being gc'ed
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0, @gl.RGBA,
