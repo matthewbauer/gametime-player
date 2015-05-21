@@ -5,9 +5,9 @@ GameTime Player is a frontend for libretro that auto detects cores.
 
 HOW TO RUN
 ----------
-`git clone https://github.com/matthewbauer/node-retro.git`
+`git clone https://github.com/matthewbauer/gametime-player.git`
 
-`cd node-retro`
+`cd gametime-player`
 
 `grunt run`
 
