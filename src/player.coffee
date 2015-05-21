@@ -1,4 +1,5 @@
 retro = require 'node-retro'
+fs = require 'fs'
 
 AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
   @getChannelData(channelNumber|0).set(source, startInChannel|0)
@@ -52,10 +53,14 @@ module.exports = class Player
     @core.on 'log', @log
     @core.on 'environment', @environment
 
-    if typeof @game is 'string'
-      @core.loadGamePath @game
+    if typeof @game is "string"
+      @core.loadGamePath(@game)
     else
-      @core.loadGame @game
+      if @info.need_fullpath
+        fs.writeFileSync(@romTemp, @game)
+        @core.loadGamePath(@romTemp)
+      else
+        @core.loadGame(@game)
 
     @core.unserialize @save if @save?
 
