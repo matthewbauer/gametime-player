@@ -9,6 +9,8 @@ HOW TO RUN
 
 `cd gametime-player`
 
+`npm install`
+
 `grunt run`
 
 TODO
