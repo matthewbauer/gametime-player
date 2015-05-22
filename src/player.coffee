@@ -43,7 +43,7 @@ module.exports = class Player
     @initGL()
 
     @av_info = @core.getSystemAVInfo()
-    @interval = 1000 / @av_info.timing.fps
+    @interval = Math.ceil(1000 / @av_info.timing.fps)
     @sampleRate = @av_info.timing.sample_rate
     @info = @core.getSystemInfo()
 

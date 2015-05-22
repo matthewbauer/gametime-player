@@ -1,7 +1,7 @@
 {
   "name": "gametime-player",
   "description": "Simple libretro frontend",
-  "version": "0.6.4",
+  "version": "0.6.6",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "node-retro": "^0.6.8"
+    "node-retro": "^0.6.9"
   },
   "devDependencies": {
     "MD5": "^1.2.1",
