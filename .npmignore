@@ -8,3 +8,8 @@ npm-debug.log
 release
 cache
 app
+*.sav
+run.js
+tasks
+*.coffee
+*.py

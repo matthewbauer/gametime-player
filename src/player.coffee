@@ -138,8 +138,8 @@ module.exports = class Player
       @gl.canvas.width = width
       @gl.canvas.height = height
       @gl.viewport 0, 0, width, height
-    @width = width
-    @height = height
+      @width = width
+      @height = height
     # slice is used to prevent issues with old buffer being gc'ed
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
