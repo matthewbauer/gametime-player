@@ -43,10 +43,22 @@ module.exports = class Player
   constructor: (@gl, @audio, @input, @core, @game, @save) ->
     @initGL()
 
+    @info = @core.getSystemInfo()
+
+    if typeof @game is "string"
+      @core.loadGamePath(@game)
+    else
+      if @info.need_fullpath
+        fs.writeFileSync(@romTemp, @game)
+        @core.loadGamePath(@romTemp)
+      else
+        @core.loadGame(@game)
+
+    @core.unserialize @save if @save?
+
     @av_info = @core.getSystemAVInfo()
     @fpsInterval = 1000 / @av_info.timing.fps
     @sampleRate = @av_info.timing.sample_rate
-    @info = @core.getSystemInfo()
 
     @bufferSize = 256
     @latency = 96
@@ -66,17 +78,6 @@ module.exports = class Player
     @core.on 'audiosamplebatch', @audiosamplebatch
     @core.on 'log', @log
     @core.on 'environment', @environment
-
-    if typeof @game is "string"
-      @core.loadGamePath(@game)
-    else
-      if @info.need_fullpath
-        fs.writeFileSync(@romTemp, @game)
-        @core.loadGamePath(@romTemp)
-      else
-        @core.loadGame(@game)
-
-    @core.unserialize @save if @save?
 
   initGL: ->
     fragmentShader = @gl.createShader @gl.FRAGMENT_SHADER
