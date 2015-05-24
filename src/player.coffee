@@ -34,10 +34,11 @@ class Input
 #  @save: buffer of save data (optional)
 module.exports = class Player
   pixelFormat: retro.PIXEL_FORMAT_0RGB1555
-  variablesUpdate: false
   variables: {}
-  overscan: false
   romTemp: 'temp.rom'
+  variablesUpdate: false
+  overscan: false
+  running: false
 
   constructor: (@gl, @audio, @input, @core, @game, @save) ->
     @initGL()
@@ -46,6 +47,19 @@ module.exports = class Player
     @interval = Math.ceil(1000 / @av_info.timing.fps)
     @sampleRate = @av_info.timing.sample_rate
     @info = @core.getSystemInfo()
+
+    @bufferSize = 256
+    @latency = 96
+    @numBuffers = Math.floor(@latency * @sampleRate / (1000 * @bufferSize))
+    if @numBuffers < 2
+      @numBuffers = 2
+    i = 0
+    @buffers = []
+    while i < @numBuffers
+      @buffers[i] = @audio.createBuffer(2, @bufferSize, @sampleRate)
+      i++
+    @bufOffset = 0
+    @bufIndex = 0
 
     @core.on 'videorefresh', @videorefresh
     @core.on 'inputstate', @input
@@ -117,37 +131,62 @@ module.exports = class Player
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_WRAP_S, @gl.CLAMP_TO_EDGE
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_WRAP_T, @gl.CLAMP_TO_EDGE
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_MIN_FILTER, @gl.LINEAR
+    @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
 
   videorefresh: (data, width, height) =>
-    if width isnt @width or height isnt @height
-      @width = width
-      @height = height
+    if not @width and not @height
       @gl.canvas.width = width
       @gl.canvas.height = height
       @gl.viewport 0, 0, width, height
-    @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
+    @width = width
+    @height = height
     # slice is used to prevent issues with old buffer being gc'ed
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0, @gl.RGBA,
-        @gl.UNSIGNED_SHORT_5_5_5_1, new Uint16Array(data.slice(0))
+        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
+        @gl.RGBA, @gl.UNSIGNED_SHORT_5_5_5_1, new Uint16Array(data.slice(0))
       when retro.PIXEL_FORMAT_XRGB8888
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0, @gl.RGBA,
-        @gl.UNSIGNED_BYTE, new Uint8Array(data.slice(0))
+        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
+        @gl.RGBA, @gl.UNSIGNED_BYTE, new Uint8Array(data.slice(0))
       when retro.PIXEL_FORMAT_RGB565
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGB, width, height, 0, @gl.RGB,
-        @gl.UNSIGNED_SHORT_5_6_5, new Uint16Array(data.slice(0))
+        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGB, width, height, 0,
+        @gl.RGB, @gl.UNSIGNED_SHORT_5_6_5, new Uint16Array(data.slice(0))
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
   audiosamplebatch: (left, right, frames) =>
-    source = @audio.createBufferSource()
-    audioBuffer = @audio.createBuffer 2, frames, @sampleRate
-    audioBuffer.copyToChannel new Float32Array(left), 0
-    audioBuffer.copyToChannel new Float32Array(right), 1
-    source.buffer = audioBuffer
-    source.connect @audio.destination
-    source.start 0
-    frames
+    i = 0
+    while i < @bufIndex
+      if @buffers[i].endTime < @audio.currentTime
+        [buf] = @buffers.splice(i, 1)
+        @buffers[@numBuffers - 1] = buf
+        i--
+        @bufIndex--
+      i++
+    count = 0
+    while frames
+      fill = @buffers[@bufIndex].length - @bufOffset
+      if fill > frames
+        fill = frames
+      @buffers[@bufIndex].copyToChannel(new Float32Array(left, count * 4, fill), 0, @bufOffset)
+      @buffers[@bufIndex].copyToChannel(new Float32Array(right, count * 4, fill), 1, @bufOffset)
+      @bufOffset += fill
+      count += fill
+      frames -= fill
+      if @bufOffset == @bufferSize
+        if @bufIndex == @numBuffers - 1
+          break
+        if @bufIndex
+          startTime = @buffers[@bufIndex - 1].endTime
+        else
+          startTime = @audio.currentTime
+        @buffers[@bufIndex].endTime = startTime + @buffers[@bufIndex].duration
+        source = @audio.createBufferSource()
+        source.buffer = @buffers[@bufIndex]
+        source.connect @audio.destination
+        source.start startTime
+        @bufIndex++
+        @bufOffset = 0
+    count
 
   setVariable: (key, value) ->
     @variables[core][key] = value
@@ -180,12 +219,19 @@ module.exports = class Player
         console.log "Unknown environment command #{cmd}"
         false
 
+  getRuns: ->
+    1
+  run: ->
+    @core.run() for i in [0...@getRuns()]
+  frame: =>
+    return if not @running
+    @run()
+    requestAnimationFrame @frame
   start: ->
-    @core.start @interval
-
+    @running = true
+    @frame()
   stop: ->
-    @core.stop()
-
+    @running = false
   deinit: ->
     @stop()
 

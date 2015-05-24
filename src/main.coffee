@@ -1,9 +1,10 @@
 app = require 'app'
 BrowserWindow = require 'browser-window'
 Menu = require 'menu'
-process = require 'process'
 
 ipc = require 'ipc'
+url = require 'url'
+path = require 'path'
 
 require('crash-reporter').start()
 
@@ -25,5 +26,11 @@ app.on 'ready', ->
       javascript: true
       webgl: true
       webaudio: true
-  window.loadUrl "file://#{__dirname}/app.html"
+  loadSettings =
+    bootstrapScript: path.resolve(__dirname, 'app.coffee')
+  window.loadUrl url.format
+    protocol: 'file'
+    pathname: path.resolve(__dirname, 'app.html')
+    slashes: true
+    query: {loadSettings: JSON.stringify(loadSettings)}
   window.on 'closed', -> window = null
