@@ -44,7 +44,7 @@ module.exports = class Player
     @initGL()
 
     @av_info = @core.getSystemAVInfo()
-    @interval = Math.ceil(1000 / @av_info.timing.fps)
+    @fpsInterval = 1000 / @av_info.timing.fps
     @sampleRate = @av_info.timing.sample_rate
     @info = @core.getSystemInfo()
 
@@ -219,13 +219,12 @@ module.exports = class Player
         console.log "Unknown environment command #{cmd}"
         false
 
-  getRuns: ->
-    1
-  run: ->
-    @core.run() for i in [0...@getRuns()]
-  frame: =>
+  frame: (now) =>
     return if not @running
-    @run()
+    elapsed = now - @then
+    if elapsed > @fpsInterval
+      @then = now - elapsed % @fpsInterval
+      @core.run()
     requestAnimationFrame @frame
   start: ->
     @running = true
