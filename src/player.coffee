@@ -58,6 +58,7 @@ module.exports = class Player
 
     @av_info = @core.getSystemAVInfo()
     @fpsInterval = 1000 / @av_info.timing.fps
+    @then = 0
     @sampleRate = @av_info.timing.sample_rate
 
     @bufferSize = 256
