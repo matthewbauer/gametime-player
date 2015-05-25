@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   require('load-grunt-tasks')(grunt)
-  grunt.loadTasks('tasks')
+  grunt.loadTasks 'tasks'
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     copy:

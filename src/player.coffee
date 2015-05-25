@@ -46,13 +46,13 @@ module.exports = class Player
     @info = @core.getSystemInfo()
 
     if typeof @game is "string"
-      @core.loadGamePath(@game)
+      @core.loadGamePath @game
     else
       if @info.need_fullpath
-        fs.writeFileSync(@romTemp, @game)
-        @core.loadGamePath(@romTemp)
+        fs.writeFileSync @romTemp, @game
+        @core.loadGamePath @romTemp
       else
-        @core.loadGame(@game)
+        @core.loadGame @game
 
     @core.unserialize @save if @save?
 
@@ -63,13 +63,13 @@ module.exports = class Player
 
     @bufferSize = 256
     @latency = 96
-    @numBuffers = Math.floor(@latency * @sampleRate / (1000 * @bufferSize))
+    @numBuffers = Math.floor @latency * @sampleRate / (1000 * @bufferSize)
     if @numBuffers < 2
       @numBuffers = 2
     i = 0
     @buffers = []
     while i < @numBuffers
-      @buffers[i] = @audio.createBuffer(2, @bufferSize, @sampleRate)
+      @buffers[i] = @audio.createBuffer 2, @bufferSize, @sampleRate
       i++
     @bufOffset = 0
     @bufIndex = 0
@@ -146,20 +146,20 @@ module.exports = class Player
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
-        @gl.RGBA, @gl.UNSIGNED_SHORT_5_5_5_1, new Uint16Array(data.slice(0))
+        @gl.RGBA, @gl.UNSIGNED_SHORT_5_5_5_1, (new Uint16Array data.slice 0)
       when retro.PIXEL_FORMAT_XRGB8888
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
-        @gl.RGBA, @gl.UNSIGNED_BYTE, new Uint8Array(data.slice(0))
+        @gl.RGBA, @gl.UNSIGNED_BYTE, (new Uint8Array data.slice 0)
       when retro.PIXEL_FORMAT_RGB565
         @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGB, width, height, 0,
-        @gl.RGB, @gl.UNSIGNED_SHORT_5_6_5, new Uint16Array(data.slice(0))
+        @gl.RGB, @gl.UNSIGNED_SHORT_5_6_5, (new Uint16Array data.slice 0)
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
   audiosamplebatch: (left, right, frames) =>
     i = 0
     while i < @bufIndex
       if @buffers[i].endTime < @audio.currentTime
-        [buf] = @buffers.splice(i, 1)
+        [buf] = @buffers.splice i, 1
         @buffers[@numBuffers - 1] = buf
         i--
         @bufIndex--
@@ -169,8 +169,8 @@ module.exports = class Player
       fill = @buffers[@bufIndex].length - @bufOffset
       if fill > frames
         fill = frames
-      @buffers[@bufIndex].copyToChannel(new Float32Array(left, count * 4, fill), 0, @bufOffset)
-      @buffers[@bufIndex].copyToChannel(new Float32Array(right, count * 4, fill), 1, @bufOffset)
+      @buffers[@bufIndex].copyToChannel (new Float32Array left, count * 4, fill), 0, @bufOffset
+      @buffers[@bufIndex].copyToChannel (new Float32Array right, count * 4, fill), 1, @bufOffset
       @bufOffset += fill
       count += fill
       frames -= fill
@@ -250,12 +250,15 @@ module.exports = class Player
     new Promise (resolve, reject) ->
       if serial.corepath and not serial.core
         serial.core = new retro.Core serial.corepath
-        return Player.unserialize(serial).then resolve, reject
+        return Player.unserialize serial
+        .then resolve, reject
       if serial.corename and not serial.core
-        return retro.getCore(serial.corename).then (core) ->
+        return retro.getCore serial.corename
+        .then (core) ->
           if core
             serial.core = core
-            Player.unserialize(serial).then resolve, reject
+            Player.unserialize serial
+            .then resolve, reject
           else
             reject()
       if serial.game and typeof serial.game is 'string'

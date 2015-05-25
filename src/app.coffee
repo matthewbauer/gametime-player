@@ -17,7 +17,7 @@ getSavePath = (game) -> "gametime#{md5 game}.sav"
 player = null
 play = ([core, game, save]) ->
   if not save
-    savePath = getSavePath(game)
+    savePath = getSavePath game
     if fs.existsSync savePath
       save = fs.readFileSync savePath
   document.getElementById('draghint').classList.add 'hidden'
@@ -29,11 +29,11 @@ play = ([core, game, save]) ->
   player = new Player gl, audio, input.state, core, game, save
   player.start()
 
-window.onbeforeunload = ->
+addEventListener 'beforeunload', ->
   if player and player.core
-    fs.writeFileSync getSavePath(player.game), player.core.serialize()
+    fs.writeFileSync (getSavePath player.game), player.core.serialize()
 
-window.ondrop = (event) ->
+addEventListener 'drop', (event) ->
   event.preventDefault()
   file = event.dataTransfer.files[0]
   name = file.name
@@ -62,12 +62,12 @@ window.ondrop = (event) ->
             .then play
   false
 
-window.ondragover = (event) ->
+addEventListener 'dragover', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.add 'hover'
   false
 
-window.ondragleave = (event) ->
+addEventListener 'dragleave', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.remove 'hover'
   false

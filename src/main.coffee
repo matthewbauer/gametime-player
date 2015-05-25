@@ -26,11 +26,8 @@ app.on 'ready', ->
       javascript: true
       webgl: true
       webaudio: true
-  loadSettings =
-    bootstrapScript: path.resolve(__dirname, 'app.coffee')
   window.loadUrl url.format
     protocol: 'file'
-    pathname: path.resolve(__dirname, 'app.html')
+    pathname: path.resolve __dirname, 'app.html'
     slashes: true
-    query: {loadSettings: JSON.stringify(loadSettings)}
   window.on 'closed', -> window = null
