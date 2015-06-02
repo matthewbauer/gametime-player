@@ -1,9 +1,9 @@
+fs = require 'fs'
+
 unzip = require 'unzip'
 streamToBuffer = require 'stream-to-buffer'
 createReadStream = require 'filereader-stream'
 md5 = require 'MD5'
-fs = require 'fs'
-
 toBuffer = require 'typedarray-to-buffer'
 
 retro = require 'node-retro'

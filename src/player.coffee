@@ -1,4 +1,5 @@
 retro = require 'node-retro'
+getCore = require 'node-retro/get-core'
 fs = require 'fs'
 
 AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
@@ -45,7 +46,7 @@ module.exports = class Player
 
     @info = @core.getSystemInfo()
 
-    if typeof @game is "string"
+    if typeof @game is 'string'
       @core.loadGamePath @game
     else
       if @info.need_fullpath
@@ -58,9 +59,10 @@ module.exports = class Player
 
     @av_info = @core.getSystemAVInfo()
     @fpsInterval = 1000 / @av_info.timing.fps
+
+    # audio
     @then = 0
     @sampleRate = @av_info.timing.sample_rate
-
     @bufferSize = 256
     @latency = 96
     @numBuffers = Math.floor @latency * @sampleRate / (1000 * @bufferSize)
@@ -135,24 +137,28 @@ module.exports = class Player
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_MIN_FILTER, @gl.LINEAR
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
 
-  videorefresh: (data, width, height) =>
+  videorefresh: (data, w, h) =>
     if not @width and not @height
-      @gl.canvas.width = width
-      @gl.canvas.height = height
-      @gl.viewport 0, 0, width, height
-      @width = width
-      @height = height
+      @width = w
+      @height = h
+      @gl.canvas.width = @width
+      @gl.canvas.height = @height
+      @gl.viewport 0, 0, @width, @height
     # slice is used to prevent issues with old buffer being gc'ed
     switch @pixelFormat
       when retro.PIXEL_FORMAT_0RGB1555
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
-        @gl.RGBA, @gl.UNSIGNED_SHORT_5_5_5_1, (new Uint16Array data.slice 0)
+        data = new Uint16Array data.slice 0
+        format = @gl.RGB
+        type = @gl.UNSIGNED_SHORT_5_5_5_1
       when retro.PIXEL_FORMAT_XRGB8888
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGBA, width, height, 0,
-        @gl.RGBA, @gl.UNSIGNED_BYTE, (new Uint8Array data.slice 0)
+        data = new Uint8Array data.slice 0
+        format = @gl.RGBA
+        type = @gl.UNSIGNED_BYTE
       when retro.PIXEL_FORMAT_RGB565
-        @gl.texImage2D @gl.TEXTURE_2D, 0, @gl.RGB, width, height, 0,
-        @gl.RGB, @gl.UNSIGNED_SHORT_5_6_5, (new Uint16Array data.slice 0)
+        data = new Uint16Array data.slice 0
+        format = @gl.RGB
+        type = @gl.UNSIGNED_SHORT_5_6_5
+    @gl.texImage2D @gl.TEXTURE_2D, 0, format, w, h, 0, format, type, data
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
   audiosamplebatch: (left, right, frames) =>
@@ -169,8 +175,10 @@ module.exports = class Player
       fill = @buffers[@bufIndex].length - @bufOffset
       if fill > frames
         fill = frames
-      @buffers[@bufIndex].copyToChannel (new Float32Array left, count * 4, fill), 0, @bufOffset
-      @buffers[@bufIndex].copyToChannel (new Float32Array right, count * 4, fill), 1, @bufOffset
+      @buffers[@bufIndex].copyToChannel (new Float32Array left,
+      count * 4, fill), 0, @bufOffset
+      @buffers[@bufIndex].copyToChannel (new Float32Array right,
+      count * 4, fill), 1, @bufOffset
       @bufOffset += fill
       count += fill
       frames -= fill
@@ -253,7 +261,7 @@ module.exports = class Player
         return Player.unserialize serial
         .then resolve, reject
       if serial.corename and not serial.core
-        return retro.getCore serial.corename
+        return getCore serial.corename
         .then (core) ->
           if core
             serial.core = core
