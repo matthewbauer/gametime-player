@@ -7,6 +7,7 @@ md5 = require 'MD5'
 toBuffer = require 'typedarray-to-buffer'
 
 retro = require 'node-retro'
+getCore = require 'node-retro/get-core'
 
 Player = require './player'
 settings = require './settings'
@@ -29,6 +30,29 @@ play = ([core, game, save]) ->
   player = new Player gl, audio, input.state, core, game, save
   player.start()
 
+load = (serial) ->
+  new Promise (resolve, reject) ->
+    if serial.corepath and not serial.core
+      serial.core = new retro.Core serial.corepath
+      return load serial
+      .then resolve, reject
+    if serial.corename and not serial.core
+      return getCore serial.corename
+      .then (core) ->
+        if core
+          serial.core = core
+          load serial
+          .then resolve, reject
+        else
+          reject()
+    if serial.game and typeof serial.game is 'string'
+      serial.game = new Buffer serial.game, 'binary'
+    if serial.save and typeof serial.save is 'string'
+      serial.save = new Buffer serial.save, 'binary'
+    if serial.core and serial.game
+      return resolve [serial.core, serial.game, serial.save]
+    reject()
+
 addEventListener 'beforeunload', ->
   if player and player.core
     fs.writeFileSync (getSavePath player.game), player.core.serialize()
@@ -41,7 +65,7 @@ addEventListener 'drop', (event) ->
   if settings.cores[extension]
     reader = new FileReader()
     reader.addEventListener 'load', (event) ->
-      Player.unserialize
+      load
         corename: settings.cores[extension][0]
         game: toBuffer reader.result
         gamepath: file.path
@@ -56,7 +80,7 @@ addEventListener 'drop', (event) ->
         [..., extension] = name.split '.'
         if settings.cores[extension]
           streamToBuffer entry, (err, buffer) ->
-            Player.unserialize
+            load
               corename: settings.cores[extension][0]
               game: buffer
             .then play

@@ -1,5 +1,4 @@
 retro = require 'node-retro'
-getCore = require 'node-retro/get-core'
 fs = require 'fs'
 
 AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
@@ -243,39 +242,6 @@ module.exports = class Player
     @running = false
   deinit: ->
     @stop()
-
-  serialize: (state) ->
-    serial =
-      corename: @core.name
-      save: @core.serialize().toString 'binary'
-    if @gamepath
-      serial.gamepath = @game
-    else
-      serial.game = @game.toString 'binary'
-    serial
-
-  @unserialize: (serial) ->
-    new Promise (resolve, reject) ->
-      if serial.corepath and not serial.core
-        serial.core = new retro.Core serial.corepath
-        return Player.unserialize serial
-        .then resolve, reject
-      if serial.corename and not serial.core
-        return getCore serial.corename
-        .then (core) ->
-          if core
-            serial.core = core
-            Player.unserialize serial
-            .then resolve, reject
-          else
-            reject()
-      if serial.game and typeof serial.game is 'string'
-        serial.game = new Buffer serial.game, 'binary'
-      if serial.save and typeof serial.save is 'string'
-        serial.save = new Buffer serial.save, 'binary'
-      if serial.core and serial.game
-        return resolve [serial.core, serial.game, serial.save]
-      reject()
 
   @Input: Input
   @retro: retro

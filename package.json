@@ -1,7 +1,7 @@
 {
   "name": "gametime-player",
   "description": "Simple libretro frontend",
-  "version": "0.6.13",
+  "version": "0.6.14",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
