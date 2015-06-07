@@ -92,7 +92,7 @@ addEventListener 'drop', (event) ->
     reader = new FileReader()
     reader.addEventListener 'load', (event) ->
       zip = new JSZip reader.result
-      files = zip.file /.*/
+      files = zip.file /.*/ # any way to predict name of file?
       rom = null
       for file in files
         [..., extension] = file.name.split '.'

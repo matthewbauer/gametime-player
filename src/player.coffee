@@ -221,5 +221,3 @@ module.exports = class Player
     @running = false
   deinit: ->
     @stop()
-
-  @retro: retro
