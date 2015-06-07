@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/matthewbauer/gametime-player.png?label=ready&title=Ready)](https://waffle.io/matthewbauer/gametime-player)
 GameTime Player
 ===============
 
