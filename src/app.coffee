@@ -1,19 +1,37 @@
 fs = require 'fs'
 
-unzip = require 'unzip'
-streamToBuffer = require 'stream-to-buffer'
-createReadStream = require 'filereader-stream'
 md5 = require 'MD5'
 toBuffer = require 'typedarray-to-buffer'
 
 retro = require 'node-retro'
-getCore = require 'node-retro/get-core'
+{getCore} = require 'gametime-retro'
 
 Player = require './player'
 settings = require './settings'
 
 statePath = 'gametime.sav'
 getSavePath = (game) -> "gametime#{md5 game}.sav"
+
+class Input
+  states: {}
+  constructor: (window, @key2joy) ->
+    window.addEventListener 'keyup', (event) =>
+      if event.which of @key2joy
+        @states[0] ?= {}
+        @states[0][retro.DEVICE_JOYPAD] ?= {}
+        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = false
+      event.preventDefault()
+    window.addEventListener 'keydown', (event) =>
+      if event.which of @key2joy
+        @states[0] ?= {}
+        @states[0][retro.DEVICE_JOYPAD] ?= {}
+        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = true
+      event.preventDefault()
+  state: (port, device, idx, id) =>
+    if port of @states
+      if device of @states[port]
+        return 1 if @states[port][device][id]
+    return 0
 
 player = null
 play = ([core, game, save]) ->
@@ -26,7 +44,7 @@ play = ([core, game, save]) ->
   document.body.appendChild canvas
   gl = canvas.getContext 'webgl'
   audio = new AudioContext()
-  input = new Player.Input window, settings.key2joy
+  input = new Input window, settings.key2joy
   player = new Player gl, audio, input.state, core, game, save
   player.start()
 
@@ -38,13 +56,12 @@ load = (serial) ->
       .then resolve, reject
     if serial.corename and not serial.core
       return getCore serial.corename
-      .then (core) ->
-        if core
-          serial.core = core
-          load serial
-          .then resolve, reject
-        else
+      .then (path) ->
+        if not path
           reject()
+        serial.corepath = path
+        load serial
+        .then resolve, reject
     if serial.game and typeof serial.game is 'string'
       serial.game = new Buffer serial.game, 'binary'
     if serial.save and typeof serial.save is 'string'
@@ -72,18 +89,23 @@ addEventListener 'drop', (event) ->
       .then play
     reader.readAsArrayBuffer file
   else if extension is 'zip'
-    createReadStream file
-    .pipe unzip.Parse()
-    .on 'entry', (entry) ->
-      if entry.type is 'File'
-        name = entry.path
-        [..., extension] = name.split '.'
-        if settings.cores[extension]
-          streamToBuffer entry, (err, buffer) ->
-            load
-              corename: settings.cores[extension][0]
-              game: buffer
-            .then play
+    reader = new FileReader()
+    reader.addEventListener 'load', (event) ->
+      zip = new JSZip reader.result
+      files = zip.file /.*/
+      rom = null
+      for file in files
+        [..., extension] = file.name.split '.'
+        if settings.cores[extesion]
+          rom = file
+          break
+      if rom is not null
+        load
+          corename: settings.cores[extension][0]
+          game: file.asNodeBuffer()
+          gamepath: file.path
+        .then play
+    reader.readAsArrayBuffer file
   false
 
 addEventListener 'dragover', (event) ->

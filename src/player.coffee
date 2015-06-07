@@ -4,27 +4,6 @@ fs = require 'fs'
 AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
   @getChannelData(channelNumber|0).set(source, startInChannel|0)
 
-class Input
-  states: {}
-  constructor: (window, @key2joy) ->
-    window.addEventListener 'keyup', (event) =>
-      if event.which of @key2joy
-        @states[0] ?= {}
-        @states[0][retro.DEVICE_JOYPAD] ?= {}
-        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = false
-      event.preventDefault()
-    window.addEventListener 'keydown', (event) =>
-      if event.which of @key2joy
-        @states[0] ?= {}
-        @states[0][retro.DEVICE_JOYPAD] ?= {}
-        @states[0][retro.DEVICE_JOYPAD][@key2joy[event.which]] = true
-      event.preventDefault()
-  state: (port, device, idx, id) =>
-    if port of @states
-      if device of @states[port]
-        return 1 if @states[port][device][id]
-    return 0
-
 # Player:
 #  @gl: WebGLContext
 #  @audio: AudioContext
@@ -243,5 +222,4 @@ module.exports = class Player
   deinit: ->
     @stop()
 
-  @Input: Input
   @retro: retro

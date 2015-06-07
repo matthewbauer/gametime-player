@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# used to create file extensions association
+
 import json
 import imp
 import os
