@@ -3,7 +3,7 @@ fs = require 'fs'
 md5 = require 'MD5'
 toBuffer = require 'typedarray-to-buffer'
 
-retro = require 'node-retro'
+retro = require 'libretro'
 {getCore} = require 'gametime-retro'
 
 Player = require './player'

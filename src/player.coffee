@@ -1,4 +1,4 @@
-retro = require 'node-retro'
+retro = require 'libretro'
 fs = require 'fs'
 
 AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
