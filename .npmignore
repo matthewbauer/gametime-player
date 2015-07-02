@@ -1,15 +1,8 @@
-src
-build
-test
 npm-debug.log
 .npmignore
 .gitignore
 .travis.yml
-release
-cache
-app
 *.sav
-run.js
-tasks
 *.coffee
 *.py
+jspm_packages

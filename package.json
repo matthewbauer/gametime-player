@@ -1,46 +1,29 @@
 {
   "name": "gametime-player",
   "description": "Simple libretro frontend",
-  "version": "0.6.17",
+  "version": "0.7.0",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/matthewbauer/gametime-player.git"
   },
-  "main": "lib/player.js",
-  "scripts": {
-    "prepublish": "grunt prepublish",
-    "test": "grunt test",
-    "build": "grunt build",
-    "run": "grunt run",
-    "coveralls": "istanbul report"
-  },
-  "electronVersion": "0.26.0",
-  "dependencies": {
-    "libretro": "^0.1.0"
+  "main": "player.js",
+  "jspm": {
+    "directories": {},
+    "dependencies": {
+      "MD5": "npm:MD5@^1.2.2",
+      "coffee": "github:forresto/system-coffee@^0.1.2",
+      "jszip": "npm:jszip@^2.5.0",
+      "localforage": "npm:localforage@^1.2.3",
+      "snes9x-next": "npm:snes9x-next@^0.0.8",
+      "ws": "npm:ws@^0.7.2"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    }
   },
   "devDependencies": {
-    "node-retro": "^0.6.14",
-    "MD5": "^1.2.1",
-    "async": "^1.0.0",
-    "bootstrap": "^3.3.4",
-    "coffee-coverage": "^0.6.0",
-    "coffee-script": "^1.9.2",
-    "coveralls": "^2.11.2",
-    "electron-prebuilt": "^0.26.0",
-    "filereader-stream": "^0.2.0",
-    "gametime-retro": "^0.1.4",
-    "grunt": "^0.4.5",
-    "grunt-contrib-coffee": "^0.13.0",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-shell": "^1.1.2",
-    "istanbul": "^0.3.14",
-    "jszip": "^2.5.0",
-    "load-grunt-tasks": "^3.1.0",
-    "mocha": "^2.2.4",
-    "npm": "^2.10.1",
-    "request": "^2.57.0",
-    "stream-to-buffer": "^0.1.0",
-    "typedarray-to-buffer": "^3.0.2"
+    "jspm": "^0.15.7"
   }
 }

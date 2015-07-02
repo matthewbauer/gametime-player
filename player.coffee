@@ -1,9 +1,3 @@
-retro = require 'libretro'
-fs = require 'fs'
-
-AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
-  @getChannelData(channelNumber|0).set(source, startInChannel|0)
-
 # Player:
 #  @gl: WebGLContext
 #  @audio: AudioContext
@@ -12,30 +6,31 @@ AudioBuffer::copyToChannel = (source, channelNumber, startInChannel) ->
 #  @game: buffer of game data or path
 #  @save: buffer of save data (optional)
 module.exports = class Player
-  pixelFormat: retro.PIXEL_FORMAT_0RGB1555
   variables: {}
-  romTemp: 'temp.rom'
   variablesUpdate: false
   overscan: false
   running: false
 
-  constructor: (@gl, @audio, @input, @core, @game, @save) ->
+  constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
     @initGL()
+    @core.PIXEL_FORMAT_0RGB1555 = 0
+    @core.PIXEL_FORMAT_XRGB8888 = 1
+    @core.PIXEL_FORMAT_RGB565 = 2
+    @pixelFormat = @core.PIXEL_FORMAT_0RGB1555
 
-    @info = @core.getSystemInfo()
+    @core.video_refresh = @video_refresh
+    @core.input_state = @input_state
+    @core.audio_sample_batch = @audio_sample_batch
+    @core.environment = @environment
+    @core.input_poll = ->
 
-    if typeof @game is 'string'
-      @core.loadGamePath @game
-    else
-      if @info.need_fullpath
-        fs.writeFileSync @romTemp, @game
-        @core.loadGamePath @romTemp
-      else
-        @core.loadGame @game
+    @core.init()
 
+    @info = @core.get_system_info()
+    @core.load_game
+      data: @game
     @core.unserialize @save if @save?
-
-    @av_info = @core.getSystemAVInfo()
+    @av_info = @core.get_system_av_info()
     @fpsInterval = 1000 / @av_info.timing.fps
 
     # audio
@@ -53,12 +48,6 @@ module.exports = class Player
       i++
     @bufOffset = 0
     @bufIndex = 0
-
-    @core.on 'videorefresh', @videorefresh
-    @core.on 'inputstate', @input
-    @core.on 'audiosamplebatch', @audiosamplebatch
-    @core.on 'log', @log
-    @core.on 'environment', @environment
 
   initGL: ->
     fragmentShader = @gl.createShader @gl.FRAGMENT_SHADER
@@ -94,8 +83,14 @@ module.exports = class Player
     buffer = @gl.createBuffer()
     @gl.bindBuffer @gl.ARRAY_BUFFER, buffer
 
-    pArray = new Float32Array [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]
-    @gl.bufferData @gl.ARRAY_BUFFER, pArray, @gl.STATIC_DRAW
+    @gl.bufferData @gl.ARRAY_BUFFER, (new Float32Array [
+      -1, -1,
+      1, -1,
+      -1, 1,
+      -1, 1,
+      1, -1,
+      1, 1
+    ]), @gl.STATIC_DRAW
     @gl.enableVertexAttribArray positionLocation
     @gl.vertexAttribPointer positionLocation, 2, @gl.FLOAT, false, 0, 0
 
@@ -103,8 +98,14 @@ module.exports = class Player
     texCoordBuffer = @gl.createBuffer()
     @gl.bindBuffer @gl.ARRAY_BUFFER, texCoordBuffer
 
-    texArray = new Float32Array [0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]
-    @gl.bufferData @gl.ARRAY_BUFFER, texArray, @gl.STATIC_DRAW
+    @gl.bufferData @gl.ARRAY_BUFFER, (new Float32Array [
+      0, 0,
+      1, 0,
+      0, 1,
+      0, 1,
+      1, 0,
+      1, 1
+    ]), @gl.STATIC_DRAW
     @gl.enableVertexAttribArray texCoordLocation
     @gl.vertexAttribPointer texCoordLocation, 2, @gl.FLOAT, false, 0, 0
 
@@ -115,31 +116,34 @@ module.exports = class Player
     @gl.texParameteri @gl.TEXTURE_2D, @gl.TEXTURE_MIN_FILTER, @gl.LINEAR
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
 
-  videorefresh: (data, w, h) =>
-    if not @width and not @height
-      @width = w
-      @height = h
-      @gl.canvas.width = @width
-      @gl.canvas.height = @height
-      @gl.viewport 0, 0, @width, @height
-    # slice is used to prevent issues with old buffer being gc'ed
+  input_state: (port, device, index, id) =>
+    #@inputs[port](device, index, id)
+
+  video_refresh: (_data, @width, @height, pitch) =>
+    @gl.canvas.width = @width
+    @gl.canvas.height = @height
+    @gl.viewport 0, 0, @width, @height
     switch @pixelFormat
-      when retro.PIXEL_FORMAT_0RGB1555
-        data = new Uint16Array data.slice 0
-        format = @gl.RGB
+      when @core.PIXEL_FORMAT_0RGB1555
+        data = new Uint16Array _data
         type = @gl.UNSIGNED_SHORT_5_5_5_1
-      when retro.PIXEL_FORMAT_XRGB8888
-        data = new Uint8Array data.slice 0
+        format = @gl.RGB
+      when @core.PIXEL_FORMAT_XRGB8888
+        data = new Uint8Array _data
         format = @gl.RGBA
         type = @gl.UNSIGNED_BYTE
-      when retro.PIXEL_FORMAT_RGB565
-        data = new Uint16Array data.slice 0
+      when @core.PIXEL_FORMAT_RGB565
+        data = new Uint16Array @width * @height
+        _data = new DataView _data.buffer, _data.byteOffset, _data.byteLength
+        for line in [0...@height]
+          for pixel in [0...@width]
+            data[line * @width + pixel] = _data.getUint16(line * pitch + pixel * 2, true)
         format = @gl.RGB
         type = @gl.UNSIGNED_SHORT_5_6_5
-    @gl.texImage2D @gl.TEXTURE_2D, 0, format, w, h, 0, format, type, data
+    @gl.texImage2D @gl.TEXTURE_2D, 0, format, @width, @height, 0, format, type, data
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
-  audiosamplebatch: (left, right, frames) =>
+  audio_sample_batch: (left, right, frames) =>
     i = 0
     while i < @bufIndex
       if @buffers[i].endTime < @audio.currentTime
@@ -153,10 +157,8 @@ module.exports = class Player
       fill = @buffers[@bufIndex].length - @bufOffset
       if fill > frames
         fill = frames
-      @buffers[@bufIndex].copyToChannel (new Float32Array left,
-      count * 4, fill), 0, @bufOffset
-      @buffers[@bufIndex].copyToChannel (new Float32Array right,
-      count * 4, fill), 1, @bufOffset
+      @buffers[@bufIndex].copyToChannel (new Float32Array left, count * 4, fill), 0, @bufOffset
+      @buffers[@bufIndex].copyToChannel (new Float32Array right, count * 4, fill), 1, @bufOffset
       @bufOffset += fill
       count += fill
       frames -= fill
@@ -185,39 +187,28 @@ module.exports = class Player
 
   environment: (cmd, value) =>
     switch cmd
-      when retro.ENVIRONMENT_GET_OVERSCAN
-        @overscan
-      when retro.ENVIRONMENT_GET_VARIABLE_UPDATE
-        if @variablesUpdate
-          @variablesUpdate = false
-          return true
-        false
-      when retro.ENVIRONMENT_SET_PIXEL_FORMAT
+      when @core.ENVIRONMENT_GET_LOG_INTERFACE
+        @log
+      when @core.ENVIRONMENT_SET_PIXEL_FORMAT
         @pixelFormat = value
-        true
-      when retro.ENVIRONMENT_GET_CAN_DUPE
-        true
-      when retro.ENVIRONMENT_GET_SYSTEM_DIRECTORY
-        '.'
-      when retro.ENVIRONMENT_GET_VARIABLE
-        @variables[value]
-      when retro.ENVIRONMENT_SET_INPUT_DESCRIPTORS
-        true
+      when @core.ENVIRONMENT_GET_VARIABLE_UPDATE
       else
         console.log "Unknown environment command #{cmd}"
-        false
 
   frame: (now) =>
     return if not @running
+    requestAnimationFrame @frame
     elapsed = now - @then
     if elapsed > @fpsInterval
       @then = now - elapsed % @fpsInterval
       @core.run()
-    requestAnimationFrame @frame
+
   start: ->
     @running = true
     @frame()
+
   stop: ->
     @running = false
+
   deinit: ->
     @stop()

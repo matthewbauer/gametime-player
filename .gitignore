@@ -1,12 +1,4 @@
-build
 node_modules
-lib
-.cores
-*.dylib
+jspm_packages
 npm-debug.log
-cache
-release
-app
-*.asar
-dist
 *.sav
