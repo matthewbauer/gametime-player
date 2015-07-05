@@ -11,11 +11,21 @@
   "jspm": {
     "directories": {},
     "dependencies": {
+      "4do": "npm:4do@^0.1.0",
       "MD5": "npm:MD5@^1.2.2",
+      "bluemsx": "npm:bluemsx@^0.1.0",
       "coffee": "github:forresto/system-coffee@^0.1.2",
+      "fceumm": "npm:fceumm@^0.1.0",
+      "gambatte": "npm:gambatte@^0.1.0",
+      "gw": "npm:gw@^0.1.0",
       "jszip": "npm:jszip@^2.5.0",
       "localforage": "npm:localforage@^1.2.3",
-      "snes9x-next": "npm:snes9x-next@^0.0.8",
+      "o2em": "npm:o2em@^0.1.0",
+      "picodrive": "npm:picodrive@^0.1.0",
+      "snes9x-next": "npm:snes9x-next@^0.1.0",
+      "tyrquake": "npm:tyrquake@^0.1.0",
+      "vba-next": "npm:vba-next@^0.1.0",
+      "vecx": "npm:vecx@^0.1.0",
       "ws": "npm:ws@^0.7.2"
     },
     "devDependencies": {

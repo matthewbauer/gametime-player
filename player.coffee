@@ -13,7 +13,7 @@ module.exports = class Player
 
   constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
     @initGL()
-    @core.PIXEL_FORMAT_0RGB1555 = 0
+    @core.PIXEL_FORMAT_0RGB1555 = 0 # should be accessible in @core
     @core.PIXEL_FORMAT_XRGB8888 = 1
     @core.PIXEL_FORMAT_RGB565 = 2
     @pixelFormat = @core.PIXEL_FORMAT_0RGB1555
@@ -117,7 +117,7 @@ module.exports = class Player
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
 
   input_state: (port, device, index, id) =>
-    #@inputs[port](device, index, id)
+    @inputs[port][id] if port of @inputs
 
   video_refresh: (_data, @width, @height, pitch) =>
     @gl.canvas.width = @width

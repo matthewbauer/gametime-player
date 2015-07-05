@@ -4,62 +4,47 @@ JSZip = require 'jszip'
 Player = require './player.coffee!'
 
 class Input
-  states: {}
-  constructor: (core, window, @key2joy) ->
+  constructor: (window, @keys) ->
     window.addEventListener 'keyup', (event) =>
-      if event.which of @key2joy
-        @states[0] ?= {}
-        @states[0][core.DEVICE_JOYPAD] ?= {}
-        @states[0][core.DEVICE_JOYPAD][@key2joy[event.which]] = false
+      if event.which of @keys
+        @[@keys[event.which]] = false
       event.preventDefault()
     window.addEventListener 'keydown', (event) =>
-      if event.which of @key2joy
-        @states[0] ?= {}
-        @states[0][core.DEVICE_JOYPAD] ?= {}
-        @states[0][core.DEVICE_JOYPAD][@key2joy[event.which]] = true
+      if event.which of @keys
+        @[@keys[event.which]] = true
       event.preventDefault()
-  state: (port, device, idx, id) =>
-    if port of @states
-      if device of @states[port]
-        return 1 if @states[port][device][id]
-    return 0
-
-snes9x_next = require 'snes9x-next'
 
 cores =
-  'bsx': [
-    snes9x_next
-  ]
-  'dx2': [
-    snes9x_next
-  ]
-  'fig': [
-    snes9x_next
-  ]
-  'gd3': [
-    snes9x_next
-  ]
-  'gd7': [
-    snes9x_next
-  ]
-  'sfc': [
-    snes9x_next
-  ]
-  'smc': [
-    snes9x_next
-  ]
-  'swc': [
-    snes9x_next
-  ]
+  ri: 'bluemsx'
+  mx1: 'bluemsx'
+  mx2: 'bluemsx'
+  col: 'bluemsx'
+  sg: 'bluemsx'
+  sc: 'bluemsx'
+  nes: 'fceumm'
+  fds: 'fceumm'
+  gb: 'gambatte'
+  gbc: 'gambatte'
+  mgw: 'gw'
+  smc: 'snes9x-next'
+  fig: 'snes9x-next'
+  sfc: 'snes9x-next'
+  swc: 'snes9x-next'
+  gba: 'vba-next'
+  vec: 'vecx'
+  gen: 'picodrive'
+  smd: 'picodrive'
+  md: 'picodrive'
+  sms: 'picodrive'
+  '32x': 'picodrive'
 
 player = null
 play = (core, game, save) ->
-  document.getElementById('draghint').classList.add 'hidden'
   canvas = document.createElement 'canvas'
   document.body.appendChild canvas
   gl = canvas.getContext 'webgl'
   audio = new AudioContext()
-  key2joy =
+  input = new Input window,
     32: core.DEVICE_ID_JOYPAD_B
     91: core.DEVICE_ID_JOYPAD_Y
     18: core.DEVICE_ID_JOYPAD_A
@@ -86,47 +71,52 @@ play = (core, game, save) ->
     83: core.DEVICE_ID_JOYPAD_DOWN
     65: core.DEVICE_ID_JOYPAD_LEFT
     68: core.DEVICE_ID_JOYPAD_RIGHT
-  input = new Input core, window, key2joy
-  player = new Player gl, audio, input.state, core, new Uint8Array(game), save
+  player = new Player gl, audio, [input], core, game, save
   player.start()
   #player.stop()
 
 stop = ->
   if player
-    #localForage.setItem(md5 player.game, player.core.serialize())
+    localForage.setItem(md5 player.game, player.core.serialize())
     player.core.unload_game()
     player.core.deinit()
     player = null
 
 addEventListener 'beforeunload', ->
-  #if player and player.core
-    #localForage.setItem(md5 player.game, player.core.serialize())
+  if player and player.core
+    localForage.setItem(md5 player.game, player.core.serialize())
 
 addEventListener 'drop', (event) ->
   event.preventDefault()
+  document.getElementById('draghint').classList.remove 'hover'
   file = event.dataTransfer.files[0]
   name = file.name
   [..., extension] = name.split '.'
   if cores[extension] or extension is 'zip'
+    document.getElementById('draghint').classList.add 'hidden'
     reader = new FileReader()
     reader.addEventListener 'load', (event) ->
       rom = null
       if extension is 'zip'
         zip = new JSZip reader.result
-        files = zip.file /.*/ # any way to predict name of file?
-        for file in files
+        for file in zip.file /.*/ # any way to predict name of file?
           [..., extension] = file.name.split '.'
           if cores[extesion]
-            rom = file.asArrayBuffer()
+            rom = new Uint8Array file.asArrayBuffer()
             break
       else if cores[extension]
-        rom = reader.result
+        rom = new Uint8Array reader.result
       if rom
-        if player
-          stop()
-        #localForage.getItem(md5 rom).then (save) ->
-        play cores[extension][0], rom
-        #, console.error
+        stop() if player
+        return Promise.all([
+          System.import(cores[extension])
+          localForage.getItem md5 rom
+        ]).then ([core, save]) ->
+          play core, rom, save
+        , ->
+          document.getElementById('draghint').classList.remove 'hidden'
+      else
+        document.getElementById('draghint').classList.remove 'hidden'
     reader.readAsArrayBuffer file
   false
 
