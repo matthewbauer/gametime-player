@@ -6,19 +6,9 @@ GameTime Player is a frontend for libretro that auto detects cores.
 
 HOW TO RUN
 ----------
-Install [node](https://nodejs.org/).
+This is still a WIP so you'll have to look at the code until I can write some proper documentation. Go to the gh-pages link for a demo:
 
-From the command line:
-
-`git clone https://github.com/matthewbauer/gametime-player.git`
-
-`cd gametime-player`
-
-`npm install`
-
-`npm install -g grunt-cli`
-
-`grunt run`
+[gametime-player](http://matthewbauer.us/gametime-player/)
 
 TODO
 ----
