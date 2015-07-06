@@ -10,6 +10,8 @@ module.exports = class Player
   variablesUpdate: false
   overscan: false
   running: false
+  latency: 180
+  bufferSize: 256
 
   constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
     @initGL()
@@ -36,8 +38,6 @@ module.exports = class Player
     # audio
     @then = 0
     @sampleRate = @av_info.timing.sample_rate
-    @bufferSize = 256
-    @latency = 96
     @numBuffers = Math.floor @latency * @sampleRate / (1000 * @bufferSize)
     if @numBuffers < 2
       @numBuffers = 2

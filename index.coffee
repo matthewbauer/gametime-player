@@ -75,21 +75,17 @@ play = (core, game, save) ->
 player = null
 
 stop = ->
-  if player
-    localForage.setItem(md5 player.game, player.core.serialize())
-    player.core.unload_game()
-    player.core.deinit()
-    player = null
+  player.stop()
+  localForage.setItem (md5 player.game), player.core.serialize()
+  player.core.unload_game()
+  player.core.deinit()
+  player = null
 
 addEventListener 'beforeunload', ->
-  stop() if player and player.core
+  stop() if player
 
-addEventListener 'drop', (event) ->
-  event.preventDefault()
-  document.getElementById('draghint').classList.remove 'hover'
-  file = event.dataTransfer.files[0]
-  name = file.name
-  [..., extension] = name.split '.'
+load = (file) ->
+  [..., extension] = file.name.split '.'
   if cores[extension] or extension is 'zip'
     document.getElementById('draghint').classList.add 'hidden'
     reader = new FileReader()
@@ -117,6 +113,11 @@ addEventListener 'drop', (event) ->
       else
         document.getElementById('draghint').classList.remove 'hidden'
     reader.readAsArrayBuffer file
+
+addEventListener 'drop', (event) ->
+  event.preventDefault()
+  document.getElementById('draghint').classList.remove 'hover'
+  load event.dataTransfer.files[0]
   false
 
 addEventListener 'dragover', (event) ->
@@ -131,3 +132,6 @@ addEventListener 'dragleave', (event) ->
 
 addEventListener 'click', (event) ->
   document.getElementById('chooser').click() if not player
+
+document.getElementById('chooser').addEventListener 'change', ->
+  load this.files[0]
