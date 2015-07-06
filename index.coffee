@@ -107,7 +107,7 @@ addEventListener 'drop', (event) ->
       if rom
         stop() if player
         return Promise.all([
-          System.import(cores[extension])
+          System.import cores[extension]
           localForage.getItem md5 rom
         ]).then ([core, save]) ->
           player = play core, rom, save
