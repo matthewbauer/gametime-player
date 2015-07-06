@@ -3,16 +3,16 @@ md5 = require 'MD5'
 JSZip = require 'jszip'
 Player = require './player.coffee!'
 
-class Input
+class KeyboardInput
   constructor: (window, @keys) ->
     window.addEventListener 'keyup', (event) =>
       if event.which of @keys
         @[@keys[event.which]] = false
-      event.preventDefault()
+        event.preventDefault()
     window.addEventListener 'keydown', (event) =>
       if event.which of @keys
         @[@keys[event.which]] = true
-      event.preventDefault()
+        event.preventDefault()
 
 cores =
   ri: 'bluemsx'
@@ -38,13 +38,12 @@ cores =
   sms: 'picodrive'
   '32x': 'picodrive'
 
-player = null
 play = (core, game, save) ->
   canvas = document.createElement 'canvas'
   document.body.appendChild canvas
   gl = canvas.getContext 'webgl'
   audio = new AudioContext()
-  input = new Input window,
+  input = new KeyboardInput window,
     32: core.DEVICE_ID_JOYPAD_B
     91: core.DEVICE_ID_JOYPAD_Y
     18: core.DEVICE_ID_JOYPAD_A
@@ -71,9 +70,9 @@ play = (core, game, save) ->
     83: core.DEVICE_ID_JOYPAD_DOWN
     65: core.DEVICE_ID_JOYPAD_LEFT
     68: core.DEVICE_ID_JOYPAD_RIGHT
-  player = new Player gl, audio, [input], core, game, save
-  player.start()
-  #player.stop()
+  new Player gl, audio, [input], core, game, save
+
+player = null
 
 stop = ->
   if player
@@ -83,8 +82,7 @@ stop = ->
     player = null
 
 addEventListener 'beforeunload', ->
-  if player and player.core
-    localForage.setItem(md5 player.game, player.core.serialize())
+  stop() if player and player.core
 
 addEventListener 'drop', (event) ->
   event.preventDefault()
@@ -112,7 +110,8 @@ addEventListener 'drop', (event) ->
           System.import(cores[extension])
           localForage.getItem md5 rom
         ]).then ([core, save]) ->
-          play core, rom, save
+          player = play core, rom, save
+          player.start()
         , ->
           document.getElementById('draghint').classList.remove 'hidden'
       else
@@ -130,5 +129,5 @@ addEventListener 'dragleave', (event) ->
   document.getElementById('draghint').classList.remove 'hover'
   false
 
-#addEventListener 'click', (event) ->
-#  document.getElementById('chooser').click()
+addEventListener 'click', (event) ->
+  document.getElementById('chooser').click() if not player
