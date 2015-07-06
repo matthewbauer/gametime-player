@@ -9,14 +9,6 @@ System.config({
 });
 
 System.config({
-  "meta": {
-    "npm:snes9x-next@0.0.4/*": {
-      "format": "cjs"
-    }
-  }
-});
-
-System.config({
   "map": {
     "4do": "npm:4do@0.1.0",
     "MD5": "npm:MD5@1.2.2",
@@ -444,4 +436,3 @@ System.config({
     }
   }
 });
-
