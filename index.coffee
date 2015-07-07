@@ -138,7 +138,12 @@ window.addEventListener 'dragleave', (event) ->
   false
 
 window.addEventListener 'click', (event) ->
-  document.getElementById('chooser').click() if not player
+  if not player
+    document.getElementById('chooser').click()
+  else if player.running
+    player.stop()
+  else
+    player.start()
 
 document.getElementById('chooser').addEventListener 'change', ->
   load this.files[0]
