@@ -117,7 +117,9 @@ load = (file) ->
 addEventListener 'drop', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.remove 'hover'
-  load event.dataTransfer.files[0]
+  if event.dataTransfer.files.length > 0
+    load event.dataTransfer.files[0]
+  # add URI support
   false
 
 addEventListener 'dragover', (event) ->
