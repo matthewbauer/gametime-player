@@ -74,14 +74,19 @@ play = (core, game, save) ->
 
 player = null
 
+save = ->
+  localForage.setItem (md5 player.game), player.core.serialize() if player
+
 stop = ->
   player.stop()
-  localForage.setItem (md5 player.game), player.core.serialize()
+  save()
   player.core.unload_game()
   player.core.deinit()
   player = null
 
-addEventListener 'beforeunload', ->
+window.setInterval save, 10000
+
+window.addEventListener 'beforeunload', ->
   stop() if player
 
 load = (file) ->
@@ -114,7 +119,7 @@ load = (file) ->
         document.getElementById('draghint').classList.remove 'hidden'
     reader.readAsArrayBuffer file
 
-addEventListener 'drop', (event) ->
+window.addEventListener 'drop', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.remove 'hover'
   if event.dataTransfer.files.length > 0
@@ -122,17 +127,17 @@ addEventListener 'drop', (event) ->
   # add URI support
   false
 
-addEventListener 'dragover', (event) ->
+window.addEventListener 'dragover', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.add 'hover'
   false
 
-addEventListener 'dragleave', (event) ->
+window.addEventListener 'dragleave', (event) ->
   event.preventDefault()
   document.getElementById('draghint').classList.remove 'hover'
   false
 
-addEventListener 'click', (event) ->
+window.addEventListener 'click', (event) ->
   document.getElementById('chooser').click() if not player
 
 document.getElementById('chooser').addEventListener 'change', ->
