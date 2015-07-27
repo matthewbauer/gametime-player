@@ -30,7 +30,7 @@ stop = ->
   retro.stop()
   save()
 
-window.setInterval save, 10000
+setInterval save, 10000
 
 addEventListener 'beforeunload', ->
   stop() if retro.player
@@ -84,7 +84,7 @@ load = (file) ->
             222: 8
           retro.inputs.push input
           retro.core = core
-          retro.game = game if game
+          retro.game = rom if rom
           retro.save = save if save
           retro.start()
         , ->
