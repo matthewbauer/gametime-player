@@ -11,12 +11,6 @@ draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
 cores =
-  ri: 'bluemsx'
-  mx1: 'bluemsx'
-  mx2: 'bluemsx'
-  col: 'bluemsx'
-  sg: 'bluemsx'
-  sc: 'bluemsx'
   nes: 'fceumm'
   fds: 'fceumm'
   gb: 'gambatte'
@@ -28,11 +22,6 @@ cores =
   swc: 'snes9x-next'
   gba: 'vba-next'
   vec: 'vecx'
-  gen: 'picodrive'
-  smd: 'picodrive'
-  md: 'picodrive'
-  sms: 'picodrive'
-  '32x': 'picodrive'
 
 play = (core, game, save) ->
   canvas = document.createElement 'canvas'
