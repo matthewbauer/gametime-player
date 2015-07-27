@@ -6,32 +6,19 @@
 #  @game: buffer of game data or path
 #  @save: buffer of save data (optional)
 module.exports = class Player
-  variables: {}
   variablesUpdate: false
   overscan: false
+  can_dupe: true
   running: false
   latency: 180
   bufferSize: 256
 
   constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
     @initGL()
-    @core.PIXEL_FORMAT_0RGB1555 = 0 # should be accessible in @core
-    @core.PIXEL_FORMAT_XRGB8888 = 1
-    @core.PIXEL_FORMAT_RGB565 = 2
+
     @pixelFormat = @core.PIXEL_FORMAT_0RGB1555
 
-    @core.video_refresh = @video_refresh
-    @core.input_state = @input_state
-    @core.audio_sample_batch = @audio_sample_batch
-    @core.environment = @environment
-    @core.input_poll = ->
-
-    @core.init()
-
     @info = @core.get_system_info()
-    @core.load_game
-      data: @game
-    @core.unserialize @save if @save?
     @av_info = @core.get_system_av_info()
     @fpsInterval = 1000 / @av_info.timing.fps
 
@@ -48,6 +35,24 @@ module.exports = class Player
       i++
     @bufOffset = 0
     @bufIndex = 0
+
+    @core.print = (args) ->
+      console.log args
+
+    @core.printErr = (args) ->
+      console.error args
+
+    @core.set_environment @environment
+    @core.set_video_refresh @video_refresh
+    @core.set_audio_sample @audio_sample
+    @core.set_audio_sample_batch @audio_sample_batch
+    @core.set_input_state @input_state
+    @core.set_input_poll @input_poll
+
+    @core.init()
+
+    @core.load_game @game if @game?
+    @core.unserialize @save if @save?
 
   initGL: ->
     fragmentShader = @gl.createShader @gl.FRAGMENT_SHADER
@@ -117,7 +122,28 @@ module.exports = class Player
     @gl.pixelStorei @gl.UNPACK_FLIP_Y_WEBGL, true
 
   input_state: (port, device, index, id) =>
-    @inputs[port][id] if port of @inputs
+    @inputs[port]?.buttons[{
+      0: 0
+      1: 2
+      2: 8
+      3: 9
+      4: 12
+      5: 13
+      6: 14
+      7: 15
+      8: 1
+      9: 3
+      10: 4
+      11: 5
+      12: 6
+      13: 7
+      14: 10
+      15: 11
+    }[id]]?.pressed ? 1 : 0
+
+  audio_sample: ->
+
+  input_poll: ->
 
   video_refresh: (_data, @width, @height, pitch) =>
     @gl.canvas.width = @width
@@ -179,8 +205,8 @@ module.exports = class Player
     count
 
   setVariable: (key, value) ->
-    @variables[core][key] = value
-    @variablesUpdate = true
+    @[key] = value
+    @update = true
 
   log: (level, msg) ->
     console.log msg
@@ -191,9 +217,26 @@ module.exports = class Player
         @log
       when @core.ENVIRONMENT_SET_PIXEL_FORMAT
         @pixelFormat = value
+        true
       when @core.ENVIRONMENT_GET_VARIABLE_UPDATE
+        if @update
+          @update = false
+          true
+        else
+          false
+      when @core.ENVIRONMENT_GET_OVERSCAN
+        @overscan
+      when @core.ENVIRONMENT_GET_CAN_DUPE
+        @can_dupe
+      when @core.ENVIRONMENT_SET_PERFORMANCE_LEVEL
+        true
+      when @core.ENVIRONMENT_SET_VARIABLES
+        true
+      when @core.ENVIRONMENT_SET_MEMORY_MAPS
+        true
       else
         console.log "Unknown environment command #{cmd}"
+        true
 
   frame: (now) =>
     return if not @running
@@ -209,6 +252,3 @@ module.exports = class Player
 
   stop: ->
     @running = false
-
-  deinit: ->
-    @stop()
