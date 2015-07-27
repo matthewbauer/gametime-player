@@ -23,42 +23,6 @@ cores =
   gba: 'vba-next'
   vec: 'vecx'
 
-play = (core, game, save) ->
-  canvas = document.createElement 'canvas'
-  document.body.appendChild canvas
-  gl = canvas.getContext 'webgl'
-  audio = new AudioContext()
-  input = new KeyboardInput window,
-    32: core.DEVICE_ID_JOYPAD_B
-    91: core.DEVICE_ID_JOYPAD_Y
-    18: core.DEVICE_ID_JOYPAD_A
-    90: core.DEVICE_ID_JOYPAD_X
-    66: core.DEVICE_ID_JOYPAD_B
-    89: core.DEVICE_ID_JOYPAD_Y
-    65: core.DEVICE_ID_JOYPAD_A
-    88: core.DEVICE_ID_JOYPAD_X
-    76: core.DEVICE_ID_JOYPAD_L
-    82: core.DEVICE_ID_JOYPAD_R
-    222: core.DEVICE_ID_JOYPAD_SELECT
-    13: core.DEVICE_ID_JOYPAD_START
-    16: core.DEVICE_ID_JOYPAD_SELECT
-    9: core.DEVICE_ID_JOYPAD_SELECT
-    73: core.DEVICE_ID_JOYPAD_X
-    74: core.DEVICE_ID_JOYPAD_Y
-    75: core.DEVICE_ID_JOYPAD_B
-    76: core.DEVICE_ID_JOYPAD_A
-    38: core.DEVICE_ID_JOYPAD_UP
-    40: core.DEVICE_ID_JOYPAD_DOWN
-    37: core.DEVICE_ID_JOYPAD_LEFT
-    39: core.DEVICE_ID_JOYPAD_RIGHT
-    87: core.DEVICE_ID_JOYPAD_UP
-    83: core.DEVICE_ID_JOYPAD_DOWN
-    65: core.DEVICE_ID_JOYPAD_LEFT
-    68: core.DEVICE_ID_JOYPAD_RIGHT
-  new Player gl, audio, [input], core, game, save
-
-player = null
-
 save = ->
   localForage.setItem (md5 player.game), player.core.serialize() if player
 
