@@ -63,7 +63,7 @@ save = ->
   localForage.setItem (md5 player.game), player.core.serialize() if player
 
 stop = ->
-  player.stop()
+  retro.stop()
   save()
   player.core.unload_game()
   player.core.deinit()
@@ -77,7 +77,7 @@ window.addEventListener 'beforeunload', ->
 load = (file) ->
   [..., extension] = file.name.split '.'
   if cores[extension] or extension is 'zip'
-    document.getElementById('draghint').classList.add 'hidden'
+    draghint.classList.add 'hidden'
     reader = new FileReader()
     reader.addEventListener 'load', (event) ->
       rom = null
