@@ -4,47 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'">
-  <style>
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Lora Bold'), local('Lora-Bold'), url(lora.woff) format('woff');
-}
-html, body, canvas {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-.draghint {
-  display: table;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border-width: 10px;
-  border-style: dashed;
-  border-color: #ccc;
-}
-.dragtext {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  color: #999;
-  font-family: 'Lora', serif;
-}
-.hidden {
-  display: none;
-}
-.hover {
-  border-color: #333;
-}
-#chooser {
-  position: fixed;
-  top: -1000px;
-}
-  </style>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="draghint" id="draghint">
