@@ -19,6 +19,7 @@
       "gambatte": "npm:gambatte@^0.1.0",
       "gw": "npm:gw@^0.1.0",
       "jszip": "npm:jszip@^2.5.0",
+      "keypad": "github:matthewbauer/keypad@^0.0.1",
       "localforage": "npm:localforage@^1.2.3",
       "o2em": "npm:o2em@^0.1.0",
       "picodrive": "npm:picodrive@^0.1.0",

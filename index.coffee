@@ -1,18 +1,14 @@
 localForage = require 'localforage'
 md5 = require 'MD5'
 JSZip = require 'jszip'
-Player = require './player.coffee!'
+KeyPad = require('keypad').default
 
-class KeyboardInput
-  constructor: (window, @keys) ->
-    window.addEventListener 'keyup', (event) =>
-      if event.which of @keys
-        @[@keys[event.which]] = false
-        event.preventDefault()
-    window.addEventListener 'keydown', (event) =>
-      if event.which of @keys
-        @[@keys[event.which]] = true
-        event.preventDefault()
+Retro = require('./x-retro').default
+retro = document.createElement 'canvas', 'x-retro'
+document.body.appendChild retro
+
+draghint = document.getElementById 'draghint'
+chooser = document.getElementById 'chooser'
 
 cores =
   ri: 'bluemsx'
@@ -106,17 +102,45 @@ load = (file) ->
       else if cores[extension]
         rom = new Uint8Array reader.result
       if rom
-        stop() if player
+        stop() if retro.running
         return Promise.all([
           System.import cores[extension]
           localForage.getItem md5 rom
         ]).then ([core, save]) ->
-          player = play core, rom, save
-          player.start()
+          input = new KeyPad window,
+            9: 8
+            13: 9
+            16: 8
+            18: 1
+            32: 0
+            37: 14
+            38: 12
+            39: 15
+            40: 13
+            65: 1
+            66: 0
+            68: 15
+            73: 3
+            74: 2
+            75: 0
+            76: 1
+            82: 5
+            83: 13
+            87: 12
+            88: 3
+            89: 2
+            90: 3
+            91: 2
+            222: 8
+          retro.inputs.push input
+          retro.core = core
+          retro.rom = rom if rom
+          retro.save = save if save
+          retro.start()
         , ->
-          document.getElementById('draghint').classList.remove 'hidden'
+          draghint.classList.remove 'hidden'
       else
-        document.getElementById('draghint').classList.remove 'hidden'
+        draghint.classList.remove 'hidden'
     reader.readAsArrayBuffer file
 
 window.addEventListener 'drop', (event) ->
