@@ -4,7 +4,7 @@
   font-weight: 700;
   src: local('Lora Bold'), local('Lora-Bold'), url(lora.woff) format('woff');
 }
-html, body, x-retro {
+html, body, canvas {
   margin: 0;
   padding: 0;
   width: 100%;
