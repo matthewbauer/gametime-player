@@ -132,31 +132,35 @@ load = (file) ->
         draghint.classList.remove 'hidden'
     reader.readAsArrayBuffer file
 
-window.addEventListener 'drop', (event) ->
+addEventListener 'drop', (event) ->
   event.preventDefault()
-  document.getElementById('draghint').classList.remove 'hover'
+  draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
     load event.dataTransfer.files[0]
-  # add URI support
   false
 
-window.addEventListener 'dragover', (event) ->
+addEventListener 'dragover', (event) ->
   event.preventDefault()
-  document.getElementById('draghint').classList.add 'hover'
+  draghint.classList.add 'hover'
   false
 
-window.addEventListener 'dragleave', (event) ->
+addEventListener 'dragleave', (event) ->
   event.preventDefault()
-  document.getElementById('draghint').classList.remove 'hover'
+  draghint.classList.remove 'hover'
   false
 
-window.addEventListener 'click', (event) ->
-  if not player
-    document.getElementById('chooser').click()
-  else if player.running
-    player.stop()
+addEventListener 'click', (event) ->
+  if not draghint.classList.contains 'hidden'
+    draghint.classList.add 'hover'
+    chooser.click()
+  else if retro.running
+    retro.stop()
   else
-    player.start()
+    retro.start()
 
-document.getElementById('chooser').addEventListener 'change', ->
+addEventListener 'focus', () ->
+  draghint.classList.remove 'hover'
+
+chooser.addEventListener 'change', ->
+  draghint.classList.remove 'hover'
   load this.files[0]
