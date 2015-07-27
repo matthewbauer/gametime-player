@@ -6,7 +6,7 @@
 #  @game: buffer of game data or path
 #  @save: buffer of save data (optional)
 module.exports = class Player
-  variablesUpdate: false
+  update: false
   overscan: false
   can_dupe: true
   running: false
