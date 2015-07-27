@@ -24,14 +24,11 @@ cores =
   vec: 'vecx'
 
 save = ->
-  localForage.setItem (md5 player.game), player.core.serialize() if player
+  localForage.setItem (md5 retro.game), retro.save if retro.running
 
 stop = ->
   retro.stop()
   save()
-  player.core.unload_game()
-  player.core.deinit()
-  player = null
 
 window.setInterval save, 10000
 
