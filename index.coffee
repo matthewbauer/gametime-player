@@ -84,7 +84,7 @@ load = (file) ->
             222: 8
           retro.inputs.push input
           retro.core = core
-          retro.rom = rom if rom
+          retro.game = game if game
           retro.save = save if save
           retro.start()
         , ->
