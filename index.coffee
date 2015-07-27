@@ -32,8 +32,8 @@ stop = ->
 
 window.setInterval save, 10000
 
-window.addEventListener 'beforeunload', ->
-  stop() if player
+addEventListener 'beforeunload', ->
+  stop() if retro.player
 
 load = (file) ->
   [..., extension] = file.name.split '.'
