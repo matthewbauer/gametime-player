@@ -139,7 +139,7 @@ module.exports = class Player
       13: 7
       14: 10
       15: 11
-    }[id]]?.pressed ? 1 : 0
+    }[id]]?.pressed
 
   audio_sample: ->
 
