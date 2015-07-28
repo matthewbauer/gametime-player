@@ -18,6 +18,21 @@ module.exports = class Player
 
     @pixelFormat = @core.PIXEL_FORMAT_0RGB1555
 
+    @core.print = (args) ->
+      console.log args
+
+    @core.printErr = (args) ->
+      console.error args
+
+    @core.set_environment @environment
+    @core.set_video_refresh @video_refresh
+    @core.set_audio_sample @audio_sample
+    @core.set_audio_sample_batch @audio_sample_batch
+    @core.set_input_state @input_state
+    @core.set_input_poll @input_poll
+
+    @core.init()
+
     @info = @core.get_system_info()
     @av_info = @core.get_system_av_info()
     @fpsInterval = 1000 / @av_info.timing.fps
@@ -35,21 +50,6 @@ module.exports = class Player
       i++
     @bufOffset = 0
     @bufIndex = 0
-
-    @core.print = (args) ->
-      console.log args
-
-    @core.printErr = (args) ->
-      console.error args
-
-    @core.set_environment @environment
-    @core.set_video_refresh @video_refresh
-    @core.set_audio_sample @audio_sample
-    @core.set_audio_sample_batch @audio_sample_batch
-    @core.set_input_state @input_state
-    @core.set_input_poll @input_poll
-
-    @core.init()
 
     @core.load_game @game if @game?
     @core.unserialize @save if @save?
