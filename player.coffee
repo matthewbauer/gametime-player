@@ -249,6 +249,7 @@ module.exports = class Player
   start: ->
     @running = true
     @frame()
+    # setInterval @core.run, @fpsInterval
 
   stop: ->
     @running = false
