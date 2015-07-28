@@ -15,7 +15,7 @@
       "css": "github:systemjs/plugin-css@^0.1.13",
       "gambatte": "npm:gambatte@^0.3.3",
       "jszip": "npm:jszip@^2.5.0",
-      "keypad": "github:matthewbauer/keypad@^0.0.1",
+      "keypad": "github:matthewbauer/keypad@^0.0.2",
       "localforage": "npm:localforage@^1.2.3",
       "snes9x-next": "npm:snes9x-next@^0.3.3",
       "vba-next": "npm:vba-next@^0.3.3",
