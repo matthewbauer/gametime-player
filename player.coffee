@@ -32,9 +32,7 @@ module.exports = class Player
 
     @core.init()
 
-    @info = @core.get_system_info()
     @av_info = @core.get_system_av_info()
-    @fpsInterval = 1000 / @av_info.timing.fps
 
     # audio
     @then = 0
@@ -229,10 +227,7 @@ module.exports = class Player
 
   frame: (now) =>
     @requestID = requestAnimationFrame @frame
-    elapsed = now - @then
-    if elapsed > @fpsInterval
-      @then = now - elapsed % @fpsInterval
-      @core.run() # should be moved to a web worker
+    @core.run()
 
   start: ->
     @frame()
