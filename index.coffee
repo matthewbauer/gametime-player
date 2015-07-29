@@ -1,5 +1,5 @@
-localForage = require 'localforage'
-md5 = require 'MD5'
+# localForage = require 'localforage'
+# md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
 KeyPad = require('keypad').default
 
@@ -24,7 +24,7 @@ cores =
   vec: 'vecx'
 
 save = ->
-  localForage.setItem retro.md5, retro.save if retro.running
+#   localForage.setItem retro.md5, retro.save if retro.running
 
 stop = ->
   retro.stop()
@@ -55,8 +55,8 @@ load = (file) ->
         stop() if retro.running
         return Promise.all([
           System.import cores[extension]
-          localForage.getItem md5 rom
-        ]).then ([core, save]) ->
+          # localForage.getItem md5 rom
+        ]).then ([core]) ->
           input = new KeyPad window,
             9: 8
             13: 9
@@ -84,9 +84,9 @@ load = (file) ->
             222: 8
           retro.inputs.push input
           retro.core = core
-          retro.md5 = md5 rom
+          # retro.md5 = md5 rom
           retro.game = rom if rom
-          retro.save = save if save
+          # retro.save = save if save
           retro.start()
         , ->
           draghint.classList.remove 'hidden'
