@@ -9,7 +9,6 @@ module.exports = class Player
   update: false
   overscan: false
   can_dupe: true
-  running: false
   latency: 180
   bufferSize: 256
 
@@ -229,17 +228,14 @@ module.exports = class Player
         true
 
   frame: (now) =>
-    return if not @running
-    requestAnimationFrame @frame
+    @requestID = requestAnimationFrame @frame
     elapsed = now - @then
     if elapsed > @fpsInterval
       @then = now - elapsed % @fpsInterval
-      @core.run()
+      @core.run() # should be moved to a web worker
 
   start: ->
-    @running = true
     @frame()
-    # setInterval @core.run, @fpsInterval
 
   stop: ->
-    @running = false
+    cancelAnimationFrame @requestID
