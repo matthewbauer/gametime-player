@@ -30,7 +30,7 @@ stop = ->
   retro.stop()
   save()
 
-setInterval save, 10000
+setInterval save, 10000 # ideally saving would only be done on exit
 
 addEventListener 'beforeunload', ->
   stop() if retro.player
@@ -115,10 +115,6 @@ addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
     draghint.classList.add 'hover'
     chooser.click()
-  else if retro.running
-    retro.stop()
-  else
-    retro.start()
 
 addEventListener 'focus', () ->
   draghint.classList.remove 'hover'
