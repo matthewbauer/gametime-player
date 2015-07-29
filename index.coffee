@@ -35,6 +35,9 @@ setInterval save, 10000 # ideally saving would only be done on exit
 addEventListener 'beforeunload', ->
   stop() if retro.player
 
+loadCore = (corename) ->
+  System.import corename
+
 load = (file) ->
   [..., extension] = file.name.split '.'
   if cores[extension] or extension is 'zip'
@@ -54,7 +57,7 @@ load = (file) ->
       if rom
         stop() if retro.running
         return Promise.all([
-          System.import cores[extension]
+          loadCore cores[extension]
           # localForage.getItem md5 rom
         ]).then ([core]) ->
           input = new KeyPad window,
