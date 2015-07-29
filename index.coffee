@@ -24,7 +24,7 @@ cores =
   vec: 'vecx'
 
 save = ->
-  localForage.setItem (md5 retro.game), retro.save if retro.running
+  localForage.setItem retro.md5, retro.save if retro.running
 
 stop = ->
   retro.stop()
@@ -84,6 +84,7 @@ load = (file) ->
             222: 8
           retro.inputs.push input
           retro.core = core
+          retro.md5 = md5 rom
           retro.game = rom if rom
           retro.save = save if save
           retro.start()
