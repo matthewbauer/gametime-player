@@ -16,7 +16,8 @@
       "keypad": "github:matthewbauer/keypad@^0.0.2",
       "snes9x-next": "npm:snes9x-next@^0.3.3",
       "vba-next": "npm:vba-next@^0.3.3",
-      "vecx": "npm:vecx@^0.3.3"
+      "vecx": "npm:vecx@^0.3.3",
+      "document-register-element": "github:webreflection/document-register-element@^0.4.5"
     },
     "devDependencies": {
       "traceur": "github:jmcriffey/bower-traceur@0.0.88",

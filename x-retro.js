@@ -1,5 +1,6 @@
 /* global HTMLCanvasElement, AudioContext */
 
+import 'document-register-element'
 import Player from './player.coffee!'
 
 let PlayerElement = Object.create(HTMLCanvasElement.prototype)
