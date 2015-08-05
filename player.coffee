@@ -1,3 +1,5 @@
+require 'web-audio-api-shim'
+
 # Player:
 #  @gl: WebGLContext
 #  @audio: AudioContext
