@@ -30,7 +30,7 @@ PlayerElement.attachedCallback = function () {
 
 Object.defineProperty(PlayerElement, 'core', {
   set: function (core) {
-    this.player = new Player(this.getContext('webgl'), new AudioContext(), this.inputs, core)
+    this.player = new Player(this.getContext('webgl') || this.getContext('experimental-webgl'), new AudioContext(), this.inputs, core)
   },
   get: function () {
     return this.player.core

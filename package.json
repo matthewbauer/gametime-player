@@ -16,8 +16,10 @@
       "gw": "npm:gw@^0.4.6",
       "jszip": "github:stuk/jszip@^2.5.0",
       "keypad": "github:matthewbauer/keypad@^0.0.2",
+      "localforage": "github:mozilla/localforage@master",
       "nestopia": "npm:nestopia@^0.4.6",
       "snes9x-next": "npm:snes9x-next@^0.4.6",
+      "sparkmd5": "github:satazor/sparkmd5@^1.0.0",
       "vba-next": "npm:vba-next@^0.4.6",
       "vecx": "npm:vecx@^0.4.6",
       "window": "github:matthewbauer/window@^0.0.3"
@@ -36,6 +38,10 @@
       },
       "github:webcomponents/webcomponentsjs@0.7.10": {
         "main": "webcomponents-lite.js"
+      },
+      "github:mozilla/localforage@master": {
+        "main": "dist/localforage.nopromises.js",
+        "format": "amd"
       }
     }
   },

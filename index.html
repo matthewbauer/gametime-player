@@ -16,6 +16,9 @@
   <script src="jspm_packages/es6-module-loader.js"></script>
   <script src="jspm_packages/system.js"></script>
   <script src="config.js"></script>
-  <script>System.import("./index.coffee!");</script>
+  <script>
+  window.require = System.amdRequire.bind(System);
+  System.import("./index.coffee!");
+  </script>
 </body>
 </html>

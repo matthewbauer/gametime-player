@@ -1,9 +1,8 @@
-# localForage = require 'localforage'
-# md5 = require('sparkmd5').ArrayBuffer.hash
+localForage = require('localforage').default
+console.error localForage
+md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
 KeyPad = require('keypad').default
-
-setInterval = require('window').setInterval
 
 Retro = require('./x-retro').default
 retro = document.createElement 'canvas', 'x-retro'
@@ -25,13 +24,13 @@ cores =
   nes: 'nestopia'
 
 save = ->
-#   localForage.setItem retro.md5, retro.save if retro.running
+  localForage.setItem retro.md5, retro.save if retro.running
 
 stop = ->
   retro.stop()
   save()
 
-setInterval save, 10000 # ideally saving would only be done on exit
+# setInterval save, 10000
 
 addEventListener 'beforeunload', ->
   stop() if retro.player
@@ -65,10 +64,11 @@ load = (file) ->
         rom = new Uint8Array reader.result
       if rom
         stop() if retro.running
+        retro.md5 = md5 rom
         return Promise.all([
           loadCore cores[extension]
-          # localForage.getItem md5 rom
-        ]).then ([core]) ->
+          localForage.getItem retro.md5
+        ]).then ([core, save]) ->
           input = new KeyPad window,
             9: 8
             13: 9
@@ -96,9 +96,8 @@ load = (file) ->
             222: 8
           retro.inputs.push input
           retro.core = core
-          # retro.md5 = md5 rom
           retro.game = rom if rom
-          # retro.save = save if save
+          retro.save = save if save
           retro.start()
         , ->
           draghint.classList.remove 'hidden'
