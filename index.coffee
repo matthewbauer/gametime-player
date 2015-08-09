@@ -1,4 +1,4 @@
-navigator.serviceWorker.register 'worker.js'
+navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
 # localForage = require('localforage').default
 md5 = require('sparkmd5').ArrayBuffer.hash
