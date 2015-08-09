@@ -11,15 +11,16 @@
     "directories": {},
     "dependencies": {
       "coffee": "github:forresto/system-coffee@^0.1.2",
-      "document-register-element": "github:webreflection/document-register-element@^0.4.5",
-      "gambatte": "npm:gambatte@^0.3.3",
+      "document": "github:matthewbauer/document@^0.0.3",
+      "gambatte": "npm:gambatte@^0.4.6",
+      "gw": "npm:gw@^0.4.6",
       "jszip": "github:stuk/jszip@^2.5.0",
       "keypad": "github:matthewbauer/keypad@^0.0.2",
-      "snes9x-next": "npm:snes9x-next@^0.3.3",
-      "stereo-panner-node": "npm:stereo-panner-node@^0.2.0",
-      "vba-next": "npm:vba-next@^0.3.3",
-      "vecx": "npm:vecx@^0.3.3",
-      "web-audio-api-shim": "github:mohayonao/web-audio-api-shim@^0.3.0"
+      "nestopia": "npm:nestopia@^0.4.6",
+      "snes9x-next": "npm:snes9x-next@^0.4.6",
+      "vba-next": "npm:vba-next@^0.4.6",
+      "vecx": "npm:vecx@^0.4.6",
+      "window": "github:matthewbauer/window@^0.0.3"
     },
     "devDependencies": {
       "traceur": "github:jmcriffey/bower-traceur@0.0.88",
@@ -30,7 +31,8 @@
         "main": "dist/jszip.js"
       },
       "github:mohayonao/web-audio-api-shim@0.3.0": {
-        "main": "build/web-audio-api-shim-light.js"
+        "main": "build/web-audio-api-shim.js",
+        "format": "global"
       }
     }
   },

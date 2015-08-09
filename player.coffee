@@ -1,12 +1,13 @@
-require 'web-audio-api-shim'
+requestAnimationFrame = require('window').requestAnimationFrame
+cancelAnimationFrame = require('window').cancelAnimationFrame
 
 # Player:
 #  @gl: WebGLContext
 #  @audio: AudioContext
 #  @input: custom class, see Input for implementation
 #  @core: retro.Core
-#  @game: buffer of game data or path
-#  @save: buffer of save data (optional)
+#  @game: ArrayBuffer of game data or path (optional)
+#  @save: ArrayBuffer of save data (optional)
 module.exports = class Player
   update: false
   overscan: false

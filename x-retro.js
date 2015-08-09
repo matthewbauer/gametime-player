@@ -1,6 +1,5 @@
-/* global HTMLCanvasElement, AudioContext */
-
-import 'document-register-element'
+import {AudioContext, HTMLCanvasElement} from 'window'
+import {registerElement} from 'document'
 import Player from './player.coffee!'
 
 let PlayerElement = Object.create(HTMLCanvasElement.prototype)
@@ -67,7 +66,7 @@ PlayerElement.stop = function () {
   this.player.stop()
 }
 
-export default document.registerElement('x-retro', {
+export default registerElement('x-retro', {
   prototype: PlayerElement,
   extends: 'canvas'
 })

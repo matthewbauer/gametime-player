@@ -3,6 +3,8 @@
 JSZip = require 'jszip'
 KeyPad = require('keypad').default
 
+setInterval = require('window').setInterval
+
 Retro = require('./x-retro').default
 retro = document.createElement 'canvas', 'x-retro'
 document.body.appendChild retro
@@ -11,17 +13,16 @@ draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
 cores =
-  nes: 'fceumm'
-  fds: 'fceumm'
   gb: 'gambatte'
   gbc: 'gambatte'
-  mgw: 'gw'
   smc: 'snes9x-next'
   fig: 'snes9x-next'
   sfc: 'snes9x-next'
   swc: 'snes9x-next'
   gba: 'vba-next'
   vec: 'vecx'
+  mgw: 'gw'
+  nes: 'nestopia'
 
 save = ->
 #   localForage.setItem retro.md5, retro.save if retro.running
@@ -35,8 +36,16 @@ setInterval save, 10000 # ideally saving would only be done on exit
 addEventListener 'beforeunload', ->
   stop() if retro.player
 
+loadedCores =
+  gambatte: require 'gambatte'
+  'vba-next': require 'vba-next'
+  'snes9x-next': require 'snes9x-next'
+  vecx: require 'vecx'
+  gw: require 'gw'
+  nestopia: require 'nestopia'
+
 loadCore = (corename) ->
-  System.import corename
+  loadedCores[corename]
 
 load = (file) ->
   [..., extension] = file.name.split '.'
