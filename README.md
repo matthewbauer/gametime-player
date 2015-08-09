@@ -1,19 +1,19 @@
-[![Stories in Ready](https://badge.waffle.io/matthewbauer/gametime-player.png?label=ready&title=Ready)](https://waffle.io/matthewbauer/gametime-player)
-GameTime Player
-===============
+# GameTime Player
 
 GameTime Player is a frontend for libretro that auto detects cores.
 
-HOW TO RUN
-----------
-This is still a WIP so you'll have to look at the code until I can write some proper documentation. Go to the gh-pages link for a demo:
+## HOW TO RUN
+Go to: [https://matthewbauer.us/gametime-player/](https://matthewbauer.us/gametime-player/)
 
-[gametime-player](http://matthewbauer.us/gametime-player/)
+### Running locally
 
-TODO
-----
+```sh
+git clone https://github.com/matthewbauer/gametime-player.git
+npm install -g jspm
+jspm install -y
+python -m SimpleHTTPServer
+```
 
--	auto save
--	implement shaders
--	change keybindings
--	gamepad api support
+## Contributing
+
+Look at the open issues and make pull request.
