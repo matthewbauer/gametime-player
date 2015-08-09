@@ -11,7 +11,7 @@
     "directories": {},
     "dependencies": {
       "coffee": "github:forresto/system-coffee@^0.1.2",
-      "document": "github:matthewbauer/document@^0.0.3",
+      "document": "github:matthewbauer/document@^0.0.4",
       "gambatte": "npm:gambatte@^0.4.6",
       "gw": "npm:gw@^0.4.6",
       "jszip": "github:stuk/jszip@^2.5.0",
