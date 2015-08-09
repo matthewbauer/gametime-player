@@ -33,6 +33,9 @@
       "github:mohayonao/web-audio-api-shim@0.3.0": {
         "main": "build/web-audio-api-shim.js",
         "format": "global"
+      },
+      "github:webcomponents/webcomponentsjs@0.7.10": {
+        "main": "webcomponents-lite.js"
       }
     }
   },
