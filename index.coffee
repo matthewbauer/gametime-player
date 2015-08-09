@@ -1,5 +1,4 @@
-localForage = require('localforage').default
-console.error localForage
+# localForage = require('localforage').default
 md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
 KeyPad = require('keypad').default
@@ -24,13 +23,13 @@ cores =
   nes: 'nestopia'
 
 save = ->
-  localForage.setItem retro.md5, retro.save if retro.running
+  # localForage.setItem retro.md5, retro.save if retro.running
 
 stop = ->
   retro.stop()
   save()
 
-# setInterval save, 10000
+setInterval save, 10000
 
 addEventListener 'beforeunload', ->
   stop() if retro.player
@@ -67,7 +66,7 @@ load = (file) ->
         retro.md5 = md5 rom
         return Promise.all([
           loadCore cores[extension]
-          localForage.getItem retro.md5
+          # localForage.getItem retro.md5
         ]).then ([core, save]) ->
           input = new KeyPad window,
             9: 8
