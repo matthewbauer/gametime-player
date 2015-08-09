@@ -1,3 +1,5 @@
+navigator.serviceWorker.register 'worker.js'
+
 # localForage = require('localforage').default
 md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
