@@ -2,7 +2,7 @@
 
 GameTime Player is a frontend for libretro that auto detects cores.
 
-## HOW TO RUN
+## How to run
 Go to: [https://matthewbauer.us/gametime-player/](https://matthewbauer.us/gametime-player/)
 
 ### Running locally
