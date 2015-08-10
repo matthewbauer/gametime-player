@@ -31,8 +31,6 @@ stop = ->
   retro.stop()
   save()
 
-setInterval save, 10000
-
 addEventListener 'beforeunload', ->
   stop() if retro.player
 
