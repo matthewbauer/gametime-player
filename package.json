@@ -58,6 +58,7 @@
   "scripts": {
     "serve": "http-server",
     "install": "jspm install -y",
-    "test": "mocha test.js"
+    "test": "mocha test.js",
+    "build": "jspm bundle index.coffee!"
   }
 }
