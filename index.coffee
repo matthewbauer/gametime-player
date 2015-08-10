@@ -36,17 +36,6 @@ setInterval save, 10000
 addEventListener 'beforeunload', ->
   stop() if retro.player
 
-loadedCores =
-  gambatte: require 'gambatte'
-  'vba-next': require 'vba-next'
-  'snes9x-next': require 'snes9x-next'
-  vecx: require 'vecx'
-  gw: require 'gw'
-  nestopia: require 'nestopia'
-
-loadCore = (corename) ->
-  loadedCores[corename]
-
 load = (file) ->
   [..., extension] = file.name.split '.'
   if cores[extension] or extension is 'zip'
@@ -67,7 +56,7 @@ load = (file) ->
         stop() if retro.running
         retro.md5 = md5 rom
         return Promise.all([
-          loadCore cores[extension]
+          System.import cores[extension]
           # localForage.getItem retro.md5
         ]).then ([core, save]) ->
           if navigator.getGamepads?

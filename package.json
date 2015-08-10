@@ -8,6 +8,7 @@
   },
   "main": "player.js",
   "jspm": {
+    "main": "index.coffee",
     "directories": {},
     "dependencies": {
       "coffee": "github:forresto/system-coffee@^0.1.2",
@@ -46,7 +47,17 @@
     }
   },
   "devDependencies": {
+    "chromedriver": "^2.16.0",
+    "coffee-script": "^1.9.3",
+    "http-server": "^0.8.0",
     "jspm": "^0.15.7",
+    "mocha": "^2.2.5",
+    "selenium-webdriver": "^2.46.1",
     "systemjs-builder": "^0.12.2"
+  },
+  "scripts": {
+    "serve": "http-server",
+    "install": "jspm install -y",
+    "test": "mocha test.js"
   }
 }
