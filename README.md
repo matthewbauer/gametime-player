@@ -9,9 +9,9 @@ Go to: [https://matthewbauer.us/gametime-player/](https://matthewbauer.us/gameti
 
 ```sh
 git clone https://github.com/matthewbauer/gametime-player.git
-npm install -g jspm
-jspm install -y
-python -m SimpleHTTPServer
+cd gametime-player
+npm install
+npm run serve
 ```
 
 ## Contributing
