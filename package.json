@@ -51,7 +51,7 @@
     "systemjs-builder": "^0.12.2"
   },
   "scripts": {
-    "serve": "http-server",
+    "start": "http-server",
     "install": "jspm install -y",
     "test": "mocha test.js",
     "build": "jspm bundle index.coffee!"
