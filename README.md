@@ -14,6 +14,8 @@ npm install
 npm start
 ```
 
+Navigate to localhost:8080
+
 ## Contributing
 
 Look at the open issues and make pull request.
