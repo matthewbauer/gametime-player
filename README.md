@@ -11,7 +11,7 @@ Go to: [https://matthewbauer.us/gametime-player/](https://matthewbauer.us/gameti
 git clone https://github.com/matthewbauer/gametime-player.git
 cd gametime-player
 npm install
-npm run serve
+npm start
 ```
 
 ## Contributing
