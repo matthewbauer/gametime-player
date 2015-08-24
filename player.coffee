@@ -12,7 +12,7 @@ module.exports = class Player
   update: false
   overscan: false
   can_dupe: true
-  latency: 180
+  latency: 90
   bufferSize: 22048
 
   constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
@@ -173,7 +173,7 @@ module.exports = class Player
       fill = @buffers[@bufIndex].length - @bufOffset
       if fill > frames
         fill = frames
-      if @bufOffset >= @bufferSize - 1000
+      if @bufOffset >= @bufferSize
         if @bufIndex >= @numBuffers - 1
           break
         if @bufIndex
