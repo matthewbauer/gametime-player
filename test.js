@@ -43,7 +43,7 @@ describe(browserName, function() {
     done()
   })
 
-  it('should have correct title', function(done) {
+  it('page has correct title', function(done) {
     browser
       .get('http://localhost:8080/')
       .title()
@@ -51,11 +51,12 @@ describe(browserName, function() {
       .nodeify(done)
   })
 
-  it('should be clickable', function(done) {
+  it('file is uploadable', function(done) {
     browser
       .get('http://localhost:8080/')
       .elementById('chooser')
       .sendKeys('./roms/Super Mario All-Stars (USA).sfc')
+      .sleep(5000)
       .nodeify(done)
   })
 })
