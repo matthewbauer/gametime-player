@@ -5,7 +5,7 @@ addons:
   sauce_connect: true
 install: npm install
 before_script:
-  - http-server
+  - http-server &
 env:
   global:
     - secure: ainRyIOqMWzs1zBGS8FhEfm21j0vPdIr6jvC0pFiDizly/AY4BAPVs+4E3pMD6UH5vq68kmZmtxuPFYOKMV1bMwsU1iXVBIqlXAOKP8GblogvhG91vXKnaC6C3ASMekJ/ggn9/lp8+9E0q8AZIo1+d7+uZKGcxkHnZAmfeZWMSM=
