@@ -13,7 +13,7 @@ module.exports = class Player
   overscan: false
   can_dupe: true
   latency: 90
-  bufferSize: 22048
+  bufferSize: 248
 
   constructor: (@gl, @audio, @inputs, @core, @game, @save) ->
     @initGL()
@@ -90,11 +90,11 @@ module.exports = class Player
 
     @gl.bufferData @gl.ARRAY_BUFFER, (new Float32Array [
       -1, -1,
-      1, -1,
-      -1, 1,
-      -1, 1,
-      1, -1,
-      1, 1
+       1, -1,
+      -1,  1,
+      -1,  1,
+       1, -1,
+       1,  1
     ]), @gl.STATIC_DRAW
     @gl.enableVertexAttribArray positionLocation
     @gl.vertexAttribPointer positionLocation, 2, @gl.FLOAT, false, 0, 0
@@ -148,15 +148,21 @@ module.exports = class Player
   video_refresh: (data, @width, @height, pitch) =>
     @gl.canvas.width = @width
     @gl.canvas.height = @height
-    @gl.viewport 0, 0, pitch / data.BYTES_PER_ELEMENT, @height
     switch @pixelFormat
-      when @core.PIXEL_FORMAT_0RGB1555
-        type = @gl.UNSIGNED_SHORT_5_5_5_1
+      when @core.PIXEL_FORMAT_XRGB8888
+        data = new Uint8Array data
+        for index, color of data
+          if color != 0 and color != 102
+            console.log color, index
+        type = @gl.UNSIGNED_BYTE
         format = @gl.RGB
+        @gl.viewport 0, 0, pitch / 4, @height
+        @gl.texImage2D @gl.TEXTURE_2D, 0, format, pitch / 4, @height, 0, format, type, new Uint8Array data
       when @core.PIXEL_FORMAT_RGB565
         format = @gl.RGB
         type = @gl.UNSIGNED_SHORT_5_6_5
-    @gl.texImage2D @gl.TEXTURE_2D, 0, format, pitch / data.BYTES_PER_ELEMENT, @height, 0, format, type, data
+        @gl.viewport 0, 0, pitch / 2, @height
+        @gl.texImage2D @gl.TEXTURE_2D, 0, format, pitch / 2, @height, 0, format, type, data
     @gl.drawArrays @gl.TRIANGLES, 0, 6
 
   audio_sample_batch: (left, right, frames) =>

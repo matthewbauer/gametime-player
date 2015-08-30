@@ -42,13 +42,15 @@
     }
   },
   "devDependencies": {
-    "chromedriver": "^2.16.0",
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
     "coffee-script": "^1.9.3",
     "http-server": "^0.8.0",
     "jspm": "^0.16.0",
+    "lodash": "^3.10.1",
     "mocha": "^2.2.5",
-    "selenium-webdriver": "^2.46.1",
-    "systemjs-builder": "^0.12.2"
+    "systemjs-builder": "^0.12.2",
+    "wd": "^0.3.12"
   },
   "scripts": {
     "start": "http-server",

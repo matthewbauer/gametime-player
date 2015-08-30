@@ -1,8 +1,9 @@
 language: node_js
 node_js:
   - "iojs"
+addons:
+  sauce_connect: true
 before_install: npm install -g grunt-cli
 install: npm install
-script: grunt build
-after_success:
-  npm run coveralls
+before_script:
+  - http-server
