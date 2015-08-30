@@ -34,6 +34,46 @@ stop = ->
 addEventListener 'beforeunload', ->
   stop() if retro.player
 
+play = (data, extension) ->
+  retro.md5 = md5 rom
+  return Promise.all([
+    System.import cores[extension]
+    # localForage.getItem retro.md5
+  ]).then ([core, save]) ->
+    retro.inputs = []
+    if navigator.getGamepads?
+      retro.inputs = navigator.getGamepads()
+    if not retro.inputs[0]
+      retro.inputs[0] = new KeyPad window,
+        9: 8
+        13: 9
+        16: 8
+        18: 1
+        32: 0
+        37: 14
+        38: 12
+        39: 15
+        40: 13
+        65: 1
+        66: 0
+        68: 15
+        73: 3
+        74: 2
+        75: 0
+        76: 1
+        82: 5
+        83: 13
+        87: 12
+        88: 3
+        89: 2
+        90: 3
+        91: 2
+        222: 8
+    retro.core = core
+    retro.game = rom if rom
+    retro.save = save if save
+    retro.start()
+
 load = (file) ->
   [..., extension] = file.name.split '.'
   if cores[extension] or extension is 'zip'
@@ -52,44 +92,7 @@ load = (file) ->
         rom = new Uint8Array reader.result
       if rom
         stop() if retro.running
-        retro.md5 = md5 rom
-        return Promise.all([
-          System.import cores[extension]
-          # localForage.getItem retro.md5
-        ]).then ([core, save]) ->
-          retro.inputs = []
-          if navigator.getGamepads?
-            retro.inputs = navigator.getGamepads()
-          if not retro.inputs[0]
-            retro.inputs[0] = new KeyPad window,
-              9: 8
-              13: 9
-              16: 8
-              18: 1
-              32: 0
-              37: 14
-              38: 12
-              39: 15
-              40: 13
-              65: 1
-              66: 0
-              68: 15
-              73: 3
-              74: 2
-              75: 0
-              76: 1
-              82: 5
-              83: 13
-              87: 12
-              88: 3
-              89: 2
-              90: 3
-              91: 2
-              222: 8
-          retro.core = core
-          retro.game = rom if rom
-          retro.save = save if save
-          retro.start()
+        play rom, extension
         , ->
           draghint.classList.remove 'hidden'
       else

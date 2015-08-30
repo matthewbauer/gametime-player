@@ -43,11 +43,19 @@ describe(browserName, function() {
     done()
   })
 
-  it('should get home page', function(done) {
+  it('should have correct title', function(done) {
     browser
       .get('http://localhost:8080/')
       .title()
       .should.become('gametime-player')
+      .nodeify(done)
+  })
+
+  it('should be clickable', function(done) {
+    browser
+      .get('http://localhost:8080/')
+      .elementById('chooser')
+      .sendKeys('./roms/Super Mario All-Stars (USA).sfc')
       .nodeify(done)
   })
 })
