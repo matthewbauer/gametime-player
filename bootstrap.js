@@ -1,1 +1,1 @@
-System.import("index.coffee!");
+System.import("index.coffee!")

@@ -56,7 +56,8 @@ describe(browserName, function() {
       .get('http://localhost:8080/')
       .elementById('chooser')
       .sendKeys('./roms/Super Mario All-Stars (USA).sfc')
-      .sleep(5000)
+      .elementsByTagName('canvas')
+      .should.exist
       .nodeify(done)
   })
 })

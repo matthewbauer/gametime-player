@@ -31,7 +31,7 @@ stop = ->
   retro.stop()
   save()
 
-addEventListener 'beforeunload', ->
+window.addEventListener 'beforeunload', ->
   stop() if retro.player
 
 play = (data, extension) ->
@@ -99,29 +99,29 @@ load = (file) ->
         draghint.classList.remove 'hidden'
     reader.readAsArrayBuffer file
 
-addEventListener 'drop', (event) ->
+window.addEventListener 'drop', (event) ->
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
     load event.dataTransfer.files[0]
   false
 
-addEventListener 'dragover', (event) ->
+window.addEventListener 'dragover', (event) ->
   event.preventDefault()
   draghint.classList.add 'hover'
   false
 
-addEventListener 'dragleave', (event) ->
+window.addEventListener 'dragleave', (event) ->
   event.preventDefault()
   draghint.classList.remove 'hover'
   false
 
-addEventListener 'click', (event) ->
+window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
     draghint.classList.add 'hover'
     chooser.click()
 
-addEventListener 'focus', () ->
+window.addEventListener 'focus', () ->
   draghint.classList.remove 'hover'
 
 chooser.addEventListener 'change', ->
