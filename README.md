@@ -16,6 +16,10 @@ and put this in your body:
 <canvas is="x-retro" src="/my-super-nintendo-rom.sfc" core="snes9x-next" autostart></canvas>
 ```
 
+## Cores supported
+
+Any [retrojs](https://github.com/matthewbauer/retrojs) compatible core should work. Right now, the built version only contains support for the snes9x-next core.
+
 ## Running locally
 
 ```sh
