@@ -10,9 +10,9 @@ PlayerElement.attachedCallback = function () {
     System.import(this.getAttribute('core')).then(function (core) {
       this.core = core
     }.bind(this)).then(function () {
-      if (this.hasAttribute('game')) {
-        return System.import(`${this.getAttribute('game')}!raw`).then(function (rom) {
-          this.game = rom
+      if (this.hasAttribute('src')) {
+        return System.import(`${this.getAttribute('src')}!raw`).then(function (rom) {
+          this.game = new Uint8Array(rom)
           if (this.hasAttribute('save')) {
             return System.import(`${this.getAttribute('save')}!raw`).then(function (save) {
               this.save = save

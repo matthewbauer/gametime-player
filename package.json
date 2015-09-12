@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/matthewbauer/gametime-player.git"
   },
-  "main": "player.js",
+  "main": "x-retro.js",
   "jspm": {
     "main": "index.coffee",
     "directories": {},
@@ -18,6 +18,7 @@
       "jszip": "github:stuk/jszip@^2.5.0",
       "keypad": "github:matthewbauer/keypad@^0.0.2",
       "nestopia": "npm:nestopia@^0.4.6",
+      "raw": "github:matthewbauer/plugin-raw@^0.3.1",
       "snes9x-next": "npm:snes9x-next@^0.4.6",
       "sparkmd5": "github:satazor/sparkmd5@^1.0.0",
       "vba-next": "npm:vba-next@^0.4.6",
