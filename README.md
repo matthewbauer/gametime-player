@@ -8,7 +8,6 @@ Add this to your head:
 
 ```html
 <script src="https://matthewbauer.us/x-retro.js"></script>
-<script src="https://matthewbauer.us/cores/snes9x-next.js"></script>
 ```
 
 and put this in your body:
