@@ -14,7 +14,7 @@ Add this to your head:
 and put this in your body:
 
 ```html
-<x-retro src="/my-super-nintendo-rom.sfc" core="snes9x-next"></x-retro>
+<canvas is="x-retro" src="/my-super-nintendo-rom.sfc" core="snes9x-next" autostart></canvas>
 ```
 
 ## Running locally
