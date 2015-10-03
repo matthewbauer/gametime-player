@@ -1,0 +1,13 @@
+{
+  "name": "GameTime Player",
+  "description": "",
+  "icons": {
+    "512": "/img/icon-512.png",
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "Matthew Bauer",
+    "url": "https://matthewbauer.us"
+  },
+  "chrome": { "navigation": false }
+}
