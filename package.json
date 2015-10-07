@@ -6,13 +6,12 @@
     "type": "git",
     "url": "https://github.com/matthewbauer/gametime-player.git"
   },
-  "main": "x-retro.js",
   "jspm": {
     "main": "index.coffee",
-    "directories": {},
     "dependencies": {
       "coffee": "github:forresto/system-coffee@^0.1.2",
       "document": "github:matthewbauer/document@^0.0.4",
+      "fetch": "github:github/fetch@^0.9.0",
       "gambatte": "npm:gambatte@^0.4.6",
       "gw": "npm:gw@^0.4.6",
       "jszip": "github:stuk/jszip@^2.5.0",
@@ -23,9 +22,13 @@
       "sparkmd5": "github:satazor/sparkmd5@^1.0.0",
       "vba-next": "npm:vba-next@^0.4.6",
       "vecx": "npm:vecx@^0.4.6",
-      "window": "github:matthewbauer/window@^0.0.3"
+      "window": "github:matthewbauer/window@^0.0.3",
+      "x-game": "github:matthewbauer/x-game@^1.1.2"
     },
     "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4",
       "traceur": "github:jmcriffey/bower-traceur@0.0.91",
       "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.91"
     },

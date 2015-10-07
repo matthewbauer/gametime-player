@@ -5,8 +5,10 @@ md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
 KeyPad = require('keypad').default
 
-Retro = require('./x-retro').default
-retro = document.createElement 'canvas', 'x-retro'
+fetch = require 'fetch'
+
+require 'x-game'
+retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
 draghint = document.getElementById 'draghint'
@@ -20,9 +22,13 @@ cores =
   sfc: 'snes9x-next'
   swc: 'snes9x-next'
   gba: 'vba-next'
-  vec: 'vecx'
-  mgw: 'gw'
   nes: 'nestopia'
+
+loadedCores =
+  gambatte: require 'gambatte'
+  'snes9x-next': require 'snes9x-next'
+  'vba-next': require 'vba-next'
+  nestopia: require 'nestopia'
 
 save = ->
   # localForage.setItem retro.md5, retro.save if retro.running
@@ -34,10 +40,10 @@ stop = ->
 window.addEventListener 'beforeunload', ->
   stop() if retro.player
 
-play = (data, extension) ->
+play = (rom, extension) ->
   retro.md5 = md5 rom
   return Promise.all([
-    System.import cores[extension]
+    loadedCores[cores[extension]]
     # localForage.getItem retro.md5
   ]).then ([core, save]) ->
     retro.inputs = []
@@ -74,30 +80,26 @@ play = (data, extension) ->
     retro.save = save if save
     retro.start()
 
-load = (file) ->
-  [..., extension] = file.name.split '.'
-  if cores[extension] or extension is 'zip'
-    draghint.classList.add 'hidden'
-    reader = new FileReader()
-    reader.addEventListener 'load', (event) ->
-      rom = null
-      if extension is 'zip'
-        zip = new JSZip reader.result
-        for file in zip.file /.*/ # any way to predict name of file?
-          [..., extension] = file.name.split '.'
-          if cores[extesion]
-            rom = new Uint8Array file.asArrayBuffer()
-            break
-      else if cores[extension]
-        rom = new Uint8Array reader.result
-      if rom
-        stop() if retro.running
-        play rom, extension
-        , ->
-          draghint.classList.remove 'hidden'
-      else
-        draghint.classList.remove 'hidden'
-    reader.readAsArrayBuffer file
+loadData = (filename, buffer) ->
+  draghint.classList.add 'hidden'
+  [..., extension] = filename.split '.'
+  rom = null
+  if extension is 'zip'
+    zip = new JSZip reader.result
+    for file in zip.file /.*/ # any way to predict name of file?
+      [..., extension] = file.name.split '.'
+      if cores[extesion]
+        rom = new Uint8Array file.asArrayBuffer()
+        break
+  else if cores[extension]
+    rom = buffer
+  if rom
+    stop() if retro.running
+    play rom, extension
+    , ->
+      draghint.classList.remove 'hidden'
+  else
+    draghint.classList.remove 'hidden'
 
 window.addEventListener 'drop', (event) ->
   event.preventDefault()
@@ -126,4 +128,16 @@ window.addEventListener 'focus', () ->
 
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
-  load this.files[0]
+  file = this.files[0]
+  reader = new FileReader()
+  reader.addEventListener 'load', (event) ->
+    loadData file.name, (new Uint8Array reader.result)
+  reader.readAsArrayBuffer file
+
+window.addEventListener 'message', (event) ->
+  message = JSON.parse event.data
+  fetch message.url
+  .then (data) ->
+    data.arrayBuffer()
+  .then (buffer) ->
+    loadData message.filename, buffer

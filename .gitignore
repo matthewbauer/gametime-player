@@ -3,3 +3,5 @@ jspm_packages
 npm-debug.log
 *.sav
 config.js
+build.js
+build.js.map
