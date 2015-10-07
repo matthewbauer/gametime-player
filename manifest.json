@@ -16,23 +16,23 @@
   "file_handlers": {
     "snes9x-next": {
       "extensions": [
-        "*.sfc",
-        "*.smc"
+        "sfc",
+        "smc"
       ]
     },
     "vba-next": {
       "extensions": [
-        "*.gba"
+        "gba"
       ]
     },
     "gambatte": {
       "extensions": [
-        "*.gb"
+        "gb"
       ]
     },
     "nestopia": {
       "extensions": [
-        "*.nes"
+        "nes"
       ]
     }
   },
@@ -42,5 +42,8 @@
       "features": ["webgl"]
     }
   },
-  "permissions": ["fileSystem"]
+  "permissions": [
+    "fileSystem",
+    "storage"
+  ]
 }

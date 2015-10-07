@@ -1,13 +1,17 @@
-function launch(file) {
-  var p = new Promise(function(resolve, reject) {
-    file.file(resolve, reject)
+function newWindow() {
+  return new Promise(function(resolve, reject) {
+    chrome.app.window.create('index.html', {}, resolve)
   })
-  return p.then(function(blob) {
-    var w = chrome.app.window.create('index.html')
-    w.contentWindow.postMessage(JSON.stringify({
-      filename: blob.name,
-      url: URL.createObjectURL(blob)
-    }), '*')
+}
+
+function launch(file) {
+  return new Promise(function(resolve, reject) {
+    file.entry.file(resolve, reject)
+  }).then(function(blob) {
+    return newWindow().then(function(w) {
+      w.contentWindow.filename = blob.name
+      w.contentWindow.url = URL.createObjectURL(blob)
+    })
   })
 }
 
@@ -15,5 +19,5 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
   if (launchData.items)
     launchData.items.forEach(launch)
   else
-    chrome.app.window.create('index.html')
+    newWindow()
 })

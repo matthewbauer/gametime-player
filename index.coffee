@@ -1,15 +1,23 @@
+draghint = document.getElementById 'draghint'
+chooser = document.getElementById 'chooser'
+
+if window.url and window.filename
+  draghint.classList.add 'hidden'
+  xhr = new XMLHttpRequest()
+  xhr.open 'GET', window.url, true
+  xhr.responseType = 'arraybuffer'
+  xhr.onload = (e) ->
+    loadData window.filename, new Uint8Array this.response if this.status == 200
+  xhr.send()
+
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
 md5 = require('sparkmd5').ArrayBuffer.hash
 JSZip = require 'jszip'
-fetch = require 'fetch'
 
 require 'x-game'
 retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
-
-draghint = document.getElementById 'draghint'
-chooser = document.getElementById 'chooser'
 
 cores =
   gb: 'gambatte'
@@ -26,13 +34,6 @@ loadedCores =
   'snes9x-next': require 'snes9x-next'
   'vba-next': require 'vba-next'
   nestopia: require 'nestopia'
-
-save = ->
-  # localForage.setItem retro.md5, retro.save if retro.running
-
-stop = ->
-  retro.stop()
-  save()
 
 keys =
   9: 8
@@ -113,6 +114,13 @@ loadData = (filename, buffer) ->
   else
     draghint.classList.remove 'hidden'
 
+load = (file) ->
+  draghint.classList.add 'hidden'
+  reader = new FileReader()
+  reader.addEventListener 'load', (event) ->
+    loadData file.name, (new Uint8Array reader.result)
+  reader.readAsArrayBuffer file
+
 window.addEventListener 'drop', (event) ->
   event.preventDefault()
   draghint.classList.remove 'hover'
@@ -140,16 +148,4 @@ window.addEventListener 'focus', () ->
 
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
-  file = this.files[0]
-  reader = new FileReader()
-  reader.addEventListener 'load', (event) ->
-    loadData file.name, (new Uint8Array reader.result)
-  reader.readAsArrayBuffer file
-
-window.addEventListener 'message', (event) ->
-  message = JSON.parse event.data
-  fetch message.url
-  .then (data) ->
-    data.arrayBuffer()
-  .then (buffer) ->
-    loadData message.filename, buffer
+  load this.files[0]
