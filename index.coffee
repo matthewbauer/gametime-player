@@ -30,12 +30,6 @@ cores =
   gba: 'vba-next'
   nes: 'nestopia'
 
-loadedCores =
-  'snes9x-next': require 'snes9x-next'
-  'vba-next': require 'vba-next'
-  gambatte: require 'gambatte'
-  nestopia: require 'nestopia'
-
 keys =
   9: 8
   13: 9
@@ -62,38 +56,10 @@ keys =
   91: 2
   222: 8
 
-getEntry = (md5) ->
-  Promise.resolve()
-  .then ->
-    new Promise (resolve, reject) ->
-      chrome.syncFileSystem.requestFileSystem resolve
-  .then (fs) ->
-    new Promise (resolve, reject) ->
-      fs.root.getFile retro.md5 + '.sav',
-        create: true
-        exclusive: false
-      , resolve, reject
-
-getSave = (md5) ->
-  getEntry(md5).then (entry) ->
-    entry.createWriter (writer) ->
-      setInterval ->
-        writer.write new Blob [new Uint8Array retro.save], type: 'application/octet-stream' if retro.save
-      , 1000
-    new Promise (resolve, reject) ->
-      entry.file resolve, reject
-    .then (file) ->
-      new Promise (resolve, reject) ->
-        reader = new FileReader()
-        reader.addEventListener 'load', (event) ->
-          resolve new Uint8Array reader.result
-        reader.readAsArrayBuffer file
-
 play = (rom, extension) ->
   retro.md5 = md5 rom
   Promise.all([
-    loadedCores[cores[extension]]
-    getSave retro.md5
+    System.import cores[extension]
   ]).then ([core, save]) ->
     retro.core = core
     retro.game = rom if rom
@@ -122,7 +88,7 @@ loadData = (filename, buffer) ->
   [..., extension] = filename.split '.'
   rom = null
   if extension is 'zip'
-    zip = new JSZip reader.result
+    zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
       [..., extension] = file.name.split '.'
       if cores[extension]
