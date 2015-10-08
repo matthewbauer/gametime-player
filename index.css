@@ -8,6 +8,7 @@ html, body, canvas {
   -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  background-color: black;
 }
 .draghint {
   display: table;
@@ -16,6 +17,7 @@ html, body, canvas {
   box-sizing: border-box;
   border-width: 10px;
   border-style: dashed;
+  background-color: white;
   border-color: #ccc;
 }
 .dragtext {
