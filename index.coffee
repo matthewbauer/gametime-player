@@ -30,9 +30,9 @@ cores =
   nes: 'nestopia'
 
 loadedCores =
-  gambatte: require 'gambatte'
   'snes9x-next': require 'snes9x-next'
   'vba-next': require 'vba-next'
+  gambatte: require 'gambatte'
   nestopia: require 'nestopia'
 
 keys =
@@ -61,36 +61,42 @@ keys =
   91: 2
   222: 8
 
+getItem = (key) ->
+  new Promise (resolve, reject) ->
+    chrome.storage.sync.get key, resolve
+
+setItem = (key, save) ->
+  new Promise (resolve, reject) ->
+    chrome.storage.sync.set
+      key: save
+    , resolve
+
 play = (rom, extension) ->
-  return Promise.all([
+  retro.md5 = md5 rom
+  Promise.all([
     loadedCores[cores[extension]]
-    # localForage.getItem retro.md5
+    getItem retro.md5
   ]).then ([core, save]) ->
-    hash = md5 rom
-    # setInterval ->
-    #   localForage.setItem hash, new Uint8Array(player.save)
-    # , 1000
+    setInterval ->
+      setItem hash, new Uint8Array player.save
+    , 1000
     retro.core = core
     retro.game = rom if rom
     retro.save = new Uint8Array save if save?
     retro.core.set_input_poll ->
       gamepads = navigator.getGamepads()
       retro.player.inputs = gamepads if gamepads[0]
-
     retro.player.inputs = [
       buttons: {}
     ]
-
     onkey = (event) ->
       if retro.player and keys.hasOwnProperty event.which
         pressed = event.type == 'keydown'
         retro.player.inputs[0].buttons[keys[event.which]] ?= {}
         retro.player.inputs[0].buttons[keys[event.which]].pressed = pressed
         event.preventDefault()
-
     window.addEventListener 'keydown', onkey
     window.addEventListener 'keyup', onkey
-
     retro.start()
 
 loadData = (filename, buffer) ->

@@ -8,7 +8,10 @@
   "name": "GPemu",
   "version": "1.0.0",
   "description": "A video game emulator for Chrome supporting NES, SNES, Gameboy, and Gameboy Advance ROMs.",
-  "icons": {},
+  "icons": {
+    "512": "icon/512.png",
+    "128": "icon/128.png"
+  },
   "author": {
     "name": "Matthew Bauer",
     "url": "https://matthewbauer.us"
