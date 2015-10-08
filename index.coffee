@@ -2,13 +2,14 @@ draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
 if window.url and window.filename
-  draghint.classList.add 'hidden'
   xhr = new XMLHttpRequest()
   xhr.open 'GET', window.url, true
   xhr.responseType = 'arraybuffer'
   xhr.onload = (e) ->
     loadData window.filename, new Uint8Array this.response if this.status == 200
   xhr.send()
+else
+  draghint.classList.remove 'hidden'
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
@@ -61,25 +62,39 @@ keys =
   91: 2
   222: 8
 
-getItem = (key) ->
-  new Promise (resolve, reject) ->
-    chrome.storage.sync.get key, resolve
+getEntry = (md5) ->
+  Promise.resolve()
+  .then ->
+    new Promise (resolve, reject) ->
+      chrome.syncFileSystem.requestFileSystem resolve
+  .then (fs) ->
+    new Promise (resolve, reject) ->
+      fs.root.getFile retro.md5 + '.sav',
+        create: true
+        exclusive: false
+      , resolve, reject
 
-setItem = (key, save) ->
-  new Promise (resolve, reject) ->
-    chrome.storage.sync.set
-      key: save
-    , resolve
+getSave = (md5) ->
+  getEntry(md5).then (entry) ->
+    entry.createWriter (writer) ->
+      setInterval ->
+        writer.write new Blob [new Uint8Array retro.save], type: 'application/octet-stream' if retro.save
+      , 1000
+    new Promise (resolve, reject) ->
+      entry.file resolve, reject
+    .then (file) ->
+      new Promise (resolve, reject) ->
+        reader = new FileReader()
+        reader.addEventListener 'load', (event) ->
+          resolve new Uint8Array reader.result
+        reader.readAsArrayBuffer file
 
 play = (rom, extension) ->
   retro.md5 = md5 rom
   Promise.all([
     loadedCores[cores[extension]]
-    getItem retro.md5
+    getSave retro.md5
   ]).then ([core, save]) ->
-    setInterval ->
-      setItem hash, new Uint8Array player.save
-    , 1000
     retro.core = core
     retro.game = rom if rom
     retro.save = new Uint8Array save if save?
@@ -98,6 +113,9 @@ play = (rom, extension) ->
     window.addEventListener 'keydown', onkey
     window.addEventListener 'keyup', onkey
     retro.start()
+  .catch (err) ->
+    console.error err
+    console.error chrome.runtime.lastError
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
