@@ -125,7 +125,7 @@ loadData = (filename, buffer) ->
     zip = new JSZip reader.result
     for file in zip.file /.*/ # any way to predict name of file?
       [..., extension] = file.name.split '.'
-      if cores[extesion]
+      if cores[extension]
         rom = new Uint8Array file.asArrayBuffer()
         break
   else if cores[extension]
