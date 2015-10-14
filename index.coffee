@@ -1,3 +1,9 @@
+sparkmd5 = require 'sparkmd5'
+JSZip = require 'jszip'
+require 'x-game'
+
+settings = require './settings.json!'
+
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
@@ -13,53 +19,13 @@ else
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
-md5 = require('sparkmd5').ArrayBuffer.hash
-JSZip = require 'jszip'
-
-require 'x-game'
 retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
-cores =
-  gb: 'gambatte'
-  gbc: 'gambatte'
-  smc: 'snes9x-next'
-  fig: 'snes9x-next'
-  sfc: 'snes9x-next'
-  swc: 'snes9x-next'
-  gba: 'vba-next'
-  nes: 'nestopia'
-
-keys =
-  9: 8
-  13: 9
-  16: 8
-  18: 1
-  32: 0
-  37: 14
-  38: 12
-  39: 15
-  40: 13
-  65: 1
-  66: 0
-  68: 15
-  73: 3
-  74: 2
-  75: 0
-  76: 1
-  82: 5
-  83: 13
-  87: 12
-  88: 3
-  89: 2
-  90: 3
-  91: 2
-  222: 8
-
 play = (rom, extension) ->
-  retro.md5 = md5 rom
+  retro.md5 = sparkmd5.ArrayBuffer.hash rom
   Promise.all([
-    System.import cores[extension]
+    System.import settings.cores[extension]
   ]).then ([core, save]) ->
     retro.core = core
     retro.game = rom if rom
@@ -71,10 +37,10 @@ play = (rom, extension) ->
       buttons: {}
     ]
     onkey = (event) ->
-      if retro.player and keys.hasOwnProperty event.which
+      if retro.player and settings.keys.hasOwnProperty event.which
         pressed = event.type == 'keydown'
-        retro.player.inputs[0].buttons[keys[event.which]] ?= {}
-        retro.player.inputs[0].buttons[keys[event.which]].pressed = pressed
+        retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
+        retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
         event.preventDefault()
     window.addEventListener 'keydown', onkey
     window.addEventListener 'keyup', onkey
@@ -91,10 +57,10 @@ loadData = (filename, buffer) ->
     zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
       [..., extension] = file.name.split '.'
-      if cores[extension]
+      if settings.cores[extension]
         rom = new Uint8Array file.asArrayBuffer()
         break
-  else if cores[extension]
+  else if settings.cores[extension]
     rom = buffer
   if rom
     stop() if retro.running
