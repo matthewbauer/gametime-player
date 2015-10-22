@@ -12,6 +12,7 @@
       "document": "github:matthewbauer/document@^0.0.4",
       "gambatte": "npm:gambatte@^0.4.6",
       "gw": "npm:gw@^0.4.6",
+      "json": "github:systemjs/plugin-json@^0.1.0",
       "jszip": "github:stuk/jszip@^2.5.0",
       "nestopia": "npm:nestopia@^0.4.6",
       "raw": "github:matthewbauer/plugin-raw@^0.3.1",

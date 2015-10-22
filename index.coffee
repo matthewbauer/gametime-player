@@ -25,7 +25,7 @@ document.body.appendChild retro
 play = (rom, extension) ->
   retro.md5 = sparkmd5.ArrayBuffer.hash rom
   Promise.all([
-    System.import settings.cores[extension]
+    System.import settings.extensions[extension]
   ]).then ([core, save]) ->
     retro.core = core
     retro.game = rom if rom
@@ -57,10 +57,10 @@ loadData = (filename, buffer) ->
     zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
       [..., extension] = file.name.split '.'
-      if settings.cores[extension]
+      if settings.extensions[extension]
         rom = new Uint8Array file.asArrayBuffer()
         break
-  else if settings.cores[extension]
+  else if settings.extensions[extension]
     rom = buffer
   if rom
     stop() if retro.running
