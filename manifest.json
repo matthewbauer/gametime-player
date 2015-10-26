@@ -46,7 +46,6 @@
     }
   },
   "permissions": [
-    "syncFileSystem",
-    "storage"
+    "syncFileSystem"
   ]
 }
