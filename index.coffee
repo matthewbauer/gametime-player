@@ -17,34 +17,63 @@ if window.url and window.filename
 else
   draghint.classList.remove 'hidden'
 
-navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
-
-retro = document.createElement 'canvas', 'x-game'
+window.retro = retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
+cores =
+  'snes9x-next': require 'snes9x-next'
+  'vba-next': require 'vba-next'
+  'nestopia': require 'nestopia'
+  'gambatte': require 'gambatte'
+
+readFile = (file) ->
+  new Promise (resolve, reject) ->
+    reader = new FileReader()
+    reader.readAsArrayBuffer file
+    reader.onload = (event) ->
+      resolve new Uint8Array reader.result
+    reader.onerror = reject
+
+readFileEntry = (entry) ->
+  new Promise (resolve, reject) ->
+    entry.file resolve, reject
+  .then (file) ->
+    readFile file
+
+getSave = (filename) ->
+  new Promise (resolve, reject) ->
+    chrome.syncFileSystem.requestFileSystem (fs) ->
+      fs.root.getFile filename, create: true, resolve, reject
+
 play = (rom, extension) ->
-  retro.md5 = sparkmd5.ArrayBuffer.hash rom
-  Promise.all([
-    System.import settings.extensions[extension]
-  ]).then ([core, save]) ->
-    retro.core = core
-    retro.game = rom if rom
-    retro.save = new Uint8Array save if save?
-    retro.core.set_input_poll ->
-      gamepads = navigator.getGamepads()
-      retro.player.inputs = gamepads if gamepads[0]
-    retro.player.inputs = [
-      buttons: {}
-    ]
-    onkey = (event) ->
-      if retro.player and settings.keys.hasOwnProperty event.which
-        pressed = event.type == 'keydown'
-        retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
-        retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
-        event.preventDefault()
-    window.addEventListener 'keydown', onkey
-    window.addEventListener 'keyup', onkey
-    retro.start()
+  getSave (sparkmd5.ArrayBuffer.hash rom) + '.sav'
+  .then (save) ->
+    Promise.all([
+      cores[settings.extensions[extension]],
+      readFileEntry save
+    ]).then ([core, data]) ->
+      retro.core = core
+      retro.game = rom if rom
+      retro.save = new Uint8Array data if data?
+      retro.core.set_input_poll ->
+        gamepads = navigator.getGamepads()
+        retro.player.inputs = gamepads if gamepads[0]
+      retro.player.inputs = [
+        buttons: {}
+      ]
+      onkey = (event) ->
+        if retro.player and settings.keys.hasOwnProperty event.which
+          pressed = event.type == 'keydown'
+          retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
+          retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
+          event.preventDefault()
+      window.addEventListener 'keydown', onkey
+      window.addEventListener 'keyup', onkey
+      save.createWriter (writer) ->
+        setInterval ->
+          writer.write new Blob [retro.save], type: 'application/octet-binary'
+        , 10000
+      retro.start()
   .catch (err) ->
     console.error err
     console.error chrome.runtime.lastError
@@ -72,10 +101,9 @@ loadData = (filename, buffer) ->
 
 load = (file) ->
   draghint.classList.add 'hidden'
-  reader = new FileReader()
-  reader.addEventListener 'load', (event) ->
-    loadData file.name, (new Uint8Array reader.result)
-  reader.readAsArrayBuffer file
+  readFile file
+  .then (buffer) ->
+    loadData file.name, buffer
 
 window.addEventListener 'drop', (event) ->
   event.preventDefault()
