@@ -43,40 +43,49 @@ readFileEntry = (entry) ->
 getSave = (filename) ->
   new Promise (resolve, reject) ->
     chrome.syncFileSystem.requestFileSystem (fs) ->
+      if chrome.runtime.lastError
+        reject chrome.runtime.lastError
+        return
       fs.root.getFile filename, create: true, resolve, reject
+
+init = (rom, extension, save) ->
+  Promise.resolve cores[settings.extensions[extension]]
+  .then (core) ->
+    retro.core = core
+    retro.game = rom if rom
+    retro.save = new Uint8Array save if save?
+    retro.core.set_input_poll ->
+      gamepads = navigator.getGamepads()
+      retro.player.inputs = gamepads if gamepads[0]
+    retro.player.inputs = [
+      buttons: {}
+    ]
+    onkey = (event) ->
+      if retro.player and settings.keys.hasOwnProperty event.which
+        pressed = event.type == 'keydown'
+        retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
+        retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
+        event.preventDefault()
+    window.addEventListener 'keydown', onkey
+    window.addEventListener 'keyup', onkey
+    retro
 
 play = (rom, extension) ->
   getSave (sparkmd5.ArrayBuffer.hash rom) + '.sav'
   .then (save) ->
-    Promise.all([
-      cores[settings.extensions[extension]],
-      readFileEntry save
-    ]).then ([core, data]) ->
-      retro.core = core
-      retro.game = rom if rom
-      retro.save = new Uint8Array data if data?
-      retro.core.set_input_poll ->
-        gamepads = navigator.getGamepads()
-        retro.player.inputs = gamepads if gamepads[0]
-      retro.player.inputs = [
-        buttons: {}
-      ]
-      onkey = (event) ->
-        if retro.player and settings.keys.hasOwnProperty event.which
-          pressed = event.type == 'keydown'
-          retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
-          retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
-          event.preventDefault()
-      window.addEventListener 'keydown', onkey
-      window.addEventListener 'keyup', onkey
-      save.createWriter (writer) ->
-        setInterval ->
-          writer.write new Blob [retro.save], type: 'application/octet-binary'
-        , 10000
-      retro.start()
+    readFileEntry save
+    .then (data) ->
+      init rom, extension, data
+      .then (retro) ->
+        save.createWriter (writer) ->
+          setInterval ->
+            writer.write new Blob [retro.save], type: 'application/octet-binary'
+          , 10000
+        retro.start()
   .catch (err) ->
-    console.error err
-    console.error chrome.runtime.lastError
+    init rom, extension
+    .then (retro) ->
+      retro.start()
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
