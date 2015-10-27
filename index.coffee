@@ -1,5 +1,6 @@
 sparkmd5 = require 'sparkmd5'
 JSZip = require 'jszip'
+localForage = require 'localforage'
 require 'x-game'
 
 settings = require './settings.json!'
@@ -26,6 +27,7 @@ play = (rom, extension) ->
   retro.md5 = sparkmd5.ArrayBuffer.hash rom
   Promise.all([
     System.import settings.extensions[extension]
+    localForage.getItem retro.md5
   ]).then ([core, save]) ->
     retro.core = core
     retro.game = rom if rom
@@ -36,6 +38,9 @@ play = (rom, extension) ->
     retro.player.inputs = [
       buttons: {}
     ]
+    setInterval ->
+      localForage.setItem retro.md5, new Uint8Array retro.save
+    , 1000
     onkey = (event) ->
       if retro.player and settings.keys.hasOwnProperty event.which
         pressed = event.type == 'keydown'

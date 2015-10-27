@@ -14,6 +14,7 @@
       "gw": "npm:gw@^0.4.6",
       "json": "github:systemjs/plugin-json@^0.1.0",
       "jszip": "github:stuk/jszip@^2.5.0",
+      "localforage": "npm:localforage@^1.2.10",
       "nestopia": "npm:nestopia@^0.4.6",
       "raw": "github:matthewbauer/plugin-raw@^0.3.1",
       "snes9x-next": "npm:snes9x-next@^0.4.6",
