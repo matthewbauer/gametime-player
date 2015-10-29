@@ -1,13 +1,4 @@
 language: node_js
 node_js:
-  - "iojs"
-addons:
-  sauce_connect: true
-install: npm install
-before_script:
-  - http-server &
-env:
-  global:
-    - secure: ainRyIOqMWzs1zBGS8FhEfm21j0vPdIr6jvC0pFiDizly/AY4BAPVs+4E3pMD6UH5vq68kmZmtxuPFYOKMV1bMwsU1iXVBIqlXAOKP8GblogvhG91vXKnaC6C3ASMekJ/ggn9/lp8+9E0q8AZIo1+d7+uZKGcxkHnZAmfeZWMSM=
-    - secure: QSnQPo+HQz/rYHA9Bi1x6Zh/ip1IcV3Vy3KDP8mQOa2IcI7enYWP9igae7NM5jDbfcu14yaqJR56zNAQClbuzt1KcxGuxuYarI0k7vrTTrAXcWnJg9g1kwS7gaDKii3n7k5PI64oVWR3xERwQNHdBTHLnMB9KVttX/fTle+2jw==
+  - "4.1"
 
