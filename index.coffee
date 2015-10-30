@@ -33,8 +33,8 @@ play = (rom, extension) ->
     retro.game = rom if rom
     retro.save = new Uint8Array save if save?
     retro.core.set_input_poll ->
-      gamepads = navigator.getGamepads()
-      retro.player.inputs = gamepads if gamepads[0]
+      gamepads = navigator.getGamepads() if navigator.getGamepads
+      retro.player.inputs = gamepads if gamepads and gamepads[0]
     retro.player.inputs = [
       buttons: {}
     ]
