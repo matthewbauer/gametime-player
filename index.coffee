@@ -52,7 +52,6 @@ play = (rom, extension) ->
     retro.start()
   .catch (err) ->
     console.error err
-    console.error chrome.runtime.lastError
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
