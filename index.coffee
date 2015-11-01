@@ -7,6 +7,12 @@ settings = require './settings.json!'
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
+service = analytics.getService 'GPEmu'
+service.getConfig().addCallback (config) ->
+  config.setTrackingPermitted true
+tracker = service.getTracker 'UA-6667993-15'
+tracker.sendAppView 'MainView'
+
 if window.url and window.filename
   xhr = new XMLHttpRequest()
   xhr.open 'GET', window.url, true
@@ -91,6 +97,7 @@ loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
   [..., extension] = filename.split '.'
   rom = null
+  tracker.sendEvent 'play', filename
   if extension is 'zip'
     zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
