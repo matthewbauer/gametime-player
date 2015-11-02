@@ -23,12 +23,29 @@ navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
+onkey = (event) ->
+  if retro.player and settings.keys.hasOwnProperty event.which
+    pressed = event.type == 'keydown'
+    retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
+    retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
+    event.preventDefault()
+
+autosaver = 0
+
+stop = ->
+  retro.stop()
+  # retro.core.deinit()
+  window.removeEventListener 'keyup', onkey
+  window.removeEventListener 'keydown', onkey
+  window.clearInterval autosaver
+
 play = (rom, extension) ->
   retro.md5 = sparkmd5.ArrayBuffer.hash rom
   Promise.all([
     System.import settings.extensions[extension]
     localForage.getItem retro.md5
   ]).then ([core, save]) ->
+    stop() if retro.running
     retro.core = core
     retro.game = rom if rom
     retro.save = new Uint8Array save if save?
@@ -38,20 +55,12 @@ play = (rom, extension) ->
     retro.player.inputs = [
       buttons: {}
     ]
-    setInterval ->
+    autosaver = setInterval ->
       localForage.setItem retro.md5, new Uint8Array retro.save
     , 1000
-    onkey = (event) ->
-      if retro.player and settings.keys.hasOwnProperty event.which
-        pressed = event.type == 'keydown'
-        retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
-        retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
-        event.preventDefault()
     window.addEventListener 'keydown', onkey
     window.addEventListener 'keyup', onkey
     retro.start()
-  .catch (err) ->
-    console.error err
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
@@ -66,12 +75,10 @@ loadData = (filename, buffer) ->
         break
   else if settings.extensions[extension]
     rom = buffer
-  if rom
-    stop() if retro.running
-    play rom, extension
-    .catch ->
-      draghint.classList.remove 'hidden'
-  else
+  play rom, extension
+  .catch (e) ->
+    console.error e
+    alert "that file couldn't be loaded"
     draghint.classList.remove 'hidden'
 
 load = (file) ->
@@ -82,6 +89,7 @@ load = (file) ->
   reader.readAsArrayBuffer file
 
 window.addEventListener 'drop', (event) ->
+  return if draghint.classList.contains 'hidden'
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
