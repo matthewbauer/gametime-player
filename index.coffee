@@ -7,7 +7,7 @@ settings = require './settings.json!'
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
-service = analytics.getService 'GPEmu'
+service = analytics.getService 'GPemu'
 service.getConfig().addCallback (config) ->
   config.setTrackingPermitted true
 tracker = service.getTracker 'UA-6667993-15'
