@@ -54,24 +54,35 @@ getSave = (filename) ->
         return
       fs.root.getFile filename, create: true, resolve, reject
 
+autosaver = 0
+
+stop = ->
+  retro.stop()
+  # retro.core.deinit()
+  window.removeEventListener 'keyup', onkey
+  window.removeEventListener 'keydown', onkey
+  window.clearInterval autosaver
+
+onkey = (event) ->
+  if retro.player and settings.keys.hasOwnProperty event.which
+    pressed = event.type == 'keydown'
+    retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
+    retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
+    event.preventDefault()
+
 init = (rom, extension, save) ->
+  stop() if retro.running
   Promise.resolve cores[settings.extensions[extension]]
   .then (core) ->
     retro.core = core
     retro.game = rom if rom
     retro.save = new Uint8Array save if save?
     retro.core.set_input_poll ->
-      gamepads = navigator.getGamepads()
-      retro.player.inputs = gamepads if gamepads[0]
+      gamepads = navigator.getGamepads() if navigator.getGamepads
+      retro.player.inputs = gamepads if gamepads and gamepads[0]
     retro.player.inputs = [
       buttons: {}
     ]
-    onkey = (event) ->
-      if retro.player and settings.keys.hasOwnProperty event.which
-        pressed = event.type == 'keydown'
-        retro.player.inputs[0].buttons[settings.keys[event.which]] ?= {}
-        retro.player.inputs[0].buttons[settings.keys[event.which]].pressed = pressed
-        event.preventDefault()
     window.addEventListener 'keydown', onkey
     window.addEventListener 'keyup', onkey
     retro
@@ -84,7 +95,7 @@ play = (rom, extension) ->
       init rom, extension, data
       .then (retro) ->
         save.createWriter (writer) ->
-          setInterval ->
+          autosaver = setInterval ->
             writer.write new Blob [retro.save], type: 'application/octet-binary'
           , 10000
         retro.start()
@@ -107,12 +118,10 @@ loadData = (filename, buffer) ->
         break
   else if settings.extensions[extension]
     rom = buffer
-  if rom
-    stop() if retro.running
-    play rom, extension
-    .catch ->
-      draghint.classList.remove 'hidden'
-  else
+  play rom, extension
+  .catch (e) ->
+    console.error e
+    alert "that file couldn't be loaded"
     draghint.classList.remove 'hidden'
 
 load = (file) ->
@@ -122,6 +131,7 @@ load = (file) ->
     loadData file.name, buffer
 
 window.addEventListener 'drop', (event) ->
+  return if draghint.classList.contains 'hidden'
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
