@@ -1,6 +1,7 @@
 sparkmd5 = require 'sparkmd5'
 JSZip = require 'jszip'
 require 'x-game'
+localForage = require 'localforage'
 
 settings = require './settings.json!'
 utils = require './utils'
@@ -50,10 +51,8 @@ readFileEntry = (entry) ->
 getSave = (filename) ->
   new Promise (resolve, reject) ->
     chrome.syncFileSystem.requestFileSystem (fs) ->
-      if chrome.runtime.lastError
-        reject chrome.runtime.lastError
-        return
       fs.root.getFile filename, create: true, resolve, reject
+    , reject
 
 autosaver = 0
 
@@ -92,21 +91,15 @@ play = (rom, extension) ->
   Promise.resolve()
   .then ->
     throw new Error 'no rom!' if not rom
-    getSave (sparkmd5.ArrayBuffer.hash rom) + '.sav'
+    retro.md5 = sparkmd5.ArrayBuffer.hash rom
+    localForage.getItem retro.md5
     .then (save) ->
-      readFileEntry save
-      .then (data) ->
-        init rom, extension, data
-        .then (retro) ->
-          save.createWriter (writer) ->
-            autosaver = setInterval ->
-              writer.write new Blob [retro.save], type: 'application/octet-binary'
-            , 10000
-          retro.start()
-  .catch (err) ->
-    init rom, extension
-    .then (retro) ->
-      retro.start()
+      init rom, extension, save
+      .then (retro) ->
+        autosaver = setInterval ->
+          localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
+        , 1000
+        retro.start()
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
@@ -125,7 +118,6 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     console.error e
-    alert "that file couldn't be loaded"
     location.reload() # hacky but a fix
 
 load = (file) ->
