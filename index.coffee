@@ -63,7 +63,7 @@ play = (rom, extension) ->
     window.addEventListener 'keyup', onkey
     retro.start()
 
-loadData = (extension, buffer) ->
+loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
   extension = utils.getExtension filename
   rom = null
