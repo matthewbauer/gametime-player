@@ -41,27 +41,30 @@ stop = ->
   window.clearInterval autosaver
 
 play = (rom, extension) ->
-  retro.md5 = sparkmd5.ArrayBuffer.hash rom
-  Promise.all([
-    System.import settings.extensions[extension]
-    localForage.getItem retro.md5
-  ]).then ([core, save]) ->
-    stop() if retro.running
-    retro.core = core
-    core.load_game rom if rom
-    core.unserialize new Uint8Array save if save?
-    core.set_input_poll ->
-      gamepads = navigator.getGamepads() if navigator.getGamepads
-      retro.player.inputs = gamepads if gamepads and gamepads[0]
-    retro.player.inputs = [
-      buttons: {}
-    ]
-    autosaver = setInterval ->
-      localForage.setItem retro.md5, new Uint8Array core.serialize()
-    , 1000
-    window.addEventListener 'keydown', onkey
-    window.addEventListener 'keyup', onkey
-    retro.start()
+  Promise.resolve()
+  .then ->
+    throw 'no rom!' if not rom
+    retro.md5 = sparkmd5.ArrayBuffer.hash rom
+    Promise.all([
+      System.import settings.extensions[extension]
+      localForage.getItem retro.md5
+    ]).then ([core, save]) ->
+      stop() if retro.running
+      retro.core = core
+      core.load_game rom if rom
+      core.unserialize new Uint8Array save if save?
+      core.set_input_poll ->
+        gamepads = navigator.getGamepads() if navigator.getGamepads
+        retro.player.inputs = gamepads if gamepads and gamepads[0]
+      retro.player.inputs = [
+        buttons: {}
+      ]
+      autosaver = setInterval ->
+        localForage.setItem retro.md5, new Uint8Array core.serialize()
+      , 1000
+      window.addEventListener 'keydown', onkey
+      window.addEventListener 'keyup', onkey
+      retro.start()
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
