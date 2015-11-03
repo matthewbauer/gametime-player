@@ -80,7 +80,7 @@ loadData = (filename, buffer) ->
   .catch (e) ->
     console.error e
     alert "that file couldn't be loaded"
-    draghint.classList.remove 'hidden'
+    location.reload() # hacky but a fix
 
 load = (file) ->
   return if not file instanceof Blob
