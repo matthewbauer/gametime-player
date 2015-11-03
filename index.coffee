@@ -4,6 +4,7 @@ localForage = require 'localforage'
 require 'x-game'
 
 settings = require './settings.json!'
+utils = require './utils'
 
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
@@ -62,15 +63,14 @@ play = (rom, extension) ->
     window.addEventListener 'keyup', onkey
     retro.start()
 
-loadData = (filename, buffer) ->
+loadData = (extension, buffer) ->
   draghint.classList.add 'hidden'
-  [..., extension] = filename.split '.'
-  extension = extension.toLowerCase()
+  extension = utils.getExtension filename
   rom = null
   if extension is 'zip'
     zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
-      [..., extension] = file.name.split '.'
+      extension = utils.getExtension file.name
       if settings.extensions[extension]
         rom = new Uint8Array file.asArrayBuffer()
         break
