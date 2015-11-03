@@ -3,6 +3,7 @@ JSZip = require 'jszip'
 require 'x-game'
 
 settings = require './settings.json!'
+utils = require './utils'
 
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
@@ -75,9 +76,9 @@ init = (rom, extension, save) ->
   Promise.resolve cores[settings.extensions[extension]]
   .then (core) ->
     retro.core = core
-    retro.game = rom if rom
-    retro.save = new Uint8Array save if save?
-    retro.core.set_input_poll ->
+    core.load_game rom if rom
+    core.unserialize new Uint8Array save if save?
+    core.set_input_poll ->
       gamepads = navigator.getGamepads() if navigator.getGamepads
       retro.player.inputs = gamepads if gamepads and gamepads[0]
     retro.player.inputs = [
@@ -106,13 +107,13 @@ play = (rom, extension) ->
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
-  [..., extension] = filename.split '.'
+  extension = utils.getExtension filename
   rom = null
   tracker.sendEvent 'play', filename
   if extension is 'zip'
     zip = new JSZip buffer
     for file in zip.file /.*/ # any way to predict name of file?
-      [..., extension] = file.name.split '.'
+      extension = utils.getExtension file.name
       if settings.extensions[extension]
         rom = new Uint8Array file.asArrayBuffer()
         break
