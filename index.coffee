@@ -65,6 +65,7 @@ play = (rom, extension) ->
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
   [..., extension] = filename.split '.'
+  extension = extension.toLowerCase()
   rom = null
   if extension is 'zip'
     zip = new JSZip buffer
