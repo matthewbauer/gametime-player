@@ -83,6 +83,7 @@ loadData = (filename, buffer) ->
     draghint.classList.remove 'hidden'
 
 load = (file) ->
+  return if not file instanceof Blob
   draghint.classList.add 'hidden'
   reader = new FileReader()
   reader.addEventListener 'load', (event) ->
