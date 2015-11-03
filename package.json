@@ -22,7 +22,7 @@
       "vba-next": "npm:vba-next@^0.8.1",
       "vecx": "npm:vecx@^0.8.1",
       "window": "github:matthewbauer/window@^0.0.3",
-      "x-game": "github:matthewbauer/x-game@^1.1.2"
+      "x-game": "github:matthewbauer/x-game@^1.2.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
