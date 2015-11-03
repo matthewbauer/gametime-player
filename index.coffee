@@ -89,17 +89,20 @@ init = (rom, extension, save) ->
     retro
 
 play = (rom, extension) ->
-  getSave (sparkmd5.ArrayBuffer.hash rom) + '.sav'
-  .then (save) ->
-    readFileEntry save
-    .then (data) ->
-      init rom, extension, data
-      .then (retro) ->
-        save.createWriter (writer) ->
-          autosaver = setInterval ->
-            writer.write new Blob [retro.save], type: 'application/octet-binary'
-          , 10000
-        retro.start()
+  Promise.resolve()
+  .then ->
+    throw new Error 'no rom!' if not rom
+    getSave (sparkmd5.ArrayBuffer.hash rom) + '.sav'
+    .then (save) ->
+      readFileEntry save
+      .then (data) ->
+        init rom, extension, data
+        .then (retro) ->
+          save.createWriter (writer) ->
+            autosaver = setInterval ->
+              writer.write new Blob [retro.save], type: 'application/octet-binary'
+            , 10000
+          retro.start()
   .catch (err) ->
     init rom, extension
     .then (retro) ->
@@ -123,9 +126,10 @@ loadData = (filename, buffer) ->
   .catch (e) ->
     console.error e
     alert "that file couldn't be loaded"
-    draghint.classList.remove 'hidden'
+    location.reload() # hacky but a fix
 
 load = (file) ->
+  return if not file instanceof Blob
   draghint.classList.add 'hidden'
   readFile file
   .then (buffer) ->
