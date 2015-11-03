@@ -47,7 +47,7 @@ play = (rom, extension) ->
   ]).then ([core, save]) ->
     stop() if retro.running
     retro.core = core
-    retro.game = rom if rom
+    retro.core.load_game rom if rom
     retro.save = new Uint8Array save if save?
     retro.core.set_input_poll ->
       gamepads = navigator.getGamepads() if navigator.getGamepads
