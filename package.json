@@ -59,6 +59,6 @@
     "start": "http-server",
     "install": "jspm install -y",
     "test": "npm run build && ava",
-    "build": "jspm bundle index.coffee!"
+    "build": "sh build.sh"
   }
 }
