@@ -16,6 +16,7 @@
       "jszip": "github:stuk/jszip@^2.5.0",
       "localforage": "npm:localforage@^1.2.10",
       "nestopia": "npm:nestopia@^0.8.1",
+      "picodrive": "npm:picodrive@^0.8.1",
       "raw": "github:matthewbauer/plugin-raw@^0.3.1",
       "snes9x-next": "npm:snes9x-next@^0.8.1",
       "sparkmd5": "github:satazor/sparkmd5@^1.0.0",

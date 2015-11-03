@@ -7,7 +7,10 @@
     "sfc": "snes9x-next",
     "swc": "snes9x-next",
     "gba": "vba-next",
-    "nes": "nestopia"
+    "nes": "nestopia",
+    "sms": "picodrive",
+    "mgw": "gw",
+    "vec": "vecx"
   },
   "keys": {
     "8": 8,
