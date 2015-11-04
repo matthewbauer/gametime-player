@@ -41,11 +41,6 @@
     }
   },
   "offline_enabled": true,
-  "requirements": {
-    "3D": {
-      "features": ["webgl"]
-    }
-  },
   "permissions": [
     "storage",
     "https://www.google-analytics.com/"
