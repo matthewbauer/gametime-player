@@ -9,6 +9,10 @@
     "gba": "vba-next",
     "nes": "nestopia",
     "sms": "picodrive",
+    "gen": "picodrive",
+    "smd": "picodrive",
+    "md": "picodrive",
+    "32x": "picodrive",
     "mgw": "gw",
     "vec": "vecx"
   },
