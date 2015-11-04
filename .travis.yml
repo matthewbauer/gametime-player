@@ -1,4 +1,6 @@
 language: node_js
 node_js:
-  - "4.1"
-
+- '4.1'
+env:
+  global:
+    secure: bwzzAwJ5EPyqav4LZZOHPwExWSsR/mKJERfL+UZ9OyWqX7Za4gnHY4c7r7XQEZ1a+holgua+AjMOyG3cYXc8uhi7E4Ga7scwVCf84rVWvzrczpS58VJqv+F55C9ora67EYhPOiiZ8NnQ8mQRlEBRWbL3UKqvGtPbKYlDuAJbR74=
