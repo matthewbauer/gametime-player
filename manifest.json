@@ -30,7 +30,8 @@
     },
     "gambatte": {
       "extensions": [
-        "gb"
+        "gb",
+        "gbc"
       ]
     },
     "nestopia": {
