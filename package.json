@@ -50,6 +50,7 @@
     "ava": "^0.3.0",
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
+    "chrome-webstore-manager": "0.0.3",
     "coffee-script": "^1.9.3",
     "http-server": "^0.8.0",
     "jspm": "^0.16.11",
