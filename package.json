@@ -1,6 +1,5 @@
 {
   "name": "gpemu",
-  "version": "1.0.8",
   "description": "A video game emulator supporting NES, SNES, Gameboy, and Gameboy Advance ROMs. Works best with external gamepad.",
   "author": "Matthew Bauer <mjbauer95@gmail.com>",
   "repository": {
