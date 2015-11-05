@@ -43,7 +43,7 @@ stop = ->
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
-    throw 'no rom!' if not rom
+    throw new Error 'no rom!' if not rom
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
     Promise.all([
       System.import settings.extensions[extension]
