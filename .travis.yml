@@ -9,7 +9,6 @@ deploy:
   skip_cleanup: true
   on:
     repo: matthewbauer/gametime-player
-    branch: chrome-release
     tags: true
 after_deploy:
 - npm run publish
