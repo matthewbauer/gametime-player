@@ -60,6 +60,7 @@
     "start": "http-server",
     "install": "jspm install -y",
     "test": "npm run build && ava",
-    "build": "sh build.sh"
+    "build": "sh build.sh",
+    "publish": "chrome-webstore-manager update $WEBSTORE_ID build.zip"
   }
 }
