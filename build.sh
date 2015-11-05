@@ -1,6 +1,7 @@
 #!/bin/sh
 
-jspm bundle index.coffee!
+jspm bundle index.coffee! build.js --minify --inject --skip-source-maps
+
 zip -r build.zip \
   index.html \
   build.js \
