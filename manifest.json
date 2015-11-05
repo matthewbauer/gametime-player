@@ -18,27 +18,23 @@
     "url": "https://matthewbauer.us"
   },
   "file_handlers": {
-    "snes9x-next": {
+    "gpemu": {
       "extensions": [
-        "sfc",
-        "smc"
-      ]
-    },
-    "vba-next": {
-      "extensions": [
-        "gba"
-      ]
-    },
-    "gambatte": {
-      "extensions": [
+        "32x",
         "gb",
-        "gbc"
-      ]
-    },
-    "nestopia": {
-      "extensions": [
-        "nes"
-      ]
+        "gba",
+        "gbc",
+        "gen",
+        "md",
+        "mgw",
+        "nes",
+        "sfc",
+        "smc",
+        "smd",
+        "sms",
+        "vec"
+      ],
+      "title": "gpemu"
     }
   },
   "offline_enabled": true,
