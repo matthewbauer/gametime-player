@@ -33,16 +33,12 @@
         "smd",
         "sms",
         "vec"
-      ],
-      "title": "gpemu"
+      ]
     }
   },
   "offline_enabled": true,
   "permissions": [
     "storage",
     "https://www.google-analytics.com/"
-  ],
-  "sandbox": {
-    "pages": ["index.html"]
-  }
+  ]
 }

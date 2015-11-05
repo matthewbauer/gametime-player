@@ -1,6 +1,6 @@
 #!/bin/sh
 
-jspm bundle index.coffee! build.js --minify --inject --skip-source-maps
+jspm bundle index.coffee! + nestopia + gambatte + snes9x-next + gw + vba-next + vecx + picodrive --inject
 
 zip -r build.zip \
   index.html \
@@ -9,13 +9,8 @@ zip -r build.zip \
   index.css \
   manifest.json \
   background.js \
+  bootstrap.js\
   icon/ \
-  jspm_packages/system.js \
+  jspm_packages/system-csp-production.js \
   'jspm_packages/github/jmcriffey/bower-traceur-runtime@0.0.91/traceur-runtime.min.js' \
-  'jspm_packages/npm/gambatte@0.8.1/' \
-  'jspm_packages/npm/snes9x-next@0.8.1/' \
-  'jspm_packages/npm/gw@0.8.1/' \
-  'jspm_packages/npm/vba-next@0.8.1/' \
-  'jspm_packages/npm/vecx@0.8.1/' \
-  'jspm_packages/npm/nestopia@0.8.1/' \
   config.js

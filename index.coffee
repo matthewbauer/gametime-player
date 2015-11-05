@@ -50,7 +50,7 @@ play = (rom, extension) ->
     throw new Error 'no rom!' if not rom
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
     Promise.all([
-      System.import cores[settings.extensions[extension]]
+      System.import settings.extensions[extension]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
       stop() if retro.running
@@ -86,7 +86,6 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     console.error e
-    location.reload() # hacky but a fix
 
 load = (file) ->
   return if not file instanceof Blob
