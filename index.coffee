@@ -25,6 +25,15 @@ if window.url and window.filename
 else
   draghint.classList.remove 'hidden'
 
+cores =
+  'snes9x-next': require 'snes9x-next'
+  'vba-next': require 'vba-next'
+  'nestopia': require 'nestopia'
+  'gambatte': require 'gambatte'
+  'gw': require 'gw'
+  'vecx': require 'vecx'
+  'picodrive': require 'picodrive'
+
 window.retro = retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
@@ -50,7 +59,7 @@ play = (rom, extension) ->
     throw new Error 'no rom!' if not rom
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
     Promise.all([
-      System.import settings.extensions[extension]
+      Promise.resolve cores[settings.extensions[extension]]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
       stop() if retro.running
