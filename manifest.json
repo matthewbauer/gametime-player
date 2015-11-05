@@ -41,5 +41,8 @@
   "permissions": [
     "storage",
     "https://www.google-analytics.com/"
-  ]
+  ],
+  "sandbox": {
+    "pages": ["index.html"]
+  }
 }
