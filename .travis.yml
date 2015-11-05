@@ -14,4 +14,5 @@ after_deploy:
 - npm run publish
 env:
   global:
+    secure: Uh7wXz1ARxmMCemrEGvXHw+7I+sKq6EBXiWp1ycniAcfmXQ78kgm8VggZxAF0kF3VUkvP+8BtzoniGOfjhxQGr5MC7GemMktP/pZ+hvYgLBdCyu9rExLOpEex21aKwnb3rw+zaF7SJbNSwWg0kOy/N3DCi9Awo3+8dnqzVQqHYI=
     secure: bwzzAwJ5EPyqav4LZZOHPwExWSsR/mKJERfL+UZ9OyWqX7Za4gnHY4c7r7XQEZ1a+holgua+AjMOyG3cYXc8uhi7E4Ga7scwVCf84rVWvzrczpS58VJqv+F55C9ora67EYhPOiiZ8NnQ8mQRlEBRWbL3UKqvGtPbKYlDuAJbR74=
