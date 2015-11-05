@@ -86,7 +86,6 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     console.error e
-    alert "that file couldn't be loaded"
     location.reload() # hacky but a fix
 
 load = (file) ->
