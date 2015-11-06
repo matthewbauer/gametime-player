@@ -13,7 +13,7 @@ service = analytics.getService 'GPemu'
 service.getConfig().addCallback (config) ->
   config.setTrackingPermitted true
 tracker = service.getTracker 'UA-6667993-15'
-tracker.sendAppView 'MainView'
+tracker.sendAppView 'drag-and-drop'
 
 if window.url and window.filename
   xhr = new XMLHttpRequest()
@@ -53,6 +53,7 @@ play = (rom, extension) ->
       System.import settings.extensions[extension]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
+      tracker.sendAppView 'play'
       stop() if retro.running
       retro.core = core
       core.load_game rom if rom
