@@ -73,6 +73,7 @@ play = (rom, extension) ->
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
+  tracker.sendEvent 'play', filename
   extension = utils.getExtension filename
   rom = null
   if extension is 'zip'
@@ -87,8 +88,10 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     console.error e
+    tracker.sendEvent 'error', e
 
 load = (file) ->
+  tracker.sendEvent 'file'
   return if not file instanceof Blob
   draghint.classList.add 'hidden'
   reader = new FileReader()
@@ -98,6 +101,7 @@ load = (file) ->
 
 window.addEventListener 'drop', (event) ->
   return if draghint.classList.contains 'hidden'
+  tracker.sendEvent 'drop'
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
