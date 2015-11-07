@@ -53,7 +53,7 @@ play = (rom, extension) ->
       System.import settings.extensions[extension]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
-      tracker.sendAppView 'play'
+      tracker.sendAppView 'play' if tracker?
       stop() if retro.running
       retro.core = core
       core.load_game rom if rom
@@ -73,7 +73,7 @@ play = (rom, extension) ->
 
 loadData = (filename, buffer) ->
   draghint.classList.add 'hidden'
-  tracker.sendEvent 'play', filename
+  tracker.sendEvent 'play', filename if tracker?
   extension = utils.getExtension filename
   rom = null
   if extension is 'zip'
@@ -88,10 +88,10 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     console.error e
-    tracker.sendEvent 'error', e
+    tracker.sendEvent 'error', e if tracker?
 
 load = (file) ->
-  tracker.sendEvent 'file'
+  tracker.sendEvent 'file' if tracker?
   return if not file instanceof Blob
   draghint.classList.add 'hidden'
   reader = new FileReader()
@@ -101,7 +101,7 @@ load = (file) ->
 
 window.addEventListener 'drop', (event) ->
   return if draghint.classList.contains 'hidden'
-  tracker.sendEvent 'drop'
+  tracker.sendEvent 'drop' if tracker?
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
