@@ -7,6 +7,7 @@ settings = require './settings.json!'
 utils = require './utils'
 
 draghint = document.getElementById 'draghint'
+loading = document.getElementById 'loading'
 
 if location.search? and location.search.substr(1)
   window.url = location.search.substr(1)
@@ -22,6 +23,7 @@ if window.url and window.filename
     loadData window.filename, new Uint8Array this.response if this.status == 200
   xhr.send()
 else
+  loading.classList.add 'hidden'
   draghint.classList.remove 'hidden'
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
@@ -57,6 +59,7 @@ play = (rom, extension) ->
       System.import settings.extensions[extension]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
+      loading.classList.add 'hidden'
       stop() if retro.running
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
@@ -92,6 +95,7 @@ loadData = (filename, buffer) ->
     rom = buffer
   play rom, extension
   .catch (e) ->
+    loading.classList.add 'hidden'
     console.error e
     alert "that file couldn't be loaded"
     location.reload() # hacky but a fix
@@ -101,11 +105,12 @@ load = (file) ->
   draghint.classList.add 'hidden'
   reader = new FileReader()
   reader.addEventListener 'load', (event) ->
-    loadData file.name, (new Uint8Array reader.result)
+    loadData file.name, new Uint8Array reader.result
   reader.readAsArrayBuffer file
 
 window.addEventListener 'drop', (event) ->
   return if draghint.classList.contains 'hidden'
+  loading.classList.remove 'hidden'
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
@@ -188,6 +193,7 @@ document.getElementById('load').addEventListener 'click', window.load
 chooser = document.getElementById 'chooser'
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
+  loading.classList.remove 'hidden'
   load this.files[0]
 window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
