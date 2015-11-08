@@ -51,6 +51,7 @@ play = (rom, extension) ->
   .then ->
     throw new Error 'no rom!' if not rom
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
+    retro.name = settings.extensions[extension]
     Promise.all([
       System.import settings.extensions[extension]
       localForage.getItem retro.md5
@@ -153,7 +154,7 @@ window.save = ->
     type: 'application/octet-binary'
   url = URL.createObjectURL blob
   a.href = url
-  a.download = retro.md5 + '.sav'
+  a.download = retro.md5 + '.' + retro.name + '.sav'
   a.click()
   URL.revokeObjectURL url
 
