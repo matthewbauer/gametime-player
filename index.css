@@ -26,8 +26,6 @@ html, body, canvas {
   font-family: 'Lora', serif;
 }
 .menu {
-  width: 50%;
-  margin: 0 auto;
   -webkit-user-select: all;
   user-select: all;
 }
