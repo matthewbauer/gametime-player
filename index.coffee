@@ -47,8 +47,6 @@ stop = ->
   window.removeEventListener 'keydown', onkey
   window.clearInterval autosaver
 
-gain = null
-
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
