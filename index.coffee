@@ -12,7 +12,9 @@ chooser = document.getElementById 'chooser'
 savechooser = document.getElementById 'savechooser'
 
 if location.search? and location.search.substr(1)
-  window.url = settings.urlPrefix + location.search.substr(1)
+  window.url = location.search.substr(1)
+  if window.url.startsWith 'http'
+    window.url = settings.urlPrefix + window.url
   [..., window.filename] = location.search.substr(1).split('/')
 
 if window.url and window.filename
