@@ -45,7 +45,7 @@ stop = ->
   # retro.core.deinit()
   window.removeEventListener 'keyup', onkey
   window.removeEventListener 'keydown', onkey
-  window.clearInterval autosaver
+  window.clearInterval autosaver if autosaver
 
 gain = null
 
@@ -73,9 +73,9 @@ play = (rom, extension) ->
         buttons: {}
       ]
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
-      autosaver = setInterval ->
-        localForage.setItem retro.md5, new Uint8Array core.serialize()
-      , 1000
+      #autosaver = setInterval ->
+      #  localForage.setItem retro.md5, new Uint8Array core.serialize()
+      #, 1000
       window.addEventListener 'keydown', onkey
       window.addEventListener 'keyup', onkey
       retro.start()
