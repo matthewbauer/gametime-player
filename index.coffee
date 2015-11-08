@@ -7,7 +7,12 @@ settings = require './settings.json!'
 utils = require './utils'
 
 draghint = document.getElementById 'draghint'
-chooser = document.getElementById 'chooser'
+
+if location.search? and location.search.substr(1)
+  window.url = location.search.substr(1)
+  if window.url.startsWith 'http'
+    window.url = settings.urlPrefix + window.url
+  [..., window.filename] = location.search.substr(1).split('/')
 
 service = analytics.getService 'GPemu'
 service.getConfig().addCallback (config) ->
@@ -44,17 +49,22 @@ stop = ->
   window.removeEventListener 'keydown', onkey
   window.clearInterval autosaver
 
+gain = null
+
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
     throw new Error 'no rom!' if not rom
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
+    retro.name = settings.extensions[extension]
     Promise.all([
       System.import settings.extensions[extension]
       localForage.getItem retro.md5
     ]).then ([core, save]) ->
       tracker.sendAppView 'play' if tracker?
       stop() if retro.running
+      document.getElementById('core-name').textContent = settings.extensions[extension]
+      document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
       core.load_game rom if rom
       core.unserialize new Uint8Array save if save?
@@ -64,6 +74,7 @@ play = (rom, extension) ->
       retro.player.inputs = [
         buttons: {}
       ]
+      document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
         localForage.setItem retro.md5, new Uint8Array core.serialize()
       , 1000
@@ -118,14 +129,69 @@ window.addEventListener 'dragleave', (event) ->
   draghint.classList.remove 'hover'
   false
 
+window.addEventListener 'focus', ->
+  draghint.classList.remove 'hover'
+
+menu = document.getElementById 'menu'
+window.addEventListener 'contextmenu', (event) ->
+  if draghint.classList.contains 'hidden'
+    if retro.classList.contains 'hidden'
+      retro.start()
+    else
+      retro.stop()
+    retro.classList.toggle 'hidden'
+    menu.classList.toggle 'hidden'
+    event.preventDefault()
+
+window.resume = ->
+  retro.classList.remove 'hidden'
+  menu.classList.add 'hidden'
+  retro.start()
+
+window.reset = ->
+  retro.stop()
+  retro.core.reset()
+  window.resume()
+
+window.mute = ->
+  if retro.player.destination.gain.value == 0
+    retro.player.destination.gain.value = 1
+    document.getElementById('mute').textContent = 'mute'
+  else
+    retro.player.destination.gain.value = 0
+    document.getElementById('mute').textContent = 'unmute'
+  window.resume()
+
+window.save = ->
+  a = document.createElement 'a'
+  document.body.appendChild a
+  a.classList.add 'hidden'
+  blob = new Blob [new Uint8Array retro.core.serialize()],
+    type: 'application/octet-binary'
+  url = URL.createObjectURL blob
+  a.href = url
+  a.download = retro.md5 + '.' + retro.name + '.sav'
+  a.click()
+  URL.revokeObjectURL url
+
+savechooser = document.getElementById 'savechooser'
+savechooser.addEventListener 'change', ->
+  file = this.files[0]
+  return if not file instanceof Blob
+  draghint.classList.add 'hidden'
+  reader = new FileReader()
+  reader.addEventListener 'load', (event) ->
+    retro.core.unserialize new Uint8Array reader.result
+    window.resume()
+  reader.readAsArrayBuffer file
+window.load = ->
+  savechooser.click()
+
+chooser = document.getElementById 'chooser'
+chooser.addEventListener 'change', ->
+  draghint.classList.remove 'hover'
+  load this.files[0]
 window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
     draghint.classList.add 'hover'
     chooser.click()
-
-window.addEventListener 'focus', () ->
-  draghint.classList.remove 'hover'
-
-chooser.addEventListener 'change', ->
-  draghint.classList.remove 'hover'
-  load this.files[0]

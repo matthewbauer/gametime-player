@@ -3,12 +3,10 @@ html, body, canvas {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  background-color: black;
 }
 .draghint {
   display: table;
@@ -27,13 +25,19 @@ html, body, canvas {
   color: #999;
   font-family: 'Lora', serif;
 }
+.menu {
+  width: 50%;
+  margin: 0 auto;
+  -webkit-user-select: all;
+  user-select: all;
+}
 .hidden {
   display: none;
 }
 .hover {
   border-color: #333;
 }
-#chooser {
+.chooser {
   position: fixed;
   top: -1000px;
 }
