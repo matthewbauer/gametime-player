@@ -140,11 +140,13 @@ window.resume = ->
   retro.classList.remove 'hidden'
   menu.classList.add 'hidden'
   retro.start()
+document.getElementById('resume').addEventListener(window.resume)
 
 window.reset = ->
   retro.stop()
   retro.core.reset()
   window.resume()
+document.getElementById('reset').addEventListener(window.reset)
 
 window.mute = ->
   if retro.player.destination.gain.value == 0
@@ -154,6 +156,7 @@ window.mute = ->
     retro.player.destination.gain.value = 0
     document.getElementById('mute').textContent = 'unmute'
   window.resume()
+document.getElementById('mute').addEventListener(window.mute)
 
 window.save = ->
   a = document.createElement 'a'
@@ -166,6 +169,7 @@ window.save = ->
   a.download = retro.md5 + '.' + retro.name + '.sav'
   a.click()
   URL.revokeObjectURL url
+document.getElementById('save').addEventListener(window.save)
 
 savechooser = document.getElementById 'savechooser'
 savechooser.addEventListener 'change', ->
@@ -179,6 +183,7 @@ savechooser.addEventListener 'change', ->
   reader.readAsArrayBuffer file
 window.load = ->
   savechooser.click()
+document.getElementById('load').addEventListener(window.load)
 
 chooser = document.getElementById 'chooser'
 chooser.addEventListener 'change', ->
