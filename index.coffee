@@ -9,6 +9,10 @@ utils = require './utils'
 draghint = document.getElementById 'draghint'
 chooser = document.getElementById 'chooser'
 
+if location.search? and location.search.substr(1)
+  window.url = settings.urlPrefix + location.search.substr(1)
+  [..., window.filename] = location.search.substr(1).split('/')
+
 if window.url and window.filename
   xhr = new XMLHttpRequest()
   xhr.open 'GET', window.url, true
