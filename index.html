@@ -13,6 +13,13 @@
       <h1>drag a game here to play</h1>
     </div>
   </div>
+  <div class="menu hidden" id="menu">
+    <div class="options">
+      <h1>Your game is paused.</h1>
+      <button class="resume" onclick="resume()">resume</button>
+      <button class="reset" onclick="reset()">reset</button>
+    </div>
+  </div>
   <script src="jspm_packages/system.js"></script>
   <script src="config.js"></script>
   <script>System.import('./index.coffee!')</script>

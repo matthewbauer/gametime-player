@@ -7,6 +7,7 @@ settings = require './settings.json!'
 utils = require './utils'
 
 draghint = document.getElementById 'draghint'
+menu = document.getElementById 'menu'
 chooser = document.getElementById 'chooser'
 
 if location.search? and location.search.substr(1)
@@ -120,8 +121,28 @@ window.addEventListener 'click', (event) ->
     draghint.classList.add 'hover'
     chooser.click()
 
-window.addEventListener 'focus', () ->
+window.addEventListener 'focus', ->
   draghint.classList.remove 'hover'
+
+window.addEventListener 'contextmenu', (event) ->
+  if draghint.classList.contains 'hidden'
+    if retro.classList.contains 'hidden'
+      retro.start()
+    else
+      retro.stop()
+    retro.classList.toggle 'hidden'
+    menu.classList.toggle 'hidden'
+    event.preventDefault()
+
+window.resume = ->
+  retro.classList.remove 'hidden'
+  menu.classList.add 'hidden'
+  retro.start()
+
+window.reset = ->
+  retro.stop()
+  retro.core.reset()
+  window.resume()
 
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
