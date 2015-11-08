@@ -9,6 +9,7 @@ utils = require './utils'
 draghint = document.getElementById 'draghint'
 menu = document.getElementById 'menu'
 chooser = document.getElementById 'chooser'
+savechooser = document.getElementById 'savechooser'
 
 if location.search? and location.search.substr(1)
   window.url = settings.urlPrefix + location.search.substr(1)
@@ -143,6 +144,31 @@ window.reset = ->
   retro.stop()
   retro.core.reset()
   window.resume()
+
+window.save = ->
+  a = document.createElement 'a'
+  document.body.appendChild a
+  a.classList.add 'hidden'
+  blob = new Blob [new Uint8Array retro.core.serialize()],
+    type: 'application/octet-binary'
+  url = URL.createObjectURL blob
+  a.href = url
+  a.download = retro.md5 + '.sav'
+  a.click()
+  URL.revokeObjectURL url
+
+window.load = ->
+  savechooser.click()
+
+savechooser.addEventListener 'change', ->
+  file = this.files[0]
+  return if not file instanceof Blob
+  draghint.classList.add 'hidden'
+  reader = new FileReader()
+  reader.addEventListener 'load', (event) ->
+    retro.core.unserialize new Uint8Array reader.result
+    window.resume()
+  reader.readAsArrayBuffer file
 
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'

@@ -8,16 +8,19 @@
 </head>
 <body>
   <div class="draghint hidden" id="draghint">
-    <input type="file" id="chooser"/>
+    <input type="file" id="chooser" class="chooser"/>
     <div class="dragtext">
       <h1>drag a game here to play</h1>
     </div>
   </div>
   <div class="menu hidden" id="menu">
+    <input type="file" id="savechooser" class="chooser"/>
     <div class="options">
       <h1>Your game is paused.</h1>
       <button class="resume" onclick="resume()">resume</button>
       <button class="reset" onclick="reset()">reset</button>
+      <button class="save" onclick="save()">save game</button>
+      <button class="load" onclick="load()">load save</button>
     </div>
   </div>
   <script src="jspm_packages/system.js"></script>
