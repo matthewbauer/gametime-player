@@ -25,7 +25,7 @@ else
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
-retro = document.createElement 'canvas', 'x-game'
+window.retro = retro = document.createElement 'canvas', 'x-game'
 document.body.appendChild retro
 
 onkey = (event) ->
