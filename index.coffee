@@ -96,7 +96,7 @@ loadData = (filename, buffer) ->
     loading.classList.add 'hidden'
     console.error e
     alert "that file couldn't be loaded"
-    location.reload() # hacky but a fix
+    location.search = ""
 
 load = (file) ->
   return if not file instanceof Blob
