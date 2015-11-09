@@ -47,6 +47,18 @@ stop = ->
   window.removeEventListener 'keydown', onkey
   window.clearInterval autosaver
 
+writeSave = (retro) ->
+  try
+    return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
+  catch error
+    console.log error
+
+loadSave = (retro) ->
+  try
+    return localForage.getItem retro.md5
+  catch error
+    console.log error
+
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
@@ -55,7 +67,7 @@ play = (rom, extension) ->
     retro.name = settings.extensions[extension]
     Promise.all([
       System.import settings.extensions[extension]
-      localForage.getItem retro.md5
+      loadSave retro
     ]).then ([core, save]) ->
       loading.classList.add 'hidden'
       stop() if retro.running
@@ -72,7 +84,7 @@ play = (rom, extension) ->
       ]
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
-        localForage.setItem retro.md5, new Uint8Array core.serialize()
+        writeSave retro
       , 1000
       window.addEventListener 'keydown', onkey
       window.addEventListener 'keyup', onkey
