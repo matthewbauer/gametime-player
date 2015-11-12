@@ -4,7 +4,7 @@ A super simple JavaScript based libretro frontend.
 
 ## Demo
 
-A running demo is available at https://matthewbauer.us/gametime-player/.
+A running demo is available at https://matthewbauer.us/gametime-player/. There's also a Chrome App (built from the chrome branch) available at https://chrome.google.com/webstore/detail/gpemu/jhficiigpnhhaojldmanflihieepanbb.
 
 ## Installing
 
