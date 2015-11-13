@@ -60,6 +60,11 @@ loadSave = (retro) ->
   catch error
     console.log error
 
+error = (e) ->
+  loading.classList.add 'hidden'
+  document.getElementById('error').classList.remove 'hidden'
+  console.error e
+
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
@@ -106,11 +111,7 @@ loadData = (filename, buffer) ->
   else if settings.extensions[extension]
     rom = buffer
   play rom, extension
-  .catch (e) ->
-    loading.classList.add 'hidden'
-    document.getElementById('error').classList.remove 'hidden'
-    localForage.setItem retro.md5, new Uint8Array() if retro.md5
-    console.error e
+  .catch error
 
 load = (file) ->
   return if not file instanceof Blob
@@ -215,3 +216,4 @@ window.addEventListener 'click', (event) ->
 window.addEventListener 'touchstart', (e) ->
   e.preventDefault()
 
+window.addEventListener 'error', error
