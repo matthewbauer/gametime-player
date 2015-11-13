@@ -41,6 +41,37 @@ onkey = (event) ->
 
 autosaver = 0
 
+createOverlay = (buttons, prefix) ->
+  buttons.forEach (button) ->
+    el = null
+    if button.src
+      el = document.createElement 'img'
+      el.setAttribute('src', prefix + button.src)
+    else
+      el = document.createElement 'div'
+    el.style['z-index'] = 1
+    el.style.position = 'absolute'
+    el.style.transform = 'translate(-50%, -50%)'
+    el.style.left = 100 * button.x + '%'
+    el.style.top = 100 * button.y + '%'
+    el.style.width = 100 * button.width + '%'
+    el.style.height = 100 * button.height + '%'
+    if button.circle
+      el.style['border-radius'] = '100%'
+    if button.id?
+      el.style['z-index'] = 2
+      press = (event) ->
+        if retro.player
+          retro.player.inputs[0].buttons[button.id] ?= {}
+          retro.player.inputs[0].buttons[button.id].pressed = (event.type == 'mousedown' || event.type == 'touchstart')
+          event.preventDefault()
+      el.addEventListener 'mousedown', press
+      el.addEventListener 'mouseup', press
+      el.addEventListener 'touchstart', press
+      el.addEventListener 'touchend', press
+      el.addEventListener 'touchcancel', press
+    document.getElementById('overlay').appendChild(el)
+
 stop = ->
   retro.stop()
   # retro.core.deinit()
@@ -74,8 +105,10 @@ play = (rom, extension) ->
     Promise.all([
       System.import settings.extensions[extension]
       loadSave retro
-    ]).then ([core, save]) ->
+      System.import settings.overlay + 'index.json!' if settings.overlay
+    ]).then ([core, save, _overlay]) ->
       stop() if retro.running
+      createOverlay _overlay, settings.overlay if _overlay?
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
@@ -89,6 +122,7 @@ play = (rom, extension) ->
       ]
       loading.classList.add 'hidden'
       retro.classList.remove 'hidden'
+      overlay.classList.remove 'hidden'
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
         writeSave retro
@@ -151,11 +185,13 @@ window.addEventListener 'contextmenu', (event) ->
     else
       retro.stop()
     retro.classList.toggle 'hidden'
+    overlay.classList.toggle 'hidden'
     menu.classList.toggle 'hidden'
     event.preventDefault()
 
 window.resume = ->
   retro.classList.remove 'hidden'
+  overlay.classList.toggle 'hidden'
   menu.classList.add 'hidden'
   retro.start()
 document.getElementById('resume').addEventListener 'click', window.resume

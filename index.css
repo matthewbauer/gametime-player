@@ -51,3 +51,6 @@ html, body, canvas {
 	top: 50%;
 	transform: translateY(-50%);
 }
+.overlay {
+  opacity: .5;
+}
