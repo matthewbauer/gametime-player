@@ -1,16 +1,7 @@
 language: node_js
 node_js:
 - '4.1'
-deploy:
-  provider: releases
-  api_key:
-    secure: Yo68kq019XP6bKVZ9gJhOcl21jSJ0B4HjVFF1ZPKPIre4mnPDhPLLivdKQaY2OoYsUwrN7ilXIh4cnZnUi/yXym0CKAnREB8H8shX3b1byuOFr+wQ7HscgXOmfGMT4va8LcnMwiGstS0ljVl65eKi1XtREz3CIX1+U7AmilxHlE=
-  file: build.zip
-  skip_cleanup: true
-  on:
-    repo: matthewbauer/gametime-player
-    tags: true
-after_deploy:
+after_success:
 - npm run publish
 env:
   global:
