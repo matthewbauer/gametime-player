@@ -34,6 +34,7 @@ else
 
 window.retro = retro = document.createElement 'canvas', 'x-retro'
 document.body.appendChild retro
+retro.classList.add 'hidden'
 
 onkey = (event) ->
   if retro.player and settings.keys.hasOwnProperty event.which
@@ -74,7 +75,6 @@ play = (rom, extension) ->
       loadSave retro
     ]).then ([core, save]) ->
       tracker.sendAppView 'play' if tracker?
-      loading.classList.add 'hidden'
       stop() if retro.running
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
@@ -87,6 +87,8 @@ play = (rom, extension) ->
       retro.player.inputs = [
         buttons: {}
       ]
+      loading.classList.add 'hidden'
+      retro.classList.remove 'hidden'
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
         writeSave retro
@@ -112,11 +114,10 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     loading.classList.add 'hidden'
+    document.getElementById('error').classList.remove 'hidden'
     localForage.setItem retro.md5, new Uint8Array() if retro.md5
     console.error e
     tracker.sendEvent 'error', e if tracker?
-    alert "that file couldn't be loaded"
-    location.search = ""
 
 load = (file) ->
   tracker.sendEvent 'file' if tracker?
