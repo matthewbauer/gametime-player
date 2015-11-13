@@ -16,3 +16,5 @@ cd gametime-player
 npm install
 npm start
 ```
+
+Then navigate to localhost:8080 in your browser (Chrome, Safari, Opera all work, FF still an issue with [#36](https://github.com/matthewbauer/gametime-player/issues/36).
