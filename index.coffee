@@ -106,6 +106,7 @@ loadData = (filename, buffer) ->
   play rom, extension
   .catch (e) ->
     loading.classList.add 'hidden'
+    localForage.setItem retro.md5, new Uint8Array()
     console.error e
     alert "that file couldn't be loaded"
     location.search = ""
