@@ -1,12 +1,13 @@
 sparkmd5 = require 'sparkmd5'
 JSZip = require 'jszip'
 localForage = require 'localforage'
-require 'x-game'
+require 'x-retro'
 
 settings = require './settings.json!'
 utils = require './utils'
 
 draghint = document.getElementById 'draghint'
+loading = document.getElementById 'loading'
 
 if location.search? and location.search.substr(1)
   window.url = location.search.substr(1)
@@ -28,9 +29,10 @@ if window.url and window.filename
     loadData window.filename, new Uint8Array this.response if this.status == 200
   xhr.send()
 else
+  loading.classList.add 'hidden'
   draghint.classList.remove 'hidden'
 
-window.retro = retro = document.createElement 'canvas', 'x-game'
+window.retro = retro = document.createElement 'canvas', 'x-retro'
 document.body.appendChild retro
 
 onkey = (event) ->
@@ -49,7 +51,17 @@ stop = ->
   window.removeEventListener 'keydown', onkey
   window.clearInterval autosaver
 
-gain = null
+writeSave = (retro) ->
+  try
+    return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
+  catch error
+    console.log error
+
+loadSave = (retro) ->
+  try
+    return localForage.getItem retro.md5
+  catch error
+    console.log error
 
 play = (rom, extension) ->
   Promise.resolve()
@@ -59,9 +71,10 @@ play = (rom, extension) ->
     retro.name = settings.extensions[extension]
     Promise.all([
       System.import settings.extensions[extension]
-      localForage.getItem retro.md5
+      loadSave retro
     ]).then ([core, save]) ->
       tracker.sendAppView 'play' if tracker?
+      loading.classList.add 'hidden'
       stop() if retro.running
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
@@ -76,7 +89,7 @@ play = (rom, extension) ->
       ]
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
-        localForage.setItem retro.md5, new Uint8Array core.serialize()
+        writeSave retro
       , 1000
       window.addEventListener 'keydown', onkey
       window.addEventListener 'keyup', onkey
@@ -98,8 +111,12 @@ loadData = (filename, buffer) ->
     rom = buffer
   play rom, extension
   .catch (e) ->
+    loading.classList.add 'hidden'
+    localForage.setItem retro.md5, new Uint8Array()
     console.error e
     tracker.sendEvent 'error', e if tracker?
+    alert "that file couldn't be loaded"
+    location.search = ""
 
 load = (file) ->
   tracker.sendEvent 'file' if tracker?
@@ -107,12 +124,13 @@ load = (file) ->
   draghint.classList.add 'hidden'
   reader = new FileReader()
   reader.addEventListener 'load', (event) ->
-    loadData file.name, (new Uint8Array reader.result)
+    loadData file.name, new Uint8Array reader.result
   reader.readAsArrayBuffer file
 
 window.addEventListener 'drop', (event) ->
   return if draghint.classList.contains 'hidden'
   tracker.sendEvent 'drop' if tracker?
+  loading.classList.remove 'hidden'
   event.preventDefault()
   draghint.classList.remove 'hover'
   if event.dataTransfer.files.length > 0
@@ -195,6 +213,7 @@ document.getElementById('load').addEventListener 'click', window.load
 chooser = document.getElementById 'chooser'
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
+  loading.classList.remove 'hidden'
   load this.files[0]
 window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'

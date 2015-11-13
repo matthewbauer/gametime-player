@@ -1,36 +1,18 @@
-# x-retro
+# gametime-player
 
-x-retro provides custom elements for retro emulators.
+A super simple JavaScript based libretro frontend.
 
-## Adding to your page
+## Demo
 
-Add this to your head:
+A running demo is available at https://matthewbauer.us/gametime-player/. There's also a Chrome App (built from the chrome branch) available at https://chrome.google.com/webstore/detail/gpemu/jhficiigpnhhaojldmanflihieepanbb.
 
-```html
-<script src="https://matthewbauer.us/x-retro.js"></script>
-```
+## Installing
 
-and put this in your body:
-
-```html
-<canvas is="x-retro" src="/my-super-nintendo-rom.sfc" core="snes9x-next" autostart></canvas>
-```
-
-## Cores supported
-
-Any [retrojs](https://github.com/matthewbauer/retrojs) compatible core should work. Right now, the built version only contains support for the snes9x-next core.
-
-## Running locally
+The easiest way requires Node and Git.
 
 ```sh
-git clone https://github.com/matthewbauer/x-retro.git
-cd x-retro
+git clone https://github.com/matthewbauer/gametime-player.git
+cd gametime-player
 npm install
 npm start
 ```
-
-Navigate to localhost:8080
-
-## Contributing
-
-Look at the open issues and make pull request.
