@@ -7,14 +7,18 @@
   <title>gametime-player</title>
 </head>
 <body>
-  <div class="draghint hidden" id="draghint">
+  <div class="draghint hidden screen" id="draghint">
     <input type="file" id="chooser" class="chooser"/>
     <div class="dragtext">
       <h1>drag a game here to play</h1>
     </div>
   </div>
-  <div id="loading" class="loading"><h1>loading...</h1></div>
-  <div class="menu hidden" id="menu">
+  <div id="loading" class="message screen"><h1>loading ...</h1></div>
+  <div id="error" class="message hidden screen">
+    <h1>error!</h1>
+    <p>quit and reopen to try again</p>
+  </div>
+  <div class="menu hidden screen" id="menu">
     <input type="file" id="savechooser" class="chooser"/>
     <div class="options">
       <h1>Your game is paused.</h1>
