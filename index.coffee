@@ -30,6 +30,7 @@ navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
 window.retro = retro = document.createElement 'canvas', 'x-retro'
 document.body.appendChild retro
+retro.classList.add 'hidden'
 
 onkey = (event) ->
   if retro.player and settings.keys.hasOwnProperty event.which

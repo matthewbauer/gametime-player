@@ -7,6 +7,7 @@ html, body, canvas {
   -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  overflow: hidden;
 }
 .draghint {
   display: table;
@@ -26,8 +27,10 @@ html, body, canvas {
   font-family: 'Lora', serif;
 }
 .menu {
-  -webkit-user-select: all;
-  user-select: all;
+  overflow: scroll;
+  height: 100%;
+  width: 256pt;
+  margin: 0 auto;
 }
 .hidden {
   display: none;
@@ -38,4 +41,7 @@ html, body, canvas {
 .chooser {
   position: fixed;
   top: -1000px;
+}
+.loading {
+  text-align: center;
 }
