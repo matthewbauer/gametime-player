@@ -18,13 +18,14 @@
       "localforage": "npm:localforage@^1.2.10",
       "nestopia": "npm:nestopia@^1.0.0",
       "picodrive": "npm:picodrive@^1.0.0",
+      "quicknes": "npm:quicknes@1.0.3",
       "raw": "github:matthewbauer/plugin-raw@^0.3.1",
       "snes9x-next": "npm:snes9x-next@^1.0.0",
       "sparkmd5": "github:satazor/sparkmd5@^1.0.0",
       "vba-next": "npm:vba-next@^1.0.0",
       "vecx": "npm:vecx@^1.0.0",
       "window": "github:matthewbauer/window@^0.0.3",
-      "x-game": "github:matthewbauer/x-game@^1.2.0"
+      "x-game": "github:matthewbauer/x-retro@^1.2.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
