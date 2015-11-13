@@ -1,7 +1,7 @@
 sparkmd5 = require 'sparkmd5'
 JSZip = require 'jszip'
 localForage = require 'localforage'
-require 'x-game'
+require 'x-retro'
 
 settings = require './settings.json!'
 utils = require './utils'
@@ -28,7 +28,7 @@ else
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
-window.retro = retro = document.createElement 'canvas', 'x-game'
+window.retro = retro = document.createElement 'canvas', 'x-retro'
 document.body.appendChild retro
 
 onkey = (event) ->
