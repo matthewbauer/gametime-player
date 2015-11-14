@@ -28,9 +28,7 @@ else
 
 navigator.serviceWorker.register 'worker.js' if navigator.serviceWorker
 
-window.retro = retro = document.createElement 'canvas', 'x-retro'
-document.body.appendChild retro
-retro.classList.add 'hidden'
+retro = null
 
 onkey = (event) ->
   if retro.player and settings.keys.hasOwnProperty event.which
@@ -100,6 +98,8 @@ play = (rom, extension) ->
   Promise.resolve()
   .then ->
     throw new Error 'no rom!' if not rom
+    window.retro = retro = document.createElement 'canvas', 'x-retro'
+    document.body.appendChild retro
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
     retro.name = settings.extensions[extension]
     Promise.all([
@@ -121,7 +121,6 @@ play = (rom, extension) ->
         buttons: {}
       ]
       loading.classList.add 'hidden'
-      retro.classList.remove 'hidden'
       overlay.classList.remove 'hidden'
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
