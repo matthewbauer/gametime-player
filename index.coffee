@@ -106,7 +106,7 @@ play = (rom, extension) ->
     Promise.all([
       System.import settings.extensions[extension]
       loadSave retro
-      System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name]
+      System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name] and 'ontouchstart' in window
     ]).then ([core, save, _overlay]) ->
       stop() if retro.running
       createOverlay _overlay, settings.overlays[retro.name] if _overlay?
