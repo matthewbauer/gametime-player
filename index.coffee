@@ -64,10 +64,11 @@ createOverlay = (buttons, prefix) ->
           retro.player.inputs[0].buttons[button.id].pressed = (event.type == 'mousedown' || event.type == 'touchstart')
           event.preventDefault()
       el.addEventListener 'mousedown', press
+      el.addEventListener 'mousemove', press
       el.addEventListener 'mouseup', press
       el.addEventListener 'touchstart', press
+      el.addEventListener 'touchmove', press
       el.addEventListener 'touchend', press
-      el.addEventListener 'touchcancel', press
     document.getElementById('overlay').appendChild(el)
 
 stop = ->
@@ -105,10 +106,10 @@ play = (rom, extension) ->
     Promise.all([
       System.import settings.extensions[extension]
       loadSave retro
-      System.import settings.overlay + 'index.json!' if settings.overlay
+      System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name]
     ]).then ([core, save, _overlay]) ->
       stop() if retro.running
-      createOverlay _overlay, settings.overlay if _overlay?
+      createOverlay _overlay, settings.overlays[retro.name] if _overlay?
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
