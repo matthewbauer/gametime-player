@@ -112,7 +112,7 @@ play = (rom, extension) ->
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
-      core.load_game rom if rom
+      retro.game = rom
       core.unserialize new Uint8Array save if save?
       core.set_input_poll ->
         gamepads = navigator.getGamepads() if navigator.getGamepads
