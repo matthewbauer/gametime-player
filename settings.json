@@ -7,7 +7,7 @@
     "sfc": "snes9x-next",
     "swc": "snes9x-next",
     "gba": "vba-next",
-    "nes": "nestopia",
+    "nes": "quicknes",
     "sms": "picodrive",
     "gen": "picodrive",
     "smd": "picodrive",
@@ -15,6 +15,12 @@
     "32x": "picodrive",
     "mgw": "gw",
     "vec": "vecx"
+  },
+  "overlays": {
+    "gambatte": "./overlays/gamepads/gameboy/",
+    "vba-next": "./overlays/gamepads/gba/",
+    "snes9x-next": "./overlays/gamepads/snes/",
+    "nestopia": "./overlays/gamepads/nes/"
   },
   "keys": {
     "8": "8",

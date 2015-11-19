@@ -32,9 +32,7 @@ else
   loading.classList.add 'hidden'
   draghint.classList.remove 'hidden'
 
-window.retro = retro = document.createElement 'canvas', 'x-retro'
-document.body.appendChild retro
-retro.classList.add 'hidden'
+retro = null
 
 onkey = (event) ->
   if retro.player and settings.keys.hasOwnProperty event.which
@@ -45,41 +43,75 @@ onkey = (event) ->
 
 autosaver = 0
 
-stop = ->
-  retro.stop()
-  # retro.core.deinit()
-  window.removeEventListener 'keyup', onkey
-  window.removeEventListener 'keydown', onkey
-  window.clearInterval autosaver
+createOverlay = (buttons, prefix) ->
+  buttons.forEach (button) ->
+    el = null
+    if button.src
+      el = document.createElement 'img'
+      el.setAttribute('src', prefix + button.src)
+    else
+      el = document.createElement 'div'
+    el.style['z-index'] = 1
+    el.style.position = 'absolute'
+    el.style.transform = 'translate(-50%, -50%)'
+    el.style.left = 100 * button.x + '%'
+    el.style.top = 100 * button.y + '%'
+    el.style.width = 100 * button.width + '%'
+    el.style.height = 100 * button.height + '%'
+    if button.circle
+      el.style['border-radius'] = '100%'
+    if button.id?
+      el.style['z-index'] = 2
+      press = (event) ->
+        if retro.player
+          retro.player.inputs[0].buttons[button.id] ?= {}
+          retro.player.inputs[0].buttons[button.id].pressed = (event.type == 'mousedown' || event.type == 'touchstart')
+          event.preventDefault()
+      el.addEventListener 'mousedown', press
+      el.addEventListener 'mousemove', press
+      el.addEventListener 'mouseup', press
+      el.addEventListener 'touchstart', press
+      el.addEventListener 'touchmove', press
+      el.addEventListener 'touchend', press
+    document.getElementById('overlay').appendChild(el)
+
+error = (e) ->
+  loading.classList.add 'hidden'
+  document.getElementById('error').classList.remove 'hidden'
+  console.error e
+  tracker.sendEvent 'error', e if tracker?
 
 writeSave = (retro) ->
   try
     return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
-  catch error
-    console.log error
+  catch err
+    error err
 
 loadSave = (retro) ->
   try
     return localForage.getItem retro.md5
-  catch error
-    console.log error
+  catch err
+    error err
 
 play = (rom, extension) ->
   Promise.resolve()
   .then ->
     throw new Error 'no rom!' if not rom
+    window.retro = retro = document.createElement 'canvas', 'x-retro'
+    document.body.appendChild retro
     retro.md5 = sparkmd5.ArrayBuffer.hash rom
     retro.name = settings.extensions[extension]
     Promise.all([
       System.import settings.extensions[extension]
       loadSave retro
-    ]).then ([core, save]) ->
+      System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name] and 'ontouchstart' in window
+    ]).then ([core, save, _overlay]) ->
       tracker.sendAppView 'play' if tracker?
-      stop() if retro.running
+      createOverlay _overlay, settings.overlays[retro.name] if _overlay?
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
-      core.load_game rom if rom
+      retro.game = rom
       core.unserialize new Uint8Array save if save?
       core.set_input_poll ->
         gamepads = navigator.getGamepads() if navigator.getGamepads
@@ -88,7 +120,7 @@ play = (rom, extension) ->
         buttons: {}
       ]
       loading.classList.add 'hidden'
-      retro.classList.remove 'hidden'
+      overlay.classList.remove 'hidden'
       document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
         writeSave retro
@@ -112,12 +144,7 @@ loadData = (filename, buffer) ->
   else if settings.extensions[extension]
     rom = buffer
   play rom, extension
-  .catch (e) ->
-    loading.classList.add 'hidden'
-    document.getElementById('error').classList.remove 'hidden'
-    localForage.setItem retro.md5, new Uint8Array() if retro.md5
-    console.error e
-    tracker.sendEvent 'error', e if tracker?
+  .catch error
 
 load = (file) ->
   tracker.sendEvent 'file' if tracker?
@@ -159,11 +186,13 @@ window.addEventListener 'contextmenu', (event) ->
     else
       retro.stop()
     retro.classList.toggle 'hidden'
+    overlay.classList.toggle 'hidden'
     menu.classList.toggle 'hidden'
     event.preventDefault()
 
 window.resume = ->
   retro.classList.remove 'hidden'
+  overlay.classList.toggle 'hidden'
   menu.classList.add 'hidden'
   retro.start()
 document.getElementById('resume').addEventListener 'click', window.resume
@@ -220,3 +249,8 @@ window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
     draghint.classList.add 'hover'
     chooser.click()
+
+window.addEventListener 'touchstart', (e) ->
+  e.preventDefault()
+
+window.addEventListener 'error', error
