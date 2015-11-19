@@ -71,29 +71,22 @@ createOverlay = (buttons, prefix) ->
       el.addEventListener 'touchend', press
     document.getElementById('overlay').appendChild(el)
 
-stop = ->
-  retro.stop()
-  # retro.core.deinit()
-  window.removeEventListener 'keyup', onkey
-  window.removeEventListener 'keydown', onkey
-  window.clearInterval autosaver
-
-writeSave = (retro) ->
-  try
-    return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
-  catch error
-    console.log error
-
-loadSave = (retro) ->
-  try
-    return localForage.getItem retro.md5
-  catch error
-    console.log error
-
 error = (e) ->
   loading.classList.add 'hidden'
   document.getElementById('error').classList.remove 'hidden'
   console.error e
+
+writeSave = (retro) ->
+  try
+    return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
+  catch err
+    error err
+
+loadSave = (retro) ->
+  try
+    return localForage.getItem retro.md5
+  catch err
+    error err
 
 play = (rom, extension) ->
   Promise.resolve()
@@ -108,7 +101,6 @@ play = (rom, extension) ->
       loadSave retro
       System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name] and 'ontouchstart' in window
     ]).then ([core, save, _overlay]) ->
-      stop() if retro.running
       createOverlay _overlay, settings.overlays[retro.name] if _overlay?
       document.getElementById('core-name').textContent = settings.extensions[extension]
       document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
