@@ -222,7 +222,6 @@ document.getElementById('mute').addEventListener 'click', window.mute
 
 window.save = ->
   tracker.sendEvent 'save' if tracker?
-    retro.player.destination.gain.value = 0
   a = document.createElement 'a'
   document.body.appendChild a
   a.classList.add 'hidden'

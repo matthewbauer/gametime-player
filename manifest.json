@@ -7,7 +7,7 @@
   "manifest_version": 2,
   "name": "GPemu",
   "short_name": "gpemu",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A video game emulator for Chrome supporting NES, SNES, Gameboy, and Gameboy Advance ROMs.",
   "icons": {
     "512": "icon/512.png",
