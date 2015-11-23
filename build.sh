@@ -1,6 +1,6 @@
 #!/bin/sh
 
-jspm bundle index.coffee! + nestopia + gambatte + snes9x-next + gw + vba-next + vecx + picodrive --inject
+jspm bundle index.coffee! + nestopia + gambatte + snes9x-next + gw + vba-next + vecx + picodrive + quicknes --inject
 
 zip -r build.zip \
   index.html \
