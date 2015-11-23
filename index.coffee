@@ -102,8 +102,6 @@ play = (rom, extension) ->
       System.import settings.overlays[retro.name] + 'index.json!' if settings.overlays[retro.name] and 'ontouchstart' in window
     ]).then ([core, save, _overlay]) ->
       createOverlay _overlay, settings.overlays[retro.name] if _overlay?
-      document.getElementById('core-name').textContent = settings.extensions[extension]
-      document.getElementById('system-info').textContent = JSON.stringify core.get_system_info(), null, '  '
       retro.core = core
       retro.game = rom
       core.unserialize new Uint8Array save if save?
@@ -115,7 +113,6 @@ play = (rom, extension) ->
       ]
       loading.classList.add 'hidden'
       overlay.classList.remove 'hidden'
-      document.getElementById('av-info').textContent = JSON.stringify retro.player.av_info, null, '  '
       autosaver = setInterval ->
         writeSave retro
       , 1000
