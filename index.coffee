@@ -168,7 +168,7 @@ window.addEventListener 'focus', ->
 
 menu = document.getElementById 'menu'
 window.addEventListener 'contextmenu', (event) ->
-  if draghint.classList.contains 'hidden'
+  if draghint.classList.contains 'hidden' and retro?
     if retro.classList.contains 'hidden'
       retro.start()
     else
