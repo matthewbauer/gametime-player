@@ -73,20 +73,35 @@ createOverlay = (buttons, prefix) ->
 
 error = (e) ->
   loading.classList.add 'hidden'
+  alert 'Sorry, an error occured. If this happened while loading, you may have a corrupted file'
+  draghint.classList.remove 'hidden'
+  # document.getElementById('error').classList.remove 'hidden'
+  console.error e
+
+play_error = (e) ->
+  loading.classList.add 'hidden'
   document.getElementById('error').classList.remove 'hidden'
+  if retro?
+    document.getElementById('clear-save').classList.remove 'hidden'
   console.error e
 
 writeSave = (retro) ->
   try
     return localForage.setItem retro.md5, new Uint8Array retro.core.serialize()
   catch err
-    error err
+    console.error err
 
 loadSave = (retro) ->
   try
     return localForage.getItem retro.md5
   catch err
-    error err
+    console.error err
+
+window.removeSave = () ->
+  try
+    return localForage.removeItem window.retro.md5
+  catch err
+    console.error err
 
 play = (rom, extension) ->
   Promise.resolve()
@@ -134,7 +149,7 @@ loadData = (filename, buffer) ->
   else if settings.extensions[extension]
     rom = buffer
   play rom, extension
-  .catch error
+  .catch play_error
 
 load = (file) ->
   return if not file instanceof Blob
@@ -168,7 +183,7 @@ window.addEventListener 'focus', ->
 
 menu = document.getElementById 'menu'
 window.addEventListener 'contextmenu', (event) ->
-  if draghint.classList.contains 'hidden' and retro?
+  if retro?
     if retro.classList.contains 'hidden'
       retro.start()
     else
@@ -183,13 +198,11 @@ window.resume = ->
   overlay.classList.toggle 'hidden'
   menu.classList.add 'hidden'
   retro.start()
-document.getElementById('resume').addEventListener 'click', window.resume
 
 window.reset = ->
   retro.stop()
   retro.core.reset()
   window.resume()
-document.getElementById('reset').addEventListener 'click', window.reset
 
 window.mute = ->
   if retro.player.destination.gain.value == 0
@@ -199,7 +212,6 @@ window.mute = ->
     retro.player.destination.gain.value = 0
     document.getElementById('mute').textContent = 'unmute'
   window.resume()
-document.getElementById('mute').addEventListener 'click', window.mute
 
 window.save = ->
   a = document.createElement 'a'
@@ -212,7 +224,6 @@ window.save = ->
   a.download = retro.md5 + '.' + retro.name + '.sav'
   a.click()
   URL.revokeObjectURL url
-document.getElementById('save').addEventListener 'click', window.save
 
 savechooser = document.getElementById 'savechooser'
 savechooser.addEventListener 'change', ->
@@ -224,15 +235,16 @@ savechooser.addEventListener 'change', ->
     retro.core.unserialize new Uint8Array reader.result
     window.resume()
   reader.readAsArrayBuffer file
+
 window.load = ->
   savechooser.click()
-document.getElementById('load').addEventListener 'click', window.load
 
 chooser = document.getElementById 'chooser'
 chooser.addEventListener 'change', ->
   draghint.classList.remove 'hover'
   loading.classList.remove 'hidden'
   load this.files[0]
+
 window.addEventListener 'click', (event) ->
   if not draghint.classList.contains 'hidden'
     draghint.classList.add 'hover'

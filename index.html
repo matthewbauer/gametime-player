@@ -1,53 +1,59 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="index.css">
-  <title>gametime-player</title>
-</head>
-<body>
-  <div class="draghint hidden screen" id="draghint">
-    <input type="file" id="chooser" class="chooser"/>
-    <div class="dragtext">
-      <h1>drag a game here to play</h1>
-    </div>
-  </div>
-  <div id="loading" class="message screen"><h1>loading ...</h1></div>
-  <div id="error" class="message hidden screen">
-    <h1>error!</h1>
-    <p>quit and reopen to try again</p>
-  </div>
-  <div id="overlay" class="overlay"></div>
-  <div class="menu hidden screen" id="menu">
-    <input type="file" id="savechooser" class="chooser"/>
-    <div class="options">
-      <h1>Your game is paused.</h1>
-      <button id="resume" class="resume">resume</button>
-      <button id="reset" class="reset">reset</button>
-      <button id="save" class="save">save game</button>
-      <button id="load" class="load">load save</button>
-      <button id="mute" class="mute">mute</button>
-    </div>
-    <div>
-      <h1>Controls:</h1>
-      <div>A button = A key</div>
-      <div>B button = B key</div>
-      <div>X button = X key</div>
-      <div>Y button = Y key</div>
-      <div>L button = L key</div>
-      <div>R button = R key</div>
-      <div>D-pad = arrow keys</div>
-    </div>
-    <div>
-      <h1>Core Info:</h1>
-      <pre id="core-name"></pre>
-      <pre id="system-info"></pre>
-      <pre id="av-info"></pre>
-    </div>
-  </div>
-  <script src="jspm_packages/system.js"></script>
-  <script src="config.js"></script>
-  <script>System.import('./index.coffee!')</script>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+        <title>gametime-player</title>
+    </head>
+    <body>
+        <div class="draghint hidden screen" id="draghint">
+            <input type="file" id="chooser" class="chooser"/>
+            <div class="dragtext">
+                <h1>drag a game here to play</h1>
+            </div>
+        </div>
+        <div id="loading" class="message screen"><h1>loading ...</h1></div>
+        <div id="error" class="message hidden screen">
+            <h1>error!</h1>
+            <div id="clear-save" class="hidden">
+                <p>This could be caused by a corrupted save file. This button
+                will allow you to reset your save. Sadly you will not be able to
+                recover it.</p>
+                <button onclick="removeSave(); reset()">Delete save for this game</button>
+            </div>
+        </div>
+        <div id="overlay" class="overlay"></div>
+        <div class="menu hidden screen" id="menu">
+            <input type="file" id="savechooser" class="chooser"/>
+            <div class="options">
+                <h1>Your game is paused.</h1>
+                <button onclick="resume()">resume</button>
+                <button onclick="reset()">reset</button>
+                <button onclick="save()">save game</button>
+                <button onclick="load()">load save</button>
+                <button onclick="removeSave(); reset()">delete save</button>
+                <button onclick="mute()">mute</button>
+            </div>
+            <div>
+                <h1>Controls:</h1>
+                <div>A button = A key</div>
+                <div>B button = B key</div>
+                <div>X button = X key</div>
+                <div>Y button = Y key</div>
+                <div>L button = L key</div>
+                <div>R button = R key</div>
+                <div>D-pad = arrow keys</div>
+            </div>
+            <div>
+                <h1>Core Info:</h1>
+                <pre id="core-name"></pre>
+                <pre id="system-info"></pre>
+                <pre id="av-info"></pre>
+            </div>
+        </div>
+        <script src="jspm_packages/system.js"></script>
+        <script src="config.js"></script>
+        <script>System.import('./index.coffee!')</script>
+    </body>
 </html>

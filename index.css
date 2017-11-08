@@ -28,10 +28,7 @@ html, body, canvas {
   color: #999;
 }
 .menu {
-  overflow: scroll;
-  height: 100%;
-  width: 256pt;
-  margin: 0 auto;
+  margin: 2em;
 }
 .hidden {
   display: none;
@@ -48,8 +45,8 @@ html, body, canvas {
 }
 .message h1, .message p {
   position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
 }
 .overlay {
   opacity: .5;
