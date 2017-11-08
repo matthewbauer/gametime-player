@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test - web-audio-api-shim</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.2.5/mocha.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mocha/2.2.5/mocha.min.js"></script>
+    <script>
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      window.OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+
+      window.onload = function() {
+        document.getElementById("ua").innerHTML = window.navigator.userAgent;
+        mocha.run();
+      };
+      mocha.setup("bdd");
+    </script>
+  </head>
+  <body>
+    <div id="mocha">
+      <h1>web-audio-api</h1>
+      <h2 id="ua" style="font-size:0.6em"></h2>
+    </div>
+    <script>
+
+    function detect(test, caption) {
+      caption = caption || "implemented";
+
+      if (test()) {
+        it(caption, function() {});
+      } else {
+        it.skip("NOT " + caption, function() {});
+      }
+    }
+
+    describe("AnalyserNode.prototype.getFloatTimeDomainData", function() {
+      detect(function() {
+        return AnalyserNode.prototype.hasOwnProperty("getFloatTimeDomainData");
+      });
+    });
+
+    describe("AudioBuffer.prototype.copyFromChannel", function() {
+      detect(function() {
+        return AudioBuffer.prototype.hasOwnProperty("copyFromChannel")
+      });
+    });
+
+    describe("AudioBuffer.prototype.copyToChannel", function() {
+      detect(function() {
+        return AudioBuffer.prototype.hasOwnProperty("copyToChannel");
+      });
+    });
+
+    describe("AudioContext.prototype.createAudioWorker", function() {
+      detect(function() {
+        return AudioContext.prototype.hasOwnProperty("createAudioWorker");
+      });
+    });
+
+    describe("AudioContext.prototype.createStereoPanner", function() {
+      detect(function() {
+        return AudioContext.prototype.hasOwnProperty("createStereoPanner");
+      });
+    });
+
+    describe("AudioContext.prototype.decodeAudioData", function() {
+      detect(function() {
+        var audioContext = new OfflineAudioContext(1, 1, 44100);
+        var isPromiseBased = false;
+
+        try {
+          isPromiseBased = !!audioContext.decodeAudioData(new Uint8Array(0).buffer, function() {});
+        } catch (e) {}
+
+        return isPromiseBased;
+      }, "promise-based");
+    });
+
+    describe("AudioContext.prototype.close", function() {
+      detect(function() {
+        return AudioContext.prototype.hasOwnProperty("close");
+      });
+    });
+
+    describe("AudioContext.prototype.suspend", function() {
+      detect(function() {
+        return AudioContext.prototype.hasOwnProperty("suspend");
+      });
+    });
+
+    describe("AudioContext.prototype.resume", function() {
+      detect(function() {
+        return AudioContext.prototype.hasOwnProperty("resume");
+      });
+    });
+
+    describe("OfflineAudioContext.prototype.startRendering", function() {
+      detect(function() {
+        var audioContext = new OfflineAudioContext(1, 1, 44100);
+        var isPromiseBased = false;
+
+        try {
+          isPromiseBased = !!audioContext.startRendering();
+        } catch (e) {}
+
+        return isPromiseBased;
+      }, "promise-based");
+    });
+
+    describe("AudioNode.prototype.disconnect", function() {
+      detect(function() {
+        var audioContext = new OfflineAudioContext(1, 1, 44100);
+        var isSelectiveDisconnection = false;
+
+        try {
+          audioContext.createGain().disconnect(audioContext.destination);
+        } catch (e) {
+          isSelectiveDisconnection = true;
+        }
+
+        return isSelectiveDisconnection;
+      }, "selective disconnection");
+    });
+    </script>
+  </body>
+</html>

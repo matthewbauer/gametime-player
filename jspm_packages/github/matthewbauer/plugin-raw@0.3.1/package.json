@@ -1,0 +1,15 @@
+{
+  "main": "raw.js",
+  "registry": "jspm",
+  "devDependencies": {
+    "chai": "npm:chai@^3.0.0",
+    "mocha": "npm:mocha@^2.2.5"
+  },
+  "dependencies": {
+    "fetch": "github:github/fetch@^0.9.0",
+    "fs": "github:jspm/nodelibs-fs@^0.1.2"
+  },
+  "scripts": {
+    "test": "mocha --compilers babel:babel/register test.js"
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test - web-audio-api-shim</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.2.5/mocha.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mocha/2.2.5/mocha.min.js"></script>
+    <script src="../build/web-audio-api-shim.js"></script>
+    <script>
+      window.global = window;
+      window.require = function() {};
+      window.onload = function() {
+        var ua = window.navigator.userAgent;
+        document.getElementById("ua").innerHTML = ua;
+        document.getElementById("test").onclick = function(e) {
+          e.target.style.display = "none";
+          mocha.run();
+        };
+        if (!/i(Phone|Pad|Pod)/.test(ua)) {
+          document.getElementById("test").click();
+        }
+      };
+      mocha.setup("bdd");
+    </script>
+  </head>
+  <body>
+    <div id="mocha">
+      <h1>web-audio-api-shim</h1>
+      <h2 id="ua" style="font-size:0.6em"></h2>
+      <button id="test">Start Test</button>
+    </div>
+    <script src="bootstrap.js"></script>
+    <script src="AnalyserNode/getFloatTimeDomainData.js"></script>
+    <script src="AudioBuffer/copyFromChannel.js"></script>
+    <script src="AudioBuffer/copyToChannel.js"></script>
+    <script src="AudioContext/createAudioWorker.js"></script>
+    <script src="AudioContext/createStereoPanner.js"></script>
+    <script src="AudioContext/decodeAudioData.js"></script>
+    <script src="AudioContext/close.js"></script>
+    <script src="AudioContext/resume.js"></script>
+    <script src="AudioContext/suspend.js"></script>
+    <script src="OfflineAudioContext/startRendering.js"></script>
+    <script src="AudioNode/disconnect.js"></script>
+  </body>
+</html>

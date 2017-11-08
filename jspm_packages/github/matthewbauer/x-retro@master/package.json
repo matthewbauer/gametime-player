@@ -1,0 +1,71 @@
+{
+  "name": "x-retro",
+  "version": "1.0.0",
+  "description": "<x-retro></x-retro> - a libretro element for the web",
+  "author": "Matthew Bauer <mjbauer95@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewbauer/x-retro.git"
+  },
+  "main": "build.js",
+  "jspm": {
+    "main": "x-retro.js",
+    "dependencies": {
+      "coffee": "github:forresto/system-coffee@master",
+      "document": "github:matthewbauer/document@^0.0.4",
+      "gambatte": "npm:gambatte@^0.4.6",
+      "gw": "npm:gw@^0.4.6",
+      "jszip": "github:stuk/jszip@^2.5.0",
+      "keypad": "github:matthewbauer/keypad@^0.0.2",
+      "nestopia": "npm:nestopia@^0.4.6",
+      "raw": "github:matthewbauer/plugin-raw@^0.3.1",
+      "snes9x-next": "npm:snes9x-next@^0.4.6",
+      "sparkmd5": "github:satazor/js-spark-md5@^1.0.0",
+      "vba-next": "npm:vba-next@^0.4.6",
+      "vecx": "npm:vecx@^0.4.6",
+      "window": "github:matthewbauer/window@^0.0.3"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.93",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.93"
+    },
+    "buildConfig": {
+      "transpileES6": true,
+      "minify": true
+    },
+    "overrides": {
+      "github:stuk/jszip@2.5.0": {
+        "main": "dist/jszip.js"
+      },
+      "github:mohayonao/web-audio-api-shim@0.3.0": {
+        "main": "build/web-audio-api-shim.js",
+        "format": "global"
+      },
+      "github:webcomponents/webcomponentsjs@0.7.10": {
+        "main": "webcomponents-lite.js"
+      }
+    }
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "coffee-script": "^1.9.3",
+    "html-inline": "^1.1.1",
+    "html-minifier": "^0.7.2",
+    "http-server": "^0.8.0",
+    "jspm": "^0.16.0",
+    "lodash": "^3.10.1",
+    "mocha": "^2.2.5",
+    "selenium-webdriver": "^2.46.1",
+    "systemjs-builder": "^0.12.2",
+    "wd": "^0.3.12"
+  },
+  "scripts": {
+    "start": "http-server",
+    "install": "jspm install -y",
+    "build": "sh ./build.sh"
+  },
+  "keywords": [
+    "web-components"
+  ]
+}

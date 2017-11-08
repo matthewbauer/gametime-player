@@ -1,0 +1,26 @@
+/* */ 
+var types = require('./lib/types');
+require('./def/core');
+require('./def/es6');
+require('./def/es7');
+require('./def/mozilla');
+require('./def/e4x');
+require('./def/fb-harmony');
+require('./def/esprima');
+require('./def/babel');
+types.finalize();
+exports.Type = types.Type;
+exports.builtInTypes = types.builtInTypes;
+exports.namedTypes = types.namedTypes;
+exports.builders = types.builders;
+exports.defineMethod = types.defineMethod;
+exports.getFieldNames = types.getFieldNames;
+exports.getFieldValue = types.getFieldValue;
+exports.eachField = types.eachField;
+exports.someField = types.someField;
+exports.getSupertypeNames = types.getSupertypeNames;
+exports.astNodesAreEquivalent = require('./lib/equiv');
+exports.finalize = types.finalize;
+exports.NodePath = require('./lib/node-path');
+exports.PathVisitor = require('./lib/path-visitor');
+exports.visit = exports.PathVisitor.visit;

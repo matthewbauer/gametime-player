@@ -1,0 +1,178 @@
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:1:21: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:1:28: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:1:45: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:1:50: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:2:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:2:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:3:12: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:3:17: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:4:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:4:16: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:4:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:5:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:5:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:5:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:6:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:6:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:6:28: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:6:33: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:7:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:7:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:7:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:811:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:811:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:811:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/indexeddb.js:811:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:6:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:6:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:6:28: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:6:33: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:7:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:7:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:7:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:8:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:8:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:8:16: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:8:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:9:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:9:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:9:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:9:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:10:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:10:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:10:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:10:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:284:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:284:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:284:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/localstorage.js:284:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:1:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:2:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:2:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:3:16: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:3:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:4:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:4:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:4:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:5:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:5:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:5:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:355:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:355:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:355:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/drivers/websql.js:355:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:1:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:1:23: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:2:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:2:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:3:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:3:32: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:4:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:4:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:4:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:5:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:5:16: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:5:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:6:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:6:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:6:28: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:6:33: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:7:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:7:16: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:7:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:354:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:354:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:354:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/localforage.js:354:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/createBlob.js:29:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/createBlob.js:29:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/createBlob.js:29:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/createBlob.js:29:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeCallback.js:11:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeCallback.js:11:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeCallback.js:11:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeCallback.js:11:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeTwoCallbacks.js:11:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeTwoCallbacks.js:11:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeTwoCallbacks.js:11:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/executeTwoCallbacks.js:11:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/idb.js:25:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/idb.js:25:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/idb.js:25:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/idb.js:25:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isArray.js:5:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isArray.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isArray.js:5:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isArray.js:5:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:1:12: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:1:17: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:36:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:36:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:36:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isIndexedDBValid.js:36:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isLocalStorageValid.js:11:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isLocalStorageValid.js:11:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isLocalStorageValid.js:11:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isLocalStorageValid.js:11:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isWebSQLValid.js:5:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isWebSQLValid.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isWebSQLValid.js:5:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/isWebSQLValid.js:5:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/normalizeKey.js:1:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/normalizeKey.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/normalizeKey.js:1:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/normalizeKey.js:1:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/promise.js:8:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/promise.js:8:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/promise.js:8:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/promise.js:8:16: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:2:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:2:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:235:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:235:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:235:8: Unexpected reserved word default
+/Users/mbauer/.jspm/packages/npm/localforage@1.5.3/src/utils/serializer.js:235:16: Semi-colon expected

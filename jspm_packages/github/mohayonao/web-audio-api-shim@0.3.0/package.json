@@ -1,0 +1,57 @@
+{
+  "name": "@mohayonao/web-audio-api-shim",
+  "description": "shim for legacy Web Audio API",
+  "version": "0.3.0",
+  "author": "Nao Yonamine <mohayonao@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/mohayonao/web-audio-api-shim/issues"
+  },
+  "dependencies": {
+    "stereo-panner-node": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "babel-eslint": "^3.1.19",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "eslint": "^0.24.0",
+    "karma": "^0.12.37",
+    "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "mocha": "^2.2.5",
+    "uglify-js": "^2.4.23"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "index.js",
+    "light.js",
+    "lib"
+  ],
+  "homepage": "https://github.com/mohayonao/web-audio-api-shim/",
+  "keywords": [
+    "webaudioapi"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohayonao/web-audio-api-shim.git"
+  },
+  "scripts": {
+    "build": "npm run build-to5 && npm run build-browser && npm run build-minify",
+    "build-browser": "npm run build-browser-full && npm run build-browser-light",
+    "build-browser-full": "browserify index.js --outfile build/web-audio-api-shim.js",
+    "build-browser-light": "browserify light.js --outfile build/web-audio-api-shim-light.js",
+    "build-minify": "npm run build-minify-full && npm run build-minify-light",
+    "build-minify-full": "uglifyjs build/web-audio-api-shim.js -m -r self -o build/web-audio-api-shim.min.js",
+    "build-minify-light": "uglifyjs build/web-audio-api-shim-light.js -m -r self -o build/web-audio-api-shim-light.min.js",
+    "build-to5": "babel src --out-dir lib",
+    "lint": "eslint src test",
+    "prepublish": "rm -rf lib && npm run lint && npm run test && npm run build",
+    "test": "karma start",
+    "travis": "npm run lint && npm run test"
+  }
+}

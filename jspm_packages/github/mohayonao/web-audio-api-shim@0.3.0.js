@@ -1,0 +1,1 @@
+module.exports = require("github:mohayonao/web-audio-api-shim@0.3.0/build/web-audio-api-shim.js");

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mocha Unit Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="jspm_packages/npm/mocha@2.2.5/mocha.css" />
+    <script src="jspm_packages/npm/mocha@2.2.5/mocha.js"></script>
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      mocha.setup("bdd")
+      System.import("test").then(function (){
+        mocha.run()
+      })
+    </script>
+  </body>
+</html>

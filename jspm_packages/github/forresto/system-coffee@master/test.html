@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SystemJS-CoffeeScript plugin test</title>
+  <script src="jspm_packages/system.js"></script>
+  <script>
+    System.import('./test.coffee!')
+      .then(function (test) {
+        var t = new test('Test');
+        document.body.innerHTML += t.go(3);
+      })
+      .catch(function (err) {
+        console.log('ERROR: ', err);
+      });
+  </script>
+</head>
+<body>
+  Wait for it... 
+</body>
+</html>

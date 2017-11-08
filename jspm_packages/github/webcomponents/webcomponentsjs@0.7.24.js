@@ -1,0 +1,1 @@
+module.exports = require("github:webcomponents/webcomponentsjs@0.7.24/webcomponents-lite.js");

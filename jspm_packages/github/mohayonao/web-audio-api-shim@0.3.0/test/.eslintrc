@@ -1,0 +1,26 @@
+{
+  "parser": "",
+
+  "rules": {
+    // best practice
+    "dot-notation": 0,
+
+    // strict mode
+    "no-extra-strict": 0, // ??
+    "strict": [ 2, "function" ],
+
+    // es6
+    "no-var": 0,
+  },
+
+  "globals": {
+    "describe": true,
+    "it": true,
+    "before": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "after": true,
+    "assert": true,
+    "audioContext": true
+  }
+}

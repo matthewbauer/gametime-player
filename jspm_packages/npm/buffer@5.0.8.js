@@ -1,0 +1,1 @@
+module.exports = require("npm:buffer@5.0.8/index.js");

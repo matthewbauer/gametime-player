@@ -1,0 +1,20 @@
+{
+  "name": "esmangle-evaluator",
+  "version": "1.0.1",
+  "description": "esmangle-evaluator",
+  "keywords": [
+    "ast",
+    "esmangle"
+  ],
+  "homepage": "https://github.com/zertosh/esmangle-evaluator",
+  "license": "MIT",
+  "author": "Andres Suarez <zertosh@gmail.com>",
+  "main": "evaluator.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zertosh/esmangle-evaluator.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,21 @@
+{
+  "name": "x-game",
+  "main": "build.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/matthewbauer/x-game",
+  "authors": [
+    "Matthew Justin Bauer <mjbauer95@gmail.com>"
+  ],
+  "description": "<x-game></x-game> - a game element for the web",
+  "keywords": [
+    "web-components"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

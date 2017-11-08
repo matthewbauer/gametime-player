@@ -1,0 +1,1 @@
+module.exports = require("npm:vecx@1.0.0/retro.js");

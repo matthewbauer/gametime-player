@@ -1,0 +1,322 @@
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:19:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:19:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:19:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:19:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:19:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:20:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:20:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:20:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:21:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:21:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:21:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:22:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:22:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/expression.js:22:19: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:51:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:51:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:63:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:63:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:107:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:107:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:119:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/identifier.js:119:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:1:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:2:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:3:25: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:8:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:8:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:19:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:19:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:33:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/location.js:33:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:2:23: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:3:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:3:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/expression.js:3:30: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:2:62: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:2:65: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:2:74: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:54:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/parseutil.js:54:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:1:45: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:1:48: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:1:57: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:3:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/state.js:3:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:2:23: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:3:31: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:3:34: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/statement.js:3:43: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:1:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:1:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:1:89: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/tokenize.js:2:27: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:1:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:2:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:8:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/node.js:8:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:1:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:1:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:2:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:3:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:4:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/lval.js:4:19: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:1:21: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:1:28: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:1:48: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:2:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:7:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:89:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/options.js:89:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:1:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:1:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:2:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/parseutil.js:3:25: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:1:39: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:2:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:2:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:2:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:3:25: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:5:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:70:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/state.js:70:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:1:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:1:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:1:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:2:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/statement.js:3:25: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:5:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:5:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:6:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:6:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:6:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:6:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:6:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:7:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:7:25: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:9:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:9:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:18:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokencontext.js:18:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:1:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:1:51: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:15: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:18: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:31: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:34: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:2:53: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:3:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:3:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:3:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:4:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:4:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:5:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:5:68: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:11:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokenize.js:11:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:19:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:19:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:39:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:39:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:98:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/tokentype.js:98:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:22:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:22:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:22:22: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:23:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:23:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:23:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:24:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:24:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:25:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:25:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:26:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:26:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:27:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:27:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:29:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:29:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:29:31: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:30:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:30:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:30:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:31:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:31:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:31:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:32:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:32:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:32:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:33:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:33:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:33:20: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:34:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:34:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:34:26: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:34:29: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:34:44: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:35:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:35:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:35:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:35:30: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:35:48: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:36:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:36:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:36:51: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:37:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:37:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:37:21: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:38:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:38:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:38:48: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:40:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:40:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:49:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:49:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:60:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:60:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:69:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/index.js:69:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:4:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:4:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:5:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:5:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:7:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:7:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:11:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/whitespace.js:11:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:32:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:32:13: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:32:19: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:32:24: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:33:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:33:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:33:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:34:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:34:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:35:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:35:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:36:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:36:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:37:1: Unexpected reserved word import
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:37:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:39:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:39:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:39:27: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:43:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/loose/index.js:43:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:19:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:19:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:30:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:30:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:49:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:49:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:72:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:72:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:94:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:94:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:111:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:111:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:128:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:128:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:144:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:144:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:157:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/walk/index.js:157:8: Semi-colon expected
+
+MultipleErrors: /Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/util.js:1:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/util.js:1:8: Semi-colon expected
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/util.js:7:1: Unexpected reserved word export
+/Users/mbauer/.jspm/packages/npm/acorn@1.2.2/src/util.js:7:8: Semi-colon expected

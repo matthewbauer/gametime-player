@@ -1,0 +1,13 @@
+{
+  "jspm": {
+    "main": "document.js",
+    "directories": {},
+    "dependencies": {
+      "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.10"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    }
+  }
+}

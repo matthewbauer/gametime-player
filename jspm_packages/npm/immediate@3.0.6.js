@@ -1,0 +1,1 @@
+module.exports = require("npm:immediate@3.0.6/lib/index.js");

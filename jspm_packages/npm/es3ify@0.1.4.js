@@ -1,0 +1,1 @@
+module.exports = require("npm:es3ify@0.1.4/index.js");

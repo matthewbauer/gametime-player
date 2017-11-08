@@ -1,0 +1,19 @@
+{
+  "jspm": {
+    "main": "window.js",
+    "directories": {},
+    "dependencies": {
+      "web-audio-api-shim": "github:mohayonao/web-audio-api-shim@^0.3.0"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    },
+    "overrides": {
+      "github:mohayonao/web-audio-api-shim@0.3.0": {
+        "main": "build/web-audio-api-shim",
+        "format": "global"
+      }
+    }
+  }
+}

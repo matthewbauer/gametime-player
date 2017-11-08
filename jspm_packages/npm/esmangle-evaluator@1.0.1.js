@@ -1,0 +1,1 @@
+module.exports = require("npm:esmangle-evaluator@1.0.1/evaluator.js");

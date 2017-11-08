@@ -1,0 +1,1 @@
+module.exports = require("npm:private@0.1.8/private.js");
